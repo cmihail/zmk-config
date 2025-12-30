@@ -99,7 +99,7 @@
             flavor = "balanced";
             tapping-term-ms = <280>;
             quick-tap-ms = <225>;
-            bindings = <&kp>, <&kp>;
+            bindings = <&key_repeat>, <&kp>;
         };
         smart_shift: smart_shift_morph {
             compatible = "zmk,behavior-mod-morph";
@@ -399,7 +399,7 @@
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U           &kp Y           &kp SQT
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E    &hmr RSFT I     &hmr RALT O
                 &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA       &kp DOT         &kp FSLH
-                                            &esc_repeat KEY_REPEAT ESC  &lt 2 SPACE         &lt 4 RET    &smart_shift  &lt 3 BSPC  &kp DEL
+                                            &esc_repeat 0 ESC  &lt 2 SPACE         &lt 4 RET    &smart_shift  &lt 3 BSPC  &kp DEL
             >;
         };
 
