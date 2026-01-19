@@ -119,6 +119,31 @@
             quick-tap-ms = <225>;
             bindings = <&kp>, <&smart_shift>;
         };
+        // Nav/Sys layer tap-hold behaviors
+        nav_play_shift: play_pause_shift {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&kp>, <&kp>;
+        };
+        nav_vdn_ctrl: volume_down_ctrl {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&kp>, <&kp>;
+        };
+        nav_bdn_super: brightness_down_super {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&kp>, <&kp>;
+        };
         smartnum_tap: smartnum_toggle_hold {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
@@ -646,20 +671,21 @@
             >;
         };
 
-        nav_layer {
-            display-name = "Nav";
-            // Navigation layer (Space hold)
-            // Left: Home row mods for use with navigation, Right: Navigation keys
-            // Home row mods (left): Alt, Shift, Ctrl, Super
+        nav_sys_layer {
+            display-name = "NavSys";
+            // Navigation & System layer (Space hold)
+            // Left: Media/System controls (tap) + Home row mods (hold)
+            // Right: Navigation keys
             // -------------------------------------------------------------------------
-            // | Blk | Blk  | Blk  | Blk  | Blk  |   | PgUp | Home | Up   | End  | Blk  |
-            // | Alt | Sft  | Ctl  | Sup  | Blk  |   | PgDn | Left | Down | Rght | Blk  |
-            // | Blk | Blk  | Blk  | Blk  | Blk  |   | Blk  | Blk  | Blk  | Blk  | Blk  |
+            // | Blk  | Next | VolUp | BriUp | Blk  |   | PgUp | Home | Up   | End  | Blk  |
+            // | Alt  | Play | VolDn | BriDn | Blk  |   | PgDn | Left | Down | Rght | Blk  |
+            // | Blk  | Prev | Mute  | MicM  | Blk  |   | Sleep| PrSc | Blk  | Blk  | Blk  |
             //             | Blk  | Blk  | Blk  |   | Blk  | Blk  | Blk  |
+            // Home row: tap=media, hold=modifier (Play/Shift, VolDn/Ctrl, BriDn/Super)
             bindings = <
-                &none       &none       &none        &none        &none           &kp PG_UP  &kp HOME  &kp UP        &kp END    &none
-                &kp LALT    &kp LSFT    &kp LCTRL    &kp LGUI     &none           &kp PG_DN  &kp LEFT  &kp DOWN      &kp RIGHT  &none
-                &none       &none       &none        &none        &none           &none      &none     &none         &none      &none
+                &none          &kp C_NEXT          &kp C_VOL_UP        &kp C_BRI_UP               &none           &kp PG_UP     &kp HOME  &kp UP        &kp END    &none
+                &kp LALT       &nav_play_shift LSFT C_PP  &nav_vdn_ctrl LCTRL C_VOL_DN  &nav_bdn_super LGUI C_BRI_DN  &none           &kp PG_DN     &kp LEFT  &kp DOWN      &kp RIGHT  &none
+                &none          &kp C_PREV          &kp C_MUTE          &kp F20                    &none           &kp C_SLEEP   &kp PSCRN &none         &none      &none
                             &none  &none  &none    &none  &none  &none
             >;
         };
