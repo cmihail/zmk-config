@@ -612,13 +612,13 @@
             // |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  '  |
             // |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
             // |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  .  |  /  |
-            // | Repeat | Space/Nav | Shift (tap=one-shot, shift+tap=caps, hold=shift) |   | Smartnum | Backspace/Mouse | Delete |
+            // | Repeat | Space/Nav | Shift (tap=one-shot, shift+tap=caps, hold=shift) |   | Smartnum | Backspace | Delete |
             // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
             bindings = <
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp SQT
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
                 &z_boot 0 Z &x_reset 0 X    &kp C           &kp D           &kp V           &kp K  &kp H           &comma_morph       &period_reset 0 0  &slash_boot 0 0
-                                            &kp ESC  &lt 3 SPACE  &shift_only_tap LSHIFT 0    &smartnum_tap 1 1  &lt 4 BSPC  &kp DEL
+                                            &kp ESC  &lt 3 SPACE  &shift_only_tap LSHIFT 0    &smartnum_tap 1 1  &kp BSPC  &kp DEL
             >;
         };
 
@@ -675,24 +675,6 @@
                 &kp LALT    &kp LSFT    &kp LCTRL    &kp LGUI     &none           &kp PG_DN  &kp LEFT  &kp DOWN      &kp RIGHT  &none
                 &none       &none       &none        &none        &none           &none      &none     &none         &none      &none
                             &none  &none  &none    &none  &none  &none
-            >;
-        };
-
-        mouse_layer {
-            display-name = "Mouse";
-            // Mouse layer (Backspace hold)
-            // Left: Mouse controls, Right: Home row mods for use with mouse
-            // Home row mods (right): Alt, Shift, Ctrl, Super
-            // -------------------------------------------------------------------------
-            // | Blk | ScrL | MsUp | ScrR | ScrU |   | Blk  | Blk  | Blk  | Blk  | Blk  |
-            // | Blk | MsLt | MsDn | MsRt | ScrD |   | Blk  | Alt  | Sft  | Ctl  | Sup  |
-            // | Blk | Blk  | Blk  | Blk  | Blk  |   | Blk  | Blk  | Blk  | Blk  | Blk  |
-            //             | MClk | LClk | RClk |   | Blk  | Blk  | Blk  |
-            bindings = <
-                &none  &msc SCRL_LEFT   &mmv MOVE_UP    &msc SCRL_RIGHT  &msc SCRL_UP      &none      &none      &none      &none      &none
-                &none  &mmv MOVE_LEFT   &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &msc SCRL_DOWN    &none      &kp LALT   &kp LSFT   &kp LCTRL  &kp LGUI
-                &none  &none            &none           &none            &none             &none      &none      &none      &none      &none
-                       &mkp MB3  &mkp MB1  &mkp MB2    &none  &none  &none
             >;
         };
     };
