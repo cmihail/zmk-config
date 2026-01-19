@@ -165,18 +165,18 @@
             compatible = "zmk,behavior-leader-key";
             #binding-cells = <0>;
 
-            // Romanian letter sequences
+            // Romanian letter sequences (lowercase only - ZMK leader doesn't support modifiers)
             a { sequence = <A>; bindings = <&unicode_a_breve>; };  // ă
             s { sequence = <S>; bindings = <&unicode_s_comma>; };  // ș
             t { sequence = <T>; bindings = <&unicode_t_comma>; };  // ț
             e { sequence = <E>; bindings = <&unicode_a_circ>; };   // â
             i { sequence = <I>; bindings = <&unicode_i_circ>; };   // î
-            // Capitalized Romanian letters (Shift, then letter)
-            A { sequence = <LSHIFT A>; bindings = <&unicode_A_breve>; };  // Ă
-            S { sequence = <LSHIFT S>; bindings = <&unicode_S_comma>; };  // Ș
-            T { sequence = <LSHIFT T>; bindings = <&unicode_T_comma>; };  // Ț
-            E { sequence = <LSHIFT E>; bindings = <&unicode_A_circ>; };   // Â
-            I { sequence = <LSHIFT I>; bindings = <&unicode_I_circ>; };   // Î
+            // Capitalized Romanian letters (using prefix 'q' for capital)
+            qa { sequence = <Q A>; bindings = <&unicode_A_breve>; };  // Ă
+            qs { sequence = <Q S>; bindings = <&unicode_S_comma>; };  // Ș
+            qt { sequence = <Q T>; bindings = <&unicode_T_comma>; };  // Ț
+            qe { sequence = <Q E>; bindings = <&unicode_A_circ>; };   // Â
+            qi { sequence = <Q I>; bindings = <&unicode_I_circ>; };   // Î
         };
 
         // System layer media key home row mods
