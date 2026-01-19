@@ -62,13 +62,6 @@
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
         };
-
-        toColemak {
-            bindings = <&tog 0>;
-            key-positions = <20 29>;
-            timeout-ms = <1000>;
-            require-prior-idle-ms = <1000>;
-        };
     };
 
     keymap {
