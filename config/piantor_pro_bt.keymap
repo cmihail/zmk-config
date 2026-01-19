@@ -246,7 +246,8 @@
             #binding-cells = <0>;
             wait-ms = <40>;
             tap-ms = <40>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+            bindings = <&macro_tap &to 0>
+                     , <&macro_press &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp U>
                      , <&macro_release &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp N0 &kp N1 &kp N0 &kp N3 &kp SPACE>;
@@ -256,7 +257,8 @@
             #binding-cells = <0>;
             wait-ms = <40>;
             tap-ms = <40>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+            bindings = <&macro_tap &to 0>
+                     , <&macro_press &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp U>
                      , <&macro_release &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp N0 &kp N2 &kp N1 &kp N9 &kp SPACE>;
@@ -266,7 +268,8 @@
             #binding-cells = <0>;
             wait-ms = <40>;
             tap-ms = <40>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+            bindings = <&macro_tap &to 0>
+                     , <&macro_press &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp U>
                      , <&macro_release &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp N0 &kp N2 &kp N1 &kp B &kp SPACE>;
@@ -276,7 +279,8 @@
             #binding-cells = <0>;
             wait-ms = <40>;
             tap-ms = <40>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+            bindings = <&macro_tap &to 0>
+                     , <&macro_press &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp U>
                      , <&macro_release &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp N0 &kp N0 &kp E &kp N2 &kp SPACE>;
@@ -286,7 +290,8 @@
             #binding-cells = <0>;
             wait-ms = <40>;
             tap-ms = <40>;
-            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+            bindings = <&macro_tap &to 0>
+                     , <&macro_press &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp U>
                      , <&macro_release &kp LCTRL &kp LSHFT>
                      , <&macro_tap &kp N0 &kp N0 &kp E &kp E &kp SPACE>;
