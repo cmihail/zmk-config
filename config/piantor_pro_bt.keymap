@@ -57,7 +57,7 @@
         compatible = "zmk,combos";
 
         toGallium {
-            bindings = <&mo 1>;
+            bindings = <&mo 0>;
             key-positions = <0 9>;
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
@@ -69,14 +69,13 @@
             key-positions = <0 9>;
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
-            layers = <1>;
         };
     };
 
     keymap {
         compatible = "zmk,keymap";
 
-        colemak {
+        Colemak {
             display-name = "Colemak";
 
             // --------------------------------------------------------------
@@ -91,8 +90,9 @@
         };
 
         Gallium {
+            display-name = "Gallium";
             bindings = <
-  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans      &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
+  &kp DE_B  &mt DE_A_UMLAUT DE_L  &mt DE_O_UMLAUT DE_D  &mt DE_U_UMLAUT DE_C  &kp DE_V  &kp DE_J  &kp DE_Y  &kp DE_O  &kp DE_U  &mt DE_EXCLAMATION DE_QUESTION      &HRM_L LEFT_GUI DE_N  &HRM_L LEFT_ALT DE_R  &HRM_L LEFT_CONTROL DE_T  &HRM_L LEFT_SHIFT DE_S  &kp DE_G  &kp DE_P  &HRM_R RIGHT_SHIFT DE_H  &HRM_R RIGHT_CONTROL DE_A  &HRM_R RIGHT_ALT DE_E  &HRM_R RIGHT_GUI DE_I      &kp DE_X  &kp DE_Q  &kp DE_M  &kp DE_W  &kp DE_Z  &kp DE_K  &kp DE_F  &kp DE_COMMA  &kp DE_DOT  &kp DE_MINUS    &kp ESCAPE  &lt 2 DE_SPACE  &lt 3 TAB  &lt 5 ENTER  &lt 4 BACKSPACE  &lt 6 DEL
             >;
         };
 
