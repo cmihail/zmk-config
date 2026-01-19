@@ -57,7 +57,7 @@
         compatible = "zmk,combos";
 
         toGallium {
-            bindings = <&mo 0>;
+            bindings = <&mo 1>;
             key-positions = <0 9>;
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
@@ -69,6 +69,7 @@
             key-positions = <0 9>;
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
+            layers = <1>;
         };
     };
 
