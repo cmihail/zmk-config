@@ -432,13 +432,6 @@
         };
 
         // Bottom row symbols
-        combo_backslash {
-            timeout-ms = <35>;
-            require-prior-idle-ms = <200>;
-            key-positions = <20 21>;  // Z+X → Backslash
-            bindings = <&kp BSLH>;
-            layers = <0 1>;
-        };
         combo_at_bottom {
             timeout-ms = <35>;
             require-prior-idle-ms = <200>;
@@ -472,13 +465,6 @@
             require-prior-idle-ms = <200>;
             key-positions = <25 26>;  // K+H → %
             bindings = <&kp PRCNT>;
-            layers = <0 1>;
-        };
-        combo_pipe {
-            timeout-ms = <35>;
-            require-prior-idle-ms = <200>;
-            key-positions = <28 29>;  // .+/ → Pipe
-            bindings = <&kp PIPE>;
             layers = <0 1>;
         };
 
