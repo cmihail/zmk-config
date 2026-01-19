@@ -61,7 +61,6 @@
             key-positions = <0 9>;
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
-            layers = <0>;
         };
 
         toColemak {
@@ -69,7 +68,6 @@
             key-positions = <20 29>;
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
-            layers = <1>;
         };
     };
 
