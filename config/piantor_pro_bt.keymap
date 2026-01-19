@@ -171,12 +171,12 @@
             t { sequence = <T>; bindings = <&unicode_t_comma>; };  // ț
             e { sequence = <E>; bindings = <&unicode_a_circ>; };   // â
             i { sequence = <I>; bindings = <&unicode_i_circ>; };   // î
-            // Capitalized Romanian letters (Shift + letter)
-            A { sequence = <LS(A)>; bindings = <&unicode_A_breve>; };  // Ă
-            S { sequence = <LS(S)>; bindings = <&unicode_S_comma>; };  // Ș
-            T { sequence = <LS(T)>; bindings = <&unicode_T_comma>; };  // Ț
-            E { sequence = <LS(E)>; bindings = <&unicode_A_circ>; };   // Â
-            I { sequence = <LS(I)>; bindings = <&unicode_I_circ>; };   // Î
+            // Capitalized Romanian letters (Shift, then letter)
+            A { sequence = <LSHIFT A>; bindings = <&unicode_A_breve>; };  // Ă
+            S { sequence = <LSHIFT S>; bindings = <&unicode_S_comma>; };  // Ș
+            T { sequence = <LSHIFT T>; bindings = <&unicode_T_comma>; };  // Ț
+            E { sequence = <LSHIFT E>; bindings = <&unicode_A_circ>; };   // Â
+            I { sequence = <LSHIFT I>; bindings = <&unicode_I_circ>; };   // Î
         };
 
         // System layer media key home row mods
