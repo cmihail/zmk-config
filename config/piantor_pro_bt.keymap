@@ -165,42 +165,12 @@
             compatible = "zmk,behavior-leader-key";
             #binding-cells = <0>;
 
-            // Media control sequences
-            prev { sequence = <P R E V>; bindings = <&kp C_PREV>; };
-            next { sequence = <N E X T>; bindings = <&kp C_NEXT>; };
-            play { sequence = <P L A Y>; bindings = <&kp C_PP>; };
-            vm { sequence = <V M>; bindings = <&kp C_MUTE>; };
-            mm { sequence = <M M>; bindings = <&kp F20>; };
-            // Screenshot & Power
-            ps { sequence = <P S>; bindings = <&kp PSCRN>; };
-            sleep { sequence = <S L E E P>; bindings = <&kp C_SLEEP>; };
-            // Volume controls
-            vup { sequence = <V U>; bindings = <&kp C_VOL_UP>; };
-            vdn { sequence = <V D>; bindings = <&kp C_VOL_DN>; };
-            // Brightness controls
-            bup { sequence = <B U>; bindings = <&kp C_BRI_UP>; };
-            bdn { sequence = <B D>; bindings = <&kp C_BRI_DN>; };
-
-            // Device control
-            usb { sequence = <U S B>; bindings = <&out OUT_USB>; };
-            ble { sequence = <B L E>; bindings = <&out OUT_BLE>; };
-
-            // Bluetooth
-            bt0 { sequence = <B T N0>; bindings = <&bt BT_SEL 0>; };
-            bt1 { sequence = <B T N1>; bindings = <&bt BT_SEL 1>; };
-            bt2 { sequence = <B T N2>; bindings = <&bt BT_SEL 2>; };
-            bt3 { sequence = <B T N3>; bindings = <&bt BT_SEL 3>; };
-            bt4 { sequence = <B T N4>; bindings = <&bt BT_SEL 4>; };
-            btn { sequence = <B T N>; bindings = <&bt BT_NXT>; };
-            btp { sequence = <B T P>; bindings = <&bt BT_PRV>; };
-            btcl { sequence = <B T C L>; bindings = <&bt BT_CLR>; };
-            btca { sequence = <B T C A>; bindings = <&bt BT_CLR_ALL>; };
-
-            // RGB controls
-            ron { sequence = <R O N>; bindings = <&rgb_ug RGB_ON>; };
-            roff { sequence = <R O F F>; bindings = <&rgb_ug RGB_OFF>; };
-            rbu { sequence = <R B U>; bindings = <&rgb_ug RGB_BRI>; };
-            rbd { sequence = <R B D>; bindings = <&rgb_ug RGB_BRD>; };
+            // Romanian letter sequences
+            a { sequence = <A>; bindings = <&unicode_a_breve>; };  // ă
+            s { sequence = <S>; bindings = <&unicode_s_comma>; };  // ș
+            t { sequence = <T>; bindings = <&unicode_t_comma>; };  // ț
+            e { sequence = <E>; bindings = <&unicode_a_circ>; };   // â
+            i { sequence = <I>; bindings = <&unicode_i_circ>; };   // î
         };
 
         // System layer media key home row mods
@@ -268,6 +238,58 @@
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&macro_tap &leader>;
+        };
+
+        // Unicode macros for Romanian letters (Ctrl+Shift+U method)
+        unicode_a_breve: unicode_0103 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp U>
+                     , <&macro_release &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp N0 &kp N1 &kp N0 &kp N3 &kp SPACE>;
+        };
+        unicode_s_comma: unicode_0219 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp U>
+                     , <&macro_release &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp N0 &kp N2 &kp N1 &kp N9 &kp SPACE>;
+        };
+        unicode_t_comma: unicode_021b {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp U>
+                     , <&macro_release &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp N0 &kp N2 &kp N1 &kp B &kp SPACE>;
+        };
+        unicode_a_circ: unicode_00e2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp U>
+                     , <&macro_release &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp N0 &kp N0 &kp E &kp N2 &kp SPACE>;
+        };
+        unicode_i_circ: unicode_00ee {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            wait-ms = <40>;
+            tap-ms = <40>;
+            bindings = <&macro_press &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp U>
+                     , <&macro_release &kp LCTRL &kp LSHFT>
+                     , <&macro_tap &kp N0 &kp N0 &kp E &kp E &kp SPACE>;
         };
 
         // Hold behaviors for bootloader and reset (1 second hold)
