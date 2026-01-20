@@ -1,0 +1,19 @@
+// Leader key for sequences (media controls, system commands)
+leader: leader_key {
+    compatible = "zmk,behavior-leader-key";
+    #binding-cells = <0>;
+    ignore-keys = <LSHFT RSHFT>;  // Allow shift without exiting leader mode
+
+    // Romanian letter sequences using compose key (faster than Unicode)
+    a { sequence = <A>; bindings = <&unicode_a_breve>; };  // ă (Compose+b+a)
+    s { sequence = <S>; bindings = <&unicode_s_comma>; };  // ș (Compose+;+s)
+    t { sequence = <T>; bindings = <&unicode_t_comma>; };  // ț (Compose+;+t)
+    e { sequence = <E>; bindings = <&unicode_a_circ>; };   // â (Compose+^+a)
+    i { sequence = <I>; bindings = <&unicode_i_circ>; };   // î (Compose+^+i)
+    // Capitalized Romanian letters (using c+letter prefix: c+a/s/t/e/i)
+    ca { sequence = <C A>; bindings = <&unicode_A_breve>; };  // Ă (c+a)
+    cs { sequence = <C S>; bindings = <&unicode_S_comma>; };  // Ș (c+s)
+    ct { sequence = <C T>; bindings = <&unicode_T_comma>; };  // Ț (c+t)
+    ce { sequence = <C E>; bindings = <&unicode_A_circ>; };   // Â (c+e)
+    ci { sequence = <C I>; bindings = <&unicode_I_circ>; };   // Î (c+i)
+};

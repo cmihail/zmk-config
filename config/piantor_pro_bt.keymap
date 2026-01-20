@@ -2,12 +2,53 @@
  * Copyright (c) 2020 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
+ *
+ * Colemak DH layout synchronized with Kanata config (~/configs/kanata.kbd)
+ * Layer order: default (0), smartnum (1), fn (2), nav_sys (3)
+ *
+ * Colemak (Layer 0): Default layer with home row mods
+ *   - Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
+ *   - Thumbs: ESC | Space/Nav | Magic Shift | Smartnum (tap=toggle, hold=momentary) | Backspace | Delete
+ *   - Magic Shift (urob): tap after letter=repeat, tap otherwise=sticky shift, double-tap=caps word, hold=shift
+ *   - Combos:
+ *     - ESC+Space = Repeat, N+I = Leader (skip E), N+E = Return
+ *     - Other combos: Cut, Copy, Paste, Undo, Redo, brackets, symbols, navigation arrows
+ *
+ * SmartNum (Layer 1): Number layer (urob's auto-layer)
+ *   - Left side: Numbers in unusual layout 987/0654/321 with home row mods
+ *   - Right side: Transparent (passes through to default layer)
+ *   - Auto-exits when non-number keys are pressed (urob's smartnum feature)
+ *   - Thumbs: Transparent (maintain default layer behavior)
+ *   - Activated by 4th thumb key: tap to toggle, hold for momentary access
+ *
+ * Fn Layer (Layer 2): Function keys and keyboard layer activation
+ *   - Left side: F-keys (F10-F7, F11/F6-F4, F12/F3-F1) in reverse order
+ *   - Right side: Ctrl+Alt+F shortcuts (C-A-F3, C-A-F2, C-A-F1) and home row mods
+ *   - Thumbs: All blocked
+ *   - Activated by holding right thumb shift key (5th thumb position)
+ *
+ * Nav/Sys (Layer 3): Navigation and system control layer
+ *   - Left side: Media controls, BT/RGB controls with home row mods
+ *   - Right side: Navigation keys (arrows, Home/End, Page Up/Down)
+ *   - Thumbs: BT profile switching
+ *   - Activated by holding Space
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/rgb.h>
+#include <dt-bindings/zmk/outputs.h>
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
+#include <dt-bindings/zmk/pointing.h>
+#include <behaviors/num_word.dtsi>
+
+// urob's helper macros for ZMK behaviors
+#include "zmk-helpers/helper.h"
+
+&num_word {
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS ASTRK FSLH EQUAL UP DOWN LEFT RIGHT HOME END>;
+};
 
 / {
     chosen {
@@ -16,111 +57,301 @@
 };
 
 / {
+    behaviors {
+        hml: homerow_mods_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>;
+            hold-trigger-on-release;
+        };
+        hmr: homerow_mods_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32>;
+            hold-trigger-on-release;
+        };
+        smart_shift: smart_shift_morph {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&sk LSHIFT>, <&caps_word>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        shift_layer_tap: shift_with_layer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&mo>, <&smart_shift>;
+        };
+        shift_only_tap: shift_only {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&kp>, <&smart_shift>;
+        };
+        // Nav layer position A: tap=reset, hold=alt (matches hml timing)
+        nav_a_hml: nav_a_homerow_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&sys_reset>;
+            hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>;
+            hold-trigger-on-release;
+        };
+        // Space nav layer: tap=space, hold=nav_sys layer (excludes dangerous positions)
+        space_nav: space_nav_layer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&mo>, <&kp>;
+            hold-trigger-key-positions = <1 2 3 4 5 6 7 8 11 12 13 14 15 16 17 18 21 22 23 24 25 26 27 28 30 31 32 33 34 35>;
+            hold-trigger-on-release;
+        };
+        smartnum_tap: smartnum_toggle_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&mo>, <&num_word>;
+        };
+        #include "piantor_pro_bt_leader.dtsi"
+        // System layer media key home row mods
+        hm_media: homerow_mods_media {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&kp>, <&kp>;
+        };
+        // System layer function key home row mods
+        hm_func: homerow_mods_function {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <280>;
+            quick-tap-ms = <225>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        // Custom shift behaviors for comma, period, slash
+        comma_morph: comma_semicolon {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp COMMA>, <&kp SEMI>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        period_morph: period_colon {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DOT>, <&kp COLON>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        slash_morph: slash_exclamation {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp QMARK>, <&kp EXCL>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        lpar_morph: lpar_lt {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp LPAR>, <&kp LT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        rpar_morph: rpar_gt {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp RPAR>, <&kp GT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        equal_no_shift: equal_without_shift {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_release &kp LSHIFT &kp RSHIFT>, <&macro_tap &kp EQUAL>;
+        };
+        plus_equal: plus_or_equal {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp PLUS>, <&equal_no_shift>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+        leader_macro: leader_key_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &leader>;
+        };
+        leader_exit: leader_with_exit {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &leader>;
+        };
+
+        // Compose key macros for Romanian letters (faster than Unicode)
+        // Requires K_APPLICATION configured as compose key in Linux
+        unicode_a_breve: unicode_0103 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &kp K_APP &kp B &kp A>;
+        };
+        unicode_s_comma: unicode_0219 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &kp K_APP &kp SEMI &kp S>;
+        };
+        unicode_t_comma: unicode_021b {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &kp K_APP &kp SEMI &kp T>;
+        };
+        unicode_a_circ: unicode_00e2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &kp K_APP &kp CARET &kp A>;
+        };
+        unicode_i_circ: unicode_00ee {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &kp K_APP &kp CARET &kp I>;
+        };
+
+        // Compose key macros for capital Romanian letters
+        unicode_A_breve: unicode_0102 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_release &kp LSHIFT &kp RSHIFT>
+                     , <&macro_tap &to 0 &kp K_APP &kp B>
+                     , <&macro_press &kp LSHIFT>
+                     , <&macro_tap &kp A>
+                     , <&macro_release &kp LSHIFT>;
+        };
+        unicode_S_comma: unicode_0218 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_release &kp LSHIFT &kp RSHIFT>
+                     , <&macro_tap &to 0 &kp K_APP &kp SEMI>
+                     , <&macro_press &kp LSHIFT>
+                     , <&macro_tap &kp S>
+                     , <&macro_release &kp LSHIFT>;
+        };
+        unicode_T_comma: unicode_021a {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_release &kp LSHIFT &kp RSHIFT>
+                     , <&macro_tap &to 0 &kp K_APP &kp SEMI>
+                     , <&macro_press &kp LSHIFT>
+                     , <&macro_tap &kp T>
+                     , <&macro_release &kp LSHIFT>;
+        };
+        unicode_A_circ: unicode_00c2 {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &kp K_APP &kp CARET &kp LS(A)>;
+        };
+        unicode_I_circ: unicode_00ce {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&macro_tap &to 0 &kp K_APP &kp CARET &kp LS(I)>;
+        };
+
+    };
+
+    #include "piantor_pro_bt_combos.dtsi"
+
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
-            display-name = "QWERTY";
-            // --------------------------------------------------------------
-            // |  Q  |  W  |  E  |  R  |  T  |  Y  |  U   |  I  |  O  |  P  |
-            // |  A  |  S  |  D  |  F  |  G  |  H  |  J   |  K  |  L  |  ;  |
-            // |  Z  |  X  |  C  |  V  |  B  |  N  |  M   |  ,  |  .  |  /  |
-            //                    | GUI | LWR | SPC | ENT | RSE  | ALT |
+            display-name = "Colemak";
+            // Colemak DH with home row mods
+            // ----------------------------------------------------------------------
+            // |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  '  |
+            // |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
+            // |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  .  |  /  |
+            // | Repeat | Space/Nav | Shift (tap=one-shot, shift+tap=caps, hold=shift) |   | Smartnum | Backspace | Delete |
+            // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
             bindings = <
-                &kp Q &kp W &kp E &kp R &kp T &kp Y &kp U  &kp I     &kp O   &kp P   
-                &kp A &kp S &kp D &kp F &kp G &kp H &kp J  &kp K     &kp L   &kp SEMI
-                &kp Z &kp X &kp C &kp V &kp B &kp N &kp M  &kp COMMA &kp DOT &kp FSLH
-                            &kp LGUI &mo 1 &kp SPACE &kp RET &mo 2 &kp RALT
+                &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp SQT
+                &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
+                &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
+                                            &kp ESC  &space_nav 3 SPACE  &shift_only_tap LSHIFT 0    &smartnum_tap 1 1  &kp BSPC  &kp DEL
             >;
         };
 
-        lower_layer {
-            display-name = "NUMBER";
-            // ---------------------------------------------------------------
-            // |  1  |  2  |  3  |  4  |  5    |  6  |  7  |  8  |  9  |  0  |
-            // | BT1 | BT2 | BT3 | BT4 | BT5   | LFT | DWN |  UP | RGT |     |
-            // | BTCR| RGB | RST | BOOT| Unlock|     |     |     |     |     |
-            //                    | GUI |     | SPC   | ENT |     | ALT |
+        smartnum_layer {
+            display-name = "SmartNum";
+            // Smart number layer (matching Kanata layout with urob's auto-layer)
+            // urob's smartnum auto-exits on non-number keys, so letters use &trans
+            // Numbers only on LEFT side: 987/0654/321, right side all letters
+            // -------------------------------------------------------------------------
+            // |  Q  |  9  |  8  |  7  |  B  |   |  J  |  L  |  U  |  Y  |  '  |
+            // | 0+A | 6+S | 5+C | 4+G |  G  |   |  M  |  N  |  E  |  I  |  O  |
+            // |  Z  |  3  |  2  |  1  |  V  |   |  K  |  H  |  ,  |  .  |  /  |
+            //             | Exit | Trn | StickyFn |   | LdrExit | Trn | Trn |
+            // + = hold for modifier
+            // StickyFn = sticky/one-shot fn layer (matches Kanata @osfnexit)
+            // Exit = ESC exits smartnum layer (matches Kanata @lexit)
+            // LdrExit = Leader + exit to default layer (matches Kanata @leaderexit)
             bindings = <
-                &kp N1       &kp N2          &kp N3       &kp N4       &kp N5         &kp N6   &kp N7   &kp N8 &kp N9    &kp N0
-                &bt BT_SEL 0 &bt BT_SEL 1    &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4   &kp LEFT &kp DOWN &kp UP &kp RIGHT &trans
-                &bt BT_CLR   &rgb_ug RGB_TOG &sys_reset   &bootloader  &studio_unlock &trans   &trans   &trans &trans    &trans
-                                             &kp LGUI     &trans       &kp SPACE      &kp LGUI &trans   &kp SPACE
+                &trans          &kp N9          &kp N8          &kp N7          &trans          &trans  &trans  &trans  &trans  &trans
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &trans          &trans  &trans  &trans  &trans  &trans
+                &trans          &kp N3          &kp N2          &kp N1          &trans          &trans  &trans  &trans  &trans  &trans
+                                                &to 0  &trans  &sl 2          &leader_exit  &trans  &trans
             >;
         };
 
-        raise_layer {
-            display-name = "SYMBOL";
-            // -------------------------------------------------------------
-            // |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |
-            // |     |     |     |     |     |  -  |  =  |  [  |  ]  |  \  |
-            // |     |     |     |     |     |  _  |  +  |  {  |  }  | "|" |
-            //                    | GUI |     | SPC | ENT |     | ALT |
+        fn_layer {
+            display-name = "Fn";
+            // Function keys (matching Kanata config EXACTLY)
+            // Left: F-keys in REVERSE order, Right: mostly blocked except home row mods
+            // -------------------------------------------------------------------------
+            // | F10 | F9  | F8  | F7  | C-A-F3 |   | Blk | Blk  | Blk  | Blk  | Blk  |
+            // | F11 | F6  | F5  | F4  | C-A-F2 |   | Blk | RGui | RCtl | RSft | RAlt |
+            // | F12 | F3  | F2  | F1  | C-A-F1 |   | Blk | Blk  | Blk  | Blk  | Blk  |
+            //             | Blk | Blk | Blk    |   | Blk | Blk  | Blk  |
             bindings = <
-                &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT  &kp CARET &kp AMPS &kp ASTRK &kp LPAR &kp RPAR
-                &trans   &trans &trans   &trans   &trans     &kp MINUS &kp EQUAL &kp LBKT &kp RBKT &kp BSLH
-                &trans   &trans &trans   &trans   &trans     &kp UNDER &kp PLUS  &kp LBRC &kp RBRC &kp PIPE
-                                &kp LGUI &trans   &kp SPACE  &kp RET   &trans    &kp RALT
+                &kp F10     &kp F9      &kp F8      &kp F7      &kp LC(LA(F3))      &none   &none       &none       &none       &none
+                &kp F11     &kp F6      &kp F5      &kp F4      &kp LC(LA(F2))      &none   &kp RGUI    &kp RCTRL   &kp RSFT    &kp RALT
+                &kp F12     &kp F3      &kp F2      &kp F1      &kp LC(LA(F1))      &none   &none       &none       &none       &none
+                                        &none  &none  &none      &none  &none  &none
             >;
         };
 
-        extra_layer_1 {
-            display-name = "EXTRA 1";
+        nav_sys_layer {
+            display-name = "NavSys";
+            // Navigation & System layer (Space hold)
+            // Left: Media/System/BT/RGB controls, Right: Navigation + BT/System
+            // -------------------------------------------------------------------------
+            // | BTClrAll | Next | VolUp | BriUp | RGBBriUp |   | PgUp | Home | Up   | End  | BTClr |
+            // | Reset/Alt| Prev | VolDn | BriDn | RGBBriDn |   | PgDn | Left | Down | Rght | Reset |
+            // | Boot     | Play | Mute  | MicM  | RGBTog   |   | Sleep| PrSc | USB  | BLE  | Boot  |
+            //             | Blk  | Blk  | Blk  |   | BTNxt | BT0  | BTPrv |
+            // Home row: tap=action, hold=modifier (Reset/Alt, Prev/Shift, VolDn/Ctrl, BriDn/Super)
             bindings = <
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                              &trans &trans &trans  &trans &trans &trans
-            >;
-        };
-
-        extra_layer_2 {
-            display-name = "EXTRA 2";
-            bindings = <
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                              &trans &trans &trans  &trans &trans &trans
-            >;
-        };
-
-        extra_layer_3 {
-            display-name = "EXTRA 3";
-            bindings = <
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                              &trans &trans &trans  &trans &trans &trans
-            >;
-        };
-
-        extra_layer_4 {
-            display-name = "EXTRA 4";
-            bindings = <
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                              &trans &trans &trans  &trans &trans &trans
-            >;
-        };
-
-        extra_layer_5 {
-            display-name = "EXTRA 5";
-            bindings = <
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                              &trans &trans &trans  &trans &trans &trans
-            >;
-        };
-
-        extra_layer_6 {
-            display-name = "EXTRA 6";
-            bindings = <
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                &trans &trans &trans &trans &trans  &trans &trans &trans &trans &trans
-                              &trans &trans &trans  &trans &trans &trans
+                &bt BT_CLR_ALL     &kp C_NEXT                   &kp C_VOL_UP                   &kp C_BRI_UP                    &rgb_ug RGB_BRI     &kp PG_UP     &kp HOME      &kp UP          &kp END        &bt BT_CLR
+                &nav_a_hml LALT 0  &hml LSFT C_PREV  &hml LCTRL C_VOL_DN  &hml LGUI C_BRI_DN   &rgb_ug RGB_BRD     &kp PG_DN     &kp LEFT      &kp DOWN        &kp RIGHT      &sys_reset
+                &bootloader        &kp C_PP                     &kp C_MUTE                     &kp F20                         &rgb_ug RGB_TOG     &kp C_SLEEP   &kp PSCRN     &out OUT_USB    &out OUT_BLE   &bootloader
+                            &none  &none  &none    &bt BT_NXT  &bt BT_SEL 0  &bt BT_PRV
             >;
         };
     };
