@@ -110,7 +110,7 @@
         Symbols {
             display-name = "Sym";
             bindings = <
-  &mt DE_RIGHT_BRACE DE_LEFT_BRACE  &kp DE_LESS_THAN  &mt DE_APOSTROPHE DE_DOUBLE_QUOTES  &kp DE_GREATER_THAN  &none  &none  &none  &none  &none  &none      &mt DE_RIGHT_BRACKET DE_LEFT_BRACKET  &mt DE_EURO DE_DOLLAR  &kp DE_PERCENT  &kp DE_CARET  &none  &none  &kp RIGHT_SHIFT  &kp RIGHT_CONTROL  &kp RIGHT_ALT  &kp RIGHT_GUI      &mt DE_PIPE DE_BACKSLASH  &kp DE_AMPERSAND  &kp DE_AT_SIGN  &kp DE_HASH  &none  &none  &none  &none  &none  &none    &kp DE_LEFT_PARENTHESIS  &kp DE_RIGHT_PARENTHESIS  &none  &trans  &trans  &trans
+  &kp DE_LEFT_BRACE  &kp DE_LESS_THAN  &mt DE_APOSTROPHE DE_DOUBLE_QUOTES  &kp DE_GREATER_THAN  &kp DE_RIGHT_BRACE  &none  &none  &none  &none  &none      &kp DE_LEFT_BRACKET  &mt DE_EURO DE_DOLLAR  &kp DE_PERCENT  &kp DE_CARET  &kp DE_RIGHT_BRACKET  &none  &kp RIGHT_SHIFT  &kp RIGHT_CONTROL  &kp RIGHT_ALT  &kp RIGHT_GUI      &kp DE_PIPE  &kp DE_AMPERSAND  &kp DE_AT_SIGN  &kp DE_HASH  &kp DE_BACKSLASH  &none  &none  &none  &none  &none    &kp DE_LEFT_PARENTHESIS  &kp DE_RIGHT_PARENTHESIS  &none  &trans  &trans  &trans
             >;
         };
 
