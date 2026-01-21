@@ -53,7 +53,16 @@
         };
     };
 
-    combos { compatible = "zmk,combos"; };
+    combos {
+        compatible = "zmk,combos";
+
+        toGallium {
+            bindings = <&tog 1>;
+            key-positions = <0 9>;
+            timeout-ms = <1000>;
+            require-prior-idle-ms = <1000>;
+        };
+    };
 
     keymap {
         compatible = "zmk,keymap";
