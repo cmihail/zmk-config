@@ -43,6 +43,72 @@ shift_only_tap: shift_only {
     quick-tap-ms = <225>;
     bindings = <&kp>, <&smart_shift>;
 };
+
+// urob's magic key: tap after letter = repeat, tap otherwise = sticky shift, hold = shift
+shift_repeat: shift_repeat {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&sk LSHIFT>;
+    repeat {
+        trigger-keys = <Q W F P B J L U Y SQT A R S T G M N E I O Z X C D V K H COMMA DOT QMARK GRAVE>;
+        bindings = <&key_repeat>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+magic_shift_tap: magic_shift_tap {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&shift_repeat>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
+};
+magic_shift: magic_shift {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    flavor = "tap-preferred";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <175>;
+    bindings = <&kp>, <&magic_shift_tap>;
+};
+
+// Tap-dance behaviors for dangerous actions (require double-tap)
+td_bt_clr_all: tap_dance_bt_clear_all {
+    compatible = "zmk,behavior-tap-dance";
+    #binding-cells = <0>;
+    tapping-term-ms = <300>;
+    bindings = <&none>, <&bt BT_CLR_ALL>;
+};
+td_bt_clr: tap_dance_bt_clear {
+    compatible = "zmk,behavior-tap-dance";
+    #binding-cells = <0>;
+    tapping-term-ms = <300>;
+    bindings = <&none>, <&bt BT_CLR>;
+};
+td_reset: tap_dance_reset {
+    compatible = "zmk,behavior-tap-dance";
+    #binding-cells = <0>;
+    tapping-term-ms = <300>;
+    bindings = <&none>, <&sys_reset>;
+};
+td_boot: tap_dance_bootloader {
+    compatible = "zmk,behavior-tap-dance";
+    #binding-cells = <0>;
+    tapping-term-ms = <300>;
+    bindings = <&none>, <&bootloader>;
+};
+
+// Nav layer position A: tap=reset (double-tap only), hold=alt (matches hml timing)
+nav_a_td: nav_a_tap_dance_reset {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    flavor = "balanced";
+    require-prior-idle-ms = <150>;
+    tapping-term-ms = <280>;
+    quick-tap-ms = <175>;
+    bindings = <&kp>, <&td_reset>;
+    hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>;
+    hold-trigger-on-release;
+};
 // Nav layer position A: tap=reset, hold=alt (matches hml timing)
 nav_a_hml: nav_a_homerow_left {
     compatible = "zmk,behavior-hold-tap";
