@@ -57,7 +57,7 @@
         compatible = "zmk,combos";
 
         toGallium {
-            bindings = <&tog 1>;
+            bindings = <&tog 0>;
             key-positions = <0 9>;
             timeout-ms = <1000>;
             require-prior-idle-ms = <1000>;
@@ -67,24 +67,10 @@
     keymap {
         compatible = "zmk,keymap";
 
-        Colemak {
-            display-name = "Colemak";
-
-            // --------------------------------------------------------------
-            // |  Q  |  W  |  E  |  R  |  T  |  Y  |  U   |  I  |  O  |  P  |
-            // |  A  |  S  |  D  |  F  |  G  |  H  |  J   |  K  |  L  |  ;  |
-            // |  Z  |  X  |  C  |  V  |  B  |  N  |  M   |  ,  |  .  |  /  |
-            //                    | GUI | LWR | SPC | ENT | RSE  | ALT |
-
-            bindings = <
-  &kp DE_Q  &mt DE_A_UMLAUT DE_W  &mt DE_O_UMLAUT DE_F  &mt DE_U_UMLAUT DE_P  &kp DE_B  &kp DE_J  &kp DE_L  &kp DE_U  &kp DE_Y  &mt DE_EXCLAMATION DE_QUESTION      &HRM_L LEFT_GUI DE_A  &HRM_L LEFT_ALT DE_R  &HRM_L LEFT_CONTROL DE_S  &HRM_L LEFT_SHIFT DE_T  &kp DE_G  &kp DE_M  &HRM_R RIGHT_SHIFT DE_N  &HRM_R RIGHT_CONTROL DE_E  &HRM_R RIGHT_ALT DE_I  &HRM_R RIGHT_GUI DE_O      &kp DE_Z  &kp DE_X  &kp DE_C  &kp DE_D  &kp DE_V  &kp DE_K  &kp DE_H  &kp DE_COMMA  &kp DE_DOT  &kp DE_MINUS    &kp ESCAPE  &lt 2 DE_SPACE  &lt 3 TAB  &lt 5 ENTER  &lt 4 BACKSPACE  &lt 6 DEL
-            >;
-        };
-
         Gallium {
             display-name = "Gallium";
             bindings = <
-  &kp DE_B  &mt DE_A_UMLAUT DE_L  &mt DE_O_UMLAUT DE_D  &mt DE_U_UMLAUT DE_C  &kp DE_V  &kp DE_J  &kp DE_Y  &kp DE_O  &kp DE_U  &mt DE_EXCLAMATION DE_QUESTION      &HRM_L LEFT_GUI DE_N  &HRM_L LEFT_ALT DE_R  &HRM_L LEFT_CONTROL DE_T  &HRM_L LEFT_SHIFT DE_S  &kp DE_G  &kp DE_P  &HRM_R RIGHT_SHIFT DE_H  &HRM_R RIGHT_CONTROL DE_A  &HRM_R RIGHT_ALT DE_E  &HRM_R RIGHT_GUI DE_I      &kp DE_X  &kp DE_Q  &kp DE_M  &kp DE_W  &kp DE_Z  &kp DE_K  &kp DE_F  &kp DE_COMMA  &kp DE_DOT  &kp DE_MINUS    &kp ESCAPE  &lt 2 DE_SPACE  &lt 3 TAB  &lt 5 ENTER  &lt 4 BACKSPACE  &lt 6 DEL
+  &kp DE_B  &mt DE_A_UMLAUT DE_L  &mt DE_O_UMLAUT DE_D  &mt DE_U_UMLAUT DE_C  &kp DE_V  &kp DE_J  &kp DE_Y  &kp DE_O  &kp DE_U  &mt DE_EXCLAMATION DE_QUESTION      &HRM_L LEFT_GUI DE_N  &HRM_L LEFT_ALT DE_R  &HRM_L LEFT_CONTROL DE_T  &HRM_L LEFT_SHIFT DE_S  &kp DE_G  &kp DE_P  &HRM_R RIGHT_SHIFT DE_H  &HRM_R RIGHT_CONTROL DE_A  &HRM_R RIGHT_ALT DE_E  &HRM_R RIGHT_GUI DE_I      &kp DE_X  &kp DE_Q  &kp DE_M  &kp DE_W  &kp DE_Z  &kp DE_K  &kp DE_F  &kp DE_COMMA  &kp DE_DOT  &kp DE_MINUS    &kp ESCAPE  &lt 1 DE_SPACE  &lt 2 TAB  &lt 4 ENTER  &lt 3 BACKSPACE  &lt 5 DEL
             >;
         };
 
