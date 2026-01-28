@@ -109,16 +109,17 @@
             display-name = "NumSym";
             // Number & Symbol layer with home row mods
             // ---------------------------------------------------------------------
-            // |  <  |  9  |  8  |  7  |  [  |   |  ]  |  +  |  -  |  _  |  >  |
-            // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | *+G | /+C | `+S | %+A |
-            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  =  |  @  |  #  |  $  |
-            //            | blsh |  &  |  ~  |   | Smartnum | pipe | Exit |
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  +  |  -  |  _  |  |  |
+            // | 0+A | 6+S | 5+C | 4+G | (<  |   | )>  | *+G | /+C | `+S | %+A |
+            // |  ^  |  3  |  2  |  1  |  ~  |   |blsh |  =  |  @  |  #  |  $  |
+            //             | --- | --- | --- |   | Smartnum | --- | Exit |
             // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); *=Super, /=Ctrl, `=Shift, %=Alt (right)
+            // (< = ( normally, < when shifted; )> = ) normally, > when shifted
             bindings = <
-                &kp LT          &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PLUS        &kp MINUS       &kp UNDER       &kp GT
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI ASTRK &hmr RCTRL FSLH &hmr RSFT GRAVE &hmr RALT PRCNT
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp EQUAL       &kp AT          &kp HASH        &kp DLLR
-                                                &kp BSLH  &kp AMPS  &kp TILDE    &smartnum_tap 2 2  &kp PIPE  &to 0
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PLUS        &kp MINUS       &kp UNDER       &kp PIPE
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK &hmr RCTRL FSLH &hmr RSFT GRAVE &hmr RALT PRCNT
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp TILDE       &kp BSLH        &kp EQUAL       &kp AT          &kp HASH        &kp DLLR
+                                                &trans  &trans  &trans    &smartnum_tap 2 2  &trans  &to 0
             >;
         };
 
@@ -128,15 +129,16 @@
             // urob's smartnum auto-exits on non-number keys
             // Numbers on LEFT side: 987/0654/321, right side: num_sym symbols
             // -------------------------------------------------------------------------
-            // |  <  |  9  |  8  |  7  |  [  |   |  ]  |  +  |  -  |  _  |  >  |
-            // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | *+G | /+C | `+S | %+A |
-            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  =  |  ,  |  .  |  $  |
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  +  |  -  |  _  |  |  |
+            // | 0+A | 6+S | 5+C | 4+G | (<  |   | )>  | *+G | /+C | `+S | %+A |
+            // |  ^  |  3  |  2  |  1  |  ~  |   |blsh |  =  |  ,  |  .  |  $  |
             //  | Exit | Space | Magic Shift |   | Exit | Bspc | Del |
             // Exit = return to layer 0 (default layer)
+            // (< = ( normally, < when shifted; )> = ) normally, > when shifted
             bindings = <
-                &kp LT          &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT  &kp PLUS   &kp MINUS  &kp UNDER  &kp GT
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR  &hmr RGUI ASTRK  &hmr RCTRL FSLH   &hmr RSFT GRAVE  &hmr RALT PRCNT
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC  &kp EQUAL  &kp COMMA  &kp PERIOD &kp DLLR
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT  &kp PLUS   &kp MINUS  &kp UNDER  &kp PIPE
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK  &hmr RCTRL FSLH   &hmr RSFT GRAVE  &hmr RALT PRCNT
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp TILDE       &kp BSLH  &kp EQUAL  &kp COMMA  &kp PERIOD &kp DLLR
                                                 &kp DEL  &kp BSPC  &magic_shift LSHIFT 0          &to 0  &kp SPACE  &to 0
             >;
         };

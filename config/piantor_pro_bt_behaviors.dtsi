@@ -211,6 +211,18 @@ rpar_morph: rpar_gt {
     bindings = <&kp RPAR>, <&kp GT>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
 };
+lpar_lt_morph: lpar_or_lt {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp LPAR>, <&kp LT>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+rpar_gt_morph: rpar_or_gt {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RPAR>, <&kp GT>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
 equal_no_shift: equal_without_shift {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
