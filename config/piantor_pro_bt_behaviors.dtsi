@@ -50,7 +50,7 @@ shift_repeat: shift_repeat {
     #binding-cells = <0>;
     bindings = <&sk LSHIFT>;
     repeat {
-        trigger-keys = <Q W F P B J L U Y SQT A R S T G M N E I O Z X C D V K H COMMA DOT QMARK GRAVE>;
+        trigger-keys = <Q W F P B J L U Y SQT A R S T G M N E I O Z X C D V K H DOT QMARK GRAVE>;
         bindings = <&key_repeat>;
         max-prior-idle-ms = <5000>;
         strict-modifiers;
@@ -211,6 +211,18 @@ rpar_morph: rpar_gt {
     bindings = <&kp RPAR>, <&kp GT>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
 };
+lpar_lt_morph: lpar_or_lt {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp LPAR>, <&kp LT>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+rpar_gt_morph: rpar_or_gt {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RPAR>, <&kp GT>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
 equal_no_shift: equal_without_shift {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
@@ -249,6 +261,11 @@ middle_click_exit: middle_click_and_exit {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     bindings = <&mkp MB3>, <&to 0>;
+};
+right_click_exit: right_click_and_exit {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&mkp MB2>, <&to 0>;
 };
 fn_layer_noshift: fn_layer_release_shift {
     compatible = "zmk,behavior-macro";
