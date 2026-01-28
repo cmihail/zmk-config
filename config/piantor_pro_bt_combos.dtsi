@@ -38,7 +38,14 @@ combos {
         require-prior-idle-ms = <100>;
         key-positions = <13 14>;  // T+G → Undo (Shift+Undo = Redo)
         bindings = <&undo_redo>;
-        layers = <0 1 2 3 4>;
+        layers = <0 2 3 4>;  // All layers except num_sym (layer 1)
+    };
+    combo_right_click_numsym {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <100>;
+        key-positions = <13 14>;  // T+G → Right Click (on num_sym layer only)
+        bindings = <&mkp MB2>;
+        layers = <1>;
     };
     combo_paste_vert {
         timeout-ms = <50>;
@@ -94,8 +101,8 @@ combos {
     combo_left_click {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <15 16>;  // M+N → Left Click (Shift+M+N → Right Click)
-        bindings = <&left_right_click>;
+        key-positions = <15 16>;  // M+N → Left Click
+        bindings = <&mkp MB1>;
         layers = <0 2 3 4>;
     };
     combo_middle_click_numsym {

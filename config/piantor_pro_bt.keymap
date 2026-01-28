@@ -2,21 +2,74 @@
  * Copyright (c) 2020 The ZMK Contributors
  *
  * SPDX-License-Identifier: MIT
+ *
+ * Colemak DH layout synchronized with Kanata config (~/configs/kanata.kbd)
+ * Layer order: default (0), num_sym (1), smartnum (2), fn (3), nav_sys (4)
+ *
+ * Colemak (Layer 0): Default layer with home row mods
+ *   - Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
+ *   - Thumbs: Delete | Backspace | Magic Shift | NumSym (tap=sticky num_sym, shift+tap=sticky fn, hold=momentary num_sym) | Space/Nav | ESC
+ *   - Magic Shift (urob): tap after letter=repeat, tap otherwise=sticky shift, double-tap=caps word, hold=shift
+ *   - Combos (all 50ms timeout):
+ *     - Tab/Return: S+T = Tab, N+E = Return
+ *     - Edit: W+R = Copy (Shift+Copy = Cut), T+G = Undo (Shift+Undo = Redo)
+ *            P+T = Paste
+ *     - Mouse: M+N = Left Click (Shift+M+N = Right Click)
+ *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, P+B = Scroll Left, J+L = Scroll Right
+ *     - Navigation: vertical combos for arrows, page up/down, home/end
+ *     - Symbols: vertical combos for #, ^, &
+ *
+ * NumSym (Layer 1): Number & Symbol layer
+ *   - Top row: <987[]+-_>
+ *   - Home row: 0654()* /`% with home row mods (0=Alt, 6=Shift, 5=Ctrl, 4=Super, *=Super, /=Ctrl, `=Shift, %=Alt)
+ *   - Bottom row: ^321{}=@#$
+ *   - Thumbs: & ~ blsh | Smartnum | StickyFn | pipe
+ *   - Activated by 4th thumb key: tap for sticky layer, shift+tap for sticky fn layer, hold for momentary access
+ *
+ * SmartNum (Layer 2): Number layer (urob's auto-layer)
+ *   - Left side: Numbers in unusual layout 987/0654/321 with home row mods
+ *   - Right side: NumSym symbols (]+-_>, ) * /`%, }=,.$ )
+ *   - Auto-exits when non-number keys are pressed (urob's smartnum feature)
+ *   - Thumbs: Delete | Backspace | Magic Shift | Exit | Space | Exit
+ *   - Activated from NumSym layer via 4th thumb key
+ *
+ * Fn Layer (Layer 3): Function keys and keyboard layer activation
+ *   - Left side: F-keys (F10-F7, F11/F6-F4, F12/F3-F1) in reverse order
+ *   - Right side: Same as default layer (J/L/U/Y/', M/mods, K/H/,/./) with explicit home row mods
+ *   - Thumbs: Exit | Space | Shift (on left); NumSym | Bspc | Del (on right)
+ *   - Activated by sticky layer from NumSym layer, or shift+tap on default layer NumSym thumb key
+ *
+ * Nav/Sys (Layer 4): Navigation and system control layer
+ *   - Left side: Media controls, BT/RGB controls with home row mods
+ *   - Right side: Navigation keys (arrows, Home/End, Page Up/Down)
+ *   - Thumbs: BT profile switching
+ *   - Activated by holding Space
  */
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/rgb.h>
-#include "keys_de_swiss.h"
+#include <dt-bindings/zmk/outputs.h>
+#define ZMK_POINTING_DEFAULT_SCRL_VAL 20
+#include <dt-bindings/zmk/pointing.h>
 #include <behaviors/num_word.dtsi>
 
-&mt {
-    tapping-term-ms = <280>;
-    quick-tap-ms = <175>;
-    require-prior-idle-ms = <150>;
-    flavor = "balanced";
-    hold-trigger-on-release;
+// urob's helper macros for ZMK behaviors
+#include "zmk-helpers/helper.h"
+
+&num_word {
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS ASTRK FSLH EQUAL GRAVE UP DOWN LEFT RIGHT HOME END K_UNDO K_AGAIN>;
+};
+
+&sl {
+    release-after-ms = <5000>;
+    ignore-modifiers;
+};
+
+&sk {
+    release-after-ms = <5000>;
+    quick-release;
 };
 
 / {
@@ -25,124 +78,102 @@
 
 / {
     behaviors {
-        HRM_L: HRM_L {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HRM_L";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-key-positions = <5 6 7 8 9 17 18 19 27 28 29 15 16 26 25 35 34 33>;
-            hold-trigger-on-release;
-        };
-
-        HRM_R: HRM_R {
-            compatible = "zmk,behavior-hold-tap";
-            label = "HRM_R";
-            bindings = <&kp>, <&kp>;
-
-            #binding-cells = <2>;
-            flavor = "balanced";
-            tapping-term-ms = <280>;
-            quick-tap-ms = <175>;
-            require-prior-idle-ms = <150>;
-            hold-trigger-on-release;
-            hold-trigger-key-positions = <32 31 30 0 1 3 4 10 11 12 13 14 21 22 23 24 20 2>;
-        };
+        #include "piantor_pro_bt_behaviors.dtsi"
     };
 
-    combos {
-        compatible = "zmk,combos";
-
-        toNight {
-            bindings = <&tog 1>;
-            key-positions = <0 9>;
-            timeout-ms = <1000>;
-            require-prior-idle-ms = <1000>;
-        };
-
-        ESC_Combo {
-            bindings = <&kp ESCAPE>;
-            key-positions = <20 29>;
-            timeout-ms = <1000>;
-            require-prior-idle-ms = <1000>;
-            layers = <1>;
-        };
-    };
-
-// Tap: num-word | double-tap: sticky num-layer | Hold: num-layer.
-#define SMART_NUM &smart_num NUM 0
-ZMK_HOLD_TAP(smart_num, bindings = <&mo>, <&num_dance>; flavor = "balanced";
-             tapping-term-ms = <200>; quick-tap-ms = <QUICK_TAP_MS>;)
-ZMK_TAP_DANCE(num_dance, bindings = <&num_word NUM>, <&sl 4>;
-              tapping-term-ms = <200>;)
+    #include "piantor_pro_bt_combos.dtsi"
 
     keymap {
         compatible = "zmk,keymap";
 
-        Gallium {
-            display-name = "Gallium";
+        default_layer {
+            display-name = "Colemak";
+            // Colemak DH with home row mods
+            // ----------------------------------------------------------------------
+            // |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  '  |
+            // |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
+            // |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  .  |  /  |
+            //  | Repeat | Space/Nav | Shift |   | NumSym | Backspace | Delete |
+            // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
             bindings = <
-  &kp DE_B  &mt DE_A_UMLAUT DE_L  &mt DE_O_UMLAUT DE_D  &mt DE_U_UMLAUT DE_C  &kp DE_V  &kp DE_J  &kp DE_Y  &kp DE_O  &kp DE_U  &mt DE_EXCLAMATION DE_QUESTION      &HRM_L LEFT_GUI DE_N  &HRM_L LEFT_ALT DE_R  &HRM_L LEFT_CONTROL DE_T  &HRM_L LEFT_SHIFT DE_S  &kp DE_G  &kp DE_P  &HRM_R RIGHT_SHIFT DE_H  &HRM_R RIGHT_CONTROL DE_A  &HRM_R RIGHT_ALT DE_E  &HRM_R RIGHT_GUI DE_I      &kp DE_X  &kp DE_Q  &kp DE_M  &kp DE_W  &kp DE_Z  &kp DE_K  &kp DE_F  &kp DE_COMMA  &kp DE_DOT  &kp DE_MINUS    &kp ESCAPE  &lt 2 DE_SPACE  &lt 3 TAB  &lt 5 ENTER  &lt 4 BACKSPACE  &lt 6 DEL
+                &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp SQT
+                &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
+                &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
+                                            &kp DEL  &kp BSPC  &magic_shift LSHIFT 0    &numsym_tap 0 0  &space_nav 4 SPACE  &kp ESC
             >;
         };
 
-        Night {
-            display-name = "Night";
+        num_sym_layer {
+            display-name = "NumSym";
+            // Number & Symbol layer with home row mods
+            // ---------------------------------------------------------------------
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  +  |  -  |  _  |  |  |
+            // | 0+A | 6+S | 5+C | 4+G | (<  |   | )>  | *+G | /+C | `+S | %+A |
+            // |  ^  |  3  |  2  |  1  |  ~  |   |blsh |  =  |  @  |  #  |  $  |
+            //             | --- | --- | --- |   | Smartnum | --- | Exit |
+            // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); *=Super, /=Ctrl, `=Shift, %=Alt (right)
+            // (< = ( normally, < when shifted; )> = ) normally, > when shifted
             bindings = <
-  &kp DE_B  &mt DE_A_UMLAUT DE_F  &mt DE_O_UMLAUT DE_L  &mt DE_U_UMLAUT DE_K  &kp DE_Q  &kp DE_P  &kp DE_G  &kp DE_O  &kp DE_U  &mt DE_EXCLAMATION DE_QUESTION      &HRM_L LEFT_GUI DE_N  &HRM_L LEFT_ALT DE_S  &HRM_L LEFT_CONTROL DE_H  &HRM_L LEFT_SHIFT DE_T  &kp DE_M  &kp DE_Y  &HRM_R RIGHT_SHIFT DE_C  &HRM_R RIGHT_CONTROL DE_A  &HRM_R RIGHT_ALT DE_E  &HRM_R RIGHT_GUI DE_I      &kp DE_X  &kp DE_V  &kp DE_J  &kp DE_D  &kp DE_Z  &kp DE_APOSTROPHE  &kp DE_W  &kp DE_COMMA  &kp DE_DOT  &kp DE_MINUS    &kp DE_R  &lt 2 DE_SPACE  &lt 3 TAB  &lt 5 ENTER  &lt 4 BACKSPACE  &lt 6 DEL
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PLUS        &kp MINUS       &kp UNDER       &kp PIPE
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK &hmr RCTRL FSLH &hmr RSFT GRAVE &hmr RALT PRCNT
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp TILDE       &kp BSLH        &kp EQUAL       &kp AT          &kp HASH        &kp DLLR
+                                                &trans  &trans  &trans    &smartnum_tap 2 2  &trans  &to 0
             >;
         };
 
-        Navigation {
-            display-name = "Nav";
-
-            // ---------------------------------------------------------------
-            // |  1  |  2  |  3  |  4  |  5    |  6  |  7  |  8  |  9  |  0  |
-            // | BT1 | BT2 | BT3 | BT4 | BT5   | LFT | DWN |  UP | RGT |     |
-            // | BTCR| RGB | RST | BOOT| Unlock|     |     |     |     |     |
-            //                    | GUI |     | SPC   | ENT |     | ALT |
-
+        smartnum_layer {
+            display-name = "SmartNum";
+            // Smart number layer (matching Kanata layout with urob's auto-layer)
+            // urob's smartnum auto-exits on non-number keys
+            // Numbers on LEFT side: 987/0654/321, right side: num_sym symbols
+            // -------------------------------------------------------------------------
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  +  |  -  |  _  |  |  |
+            // | 0+A | 6+S | 5+C | 4+G | (<  |   | )>  | *+G | /+C | `+S | %+A |
+            // |  ^  |  3  |  2  |  1  |  ~  |   |blsh |  =  |  ,  |  .  |  $  |
+            //  | Exit | Space | Magic Shift |   | Exit | Bspc | Del |
+            // Exit = return to layer 0 (default layer)
+            // (< = ( normally, < when shifted; )> = ) normally, > when shifted
             bindings = <
-  &none  &none  &none  &none  &none  &none  &none  &none  &none  &none      &kp LEFT_WIN  &kp LEFT_ALT  &kp LEFT_CONTROL  &kp LEFT_SHIFT  &none  &kp CAPSLOCK  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT      &none  &none  &none  &bootloader  &studio_unlock  &kp INSERT  &kp HOME  &kp PAGE_DOWN  &kp PAGE_UP  &kp END    &trans  &trans  &trans  &trans  &trans  &trans
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT  &kp PLUS   &kp MINUS  &kp UNDER  &kp PIPE
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK  &hmr RCTRL FSLH   &hmr RSFT GRAVE  &hmr RALT PRCNT
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp TILDE       &kp BSLH  &kp EQUAL  &kp COMMA  &kp PERIOD &kp DLLR
+                                                &kp DEL  &kp BSPC  &magic_shift LSHIFT 0          &to 0  &kp SPACE  &to 0
             >;
         };
 
-        Media {
-            display-name = "Media";
-
-            // -------------------------------------------------------------
-            // |  !  |  @  |  #  |  $  |  %  |  ^  |  &  |  *  |  (  |  )  |
-            // |     |     |     |     |     |  -  |  =  |  [  |  ]  |  \  |
-            // |     |     |     |     |     |  _  |  +  |  {  |  }  | "|" |
-            //                    | GUI |     | SPC | ENT |     | ALT |
-
+        fn_layer {
+            display-name = "Fn";
+            // Function keys (matching Kanata config EXACTLY)
+            // Left: F-keys in REVERSE order, Right: same as default layer with home row mods
+            // -------------------------------------------------------------------------
+            // | F10 | F9  | F8  | F7  | C-A-F3 |   |  J  |  L  |  U  |  Y  |  '  |
+            // | F11 | F6  | F5  | F4  | C-A-F2 |   |  M  | RGui| RCtl| RSft| RAlt|
+            // | F12 | F3  | F2  | F1  | C-A-F1 |   |  K  |  H  |  ,  |  .  |  /  |
+            //             | Del | Bspc | Shift |   | NumSym | Space | Exit |
             bindings = <
-  &none  &none  &none  &none  &none  &rgb_ug RGB_EFF  &rgb_ug RGB_TOG  &none  &none  &none      &kp LEFT_GUI  &kp LEFT_ALT  &kp LEFT_CONTROL  &kp LEFT_SHIFT  &none  &none  &kp C_PREVIOUS  &kp C_VOLUME_DOWN  &kp C_VOLUME_UP  &kp C_NEXT      &none  &none  &none  &none  &none  &bt BT_CLR_ALL  &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &bt BT_SEL 3    &trans  &trans  &trans  &kp C_STOP  &kp C_PLAY_PAUSE  &kp C_MUTE
+                &kp F10     &kp F9      &kp F8      &kp F7      &kp LC(LA(F3))      &kp J  &kp L           &kp U              &kp Y              &kp SQT
+                &kp F11     &kp F6      &kp F5      &kp F4      &kp LC(LA(F2))      &kp M  &kp RGUI        &kp RCTRL          &kp RSFT           &kp RALT
+                &kp F12     &kp F3      &kp F2      &kp F1      &kp LC(LA(F1))      &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
+                                        &kp DEL  &kp BSPC  &magic_shift LSHIFT 0     &numsym_tap 0 0  &kp SPACE  &to 0
             >;
         };
 
-        Numbers {
-            display-name = "Num";
+        nav_sys_layer {
+            display-name = "NavSys";
+            // Navigation & System layer (Space hold)
+            // Left: Media/System/BT/RGB controls, Right: Navigation + BT/System
+            // -------------------------------------------------------------------------
+            // | BTClrAll** | Next | VolUp | BriUp | RGBBriUp |   | PgUp | Home | Up   | End  | BTClr**  |
+            // | Reset**/Alt| Prev | VolDn | BriDn | RGBBriDn |   | PgDn | Left | Down | Rght | Reset**  |
+            // | Boot**     | Play | Mute  | MicM  | RGBTog   |   | Sleep| PrSc | USB  | BLE  | Boot**   |
+            //                         | BTPrv | BT0  | BTNxt |   | Blk  | Blk  | Exit |
+            // Home row: tap=action, hold=modifier (Reset/Alt, Prev/Shift, VolDn/Ctrl, BriDn/Super)
+            // ** = requires double-tap to trigger (single tap does nothing)
             bindings = <
-  &none  &kp DE_N7  &kp DE_N8  &kp DE_N9  &kp DE_SLASH  &none  &none  &none  &none  &none      &kp DE_EQUAL  &kp DE_N4  &kp DE_N5  &kp DE_N6  &kp DE_ASTERISK  &none  &kp RIGHT_SHIFT  &kp RIGHT_CONTROL  &kp RIGHT_ALT  &kp RIGHT_GUI      &none  &kp DE_N1  &kp DE_N2  &kp DE_N3  &kp DE_PLUS  &none  &none  &none  &none  &none    &kp DE_PERIOD  &kp DE_N0  &kp DE_MINUS  &trans  &trans  &trans
-            >;
-        };
-
-        Symbols {
-            display-name = "Sym";
-            bindings = <
-  &kp DE_LEFT_BRACE  &kp DE_LESS_THAN  &mt DE_APOSTROPHE DE_DOUBLE_QUOTES  &kp DE_GREATER_THAN  &kp DE_RIGHT_BRACE  &none  &none  &none  &none  &none      &kp DE_LEFT_BRACKET  &mt DE_EURO DE_DOLLAR  &kp DE_PERCENT  &kp DE_CARET  &kp DE_RIGHT_BRACKET  &none  &kp RIGHT_SHIFT  &kp RIGHT_CONTROL  &kp RIGHT_ALT  &kp RIGHT_GUI      &kp DE_PIPE  &kp DE_AMPERSAND  &kp DE_AT_SIGN  &kp DE_HASH  &kp DE_BACKSLASH  &none  &none  &none  &none  &none    &kp DE_LEFT_PARENTHESIS  &kp DE_RIGHT_PARENTHESIS  &none  &trans  &trans  &trans
-            >;
-        };
-
-        Function {
-            display-name = "Fun";
-            bindings = <
-  &kp F12  &kp F7  &kp F8  &kp F9  &kp PRINTSCREEN  &none  &none  &none  &none  &none      &kp F11  &kp F4  &kp F5  &kp F6  &kp SCROLLLOCK  &none  &kp RIGHT_SHIFT  &kp RIGHT_CONTROL  &kp RIGHT_ALT  &kp RIGHT_WIN      &kp F10  &kt F1  &kp F2  &kp F3  &kp PAUSE_BREAK  &none  &none  &none  &none  &none    &kt C_MENU  &kp SPACE  &kp TAB  &trans  &trans  &trans
+                &td_bt_clr_all     &kp C_NEXT                   &kp C_VOL_UP                   &kp C_BRI_UP                    &rgb_ug RGB_BRI     &kp PG_UP     &kp HOME      &kp UP          &kp END        &td_bt_clr
+                &nav_a_td LALT 0   &hml LSFT C_PREV  &hml LCTRL C_VOL_DN  &hml LGUI C_BRI_DN   &rgb_ug RGB_BRD     &kp PG_DN     &kp LEFT      &kp DOWN        &kp RIGHT      &td_reset
+                &td_boot           &kp C_PP                     &kp C_MUTE                     &kp F20                         &rgb_ug RGB_TOG     &kp C_SLEEP   &kp PSCRN     &out OUT_USB    &out OUT_BLE   &td_boot
+                            &bt BT_PRV  &bt BT_SEL 0  &bt BT_NXT    &none  &none  &to 0
             >;
         };
     };
