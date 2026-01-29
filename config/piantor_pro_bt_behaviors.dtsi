@@ -50,7 +50,7 @@ shift_repeat: shift_repeat {
     #binding-cells = <0>;
     bindings = <&sk LSHIFT>;
     repeat {
-        trigger-keys = <Q W F P B J L U Y SQT A R S T G M N E I O Z X C D V K H DOT QMARK GRAVE>;
+        trigger-keys = <B L D C V J Y O U COMMA N R T S G P H A E I X Q M W Z K F SQT SEMI DOT>;
         bindings = <&key_repeat>;
         max-prior-idle-ms = <5000>;
         strict-modifiers;

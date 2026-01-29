@@ -3,11 +3,12 @@
  *
  * SPDX-License-Identifier: MIT
  *
- * Colemak DH layout synchronized with Kanata config (~/configs/kanata.kbd)
+ * Gallium v1 layout (customized) with home row mods
  * Layer order: default (0), num_sym (1), smartnum (2), fn (3), nav_sys (4)
  *
- * Colemak (Layer 0): Default layer with home row mods
- *   - Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
+ * Gallium (Layer 0): Default layer with home row mods
+ *   - Customizations: X↔Q swapped, / replaced with ; (standard Gallium has / on bottom row)
+ *   - Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
  *   - Thumbs: Delete | Backspace | Magic Shift | NumSym (tap=sticky num_sym, shift+tap=sticky fn, hold=momentary num_sym) | Space/Nav | ESC
  *   - Magic Shift (urob): tap after letter=repeat, tap otherwise=sticky shift, double-tap=caps word, hold=shift
  *   - Combos (all 50ms timeout):
@@ -89,18 +90,18 @@
         compatible = "zmk,keymap";
 
         default_layer {
-            display-name = "Colemak";
-            // Colemak DH with home row mods
+            display-name = "Gallium";
+            // Gallium v1 (customized: X↔Q, /→;) with home row mods
             // ----------------------------------------------------------------------
-            // |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  '  |
-            // |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
-            // |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  .  |  /  |
-            //  | Repeat | Space/Nav | Shift |   | NumSym | Backspace | Delete |
-            // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
+            // |  B  |  L  |  D  |  C  |  V  |   |  J  |  Y  |  O  |  U  |  ,  |
+            // |  N  |  R  |  T  |  S  |  G  |   |  P  |  H  |  A  |  E  |  I  |
+            // |  X  |  Q  |  M  |  W  |  Z  |   |  K  |  F  |  '  |  ;  |  .  |
+            //  | Delete | Backspace | Shift |   | NumSym | Space/Nav | ESC |
+            // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
             bindings = <
-                &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp SQT
-                &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
-                &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
+                &kp B       &kp L           &kp D           &kp C           &kp V           &kp J  &kp Y           &kp O              &kp U              &kp COMMA
+                &hml LALT N &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp P  &hmr RGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
+                &kp X       &kp Q           &kp M           &kp W           &kp Z           &kp K  &kp F           &kp SQT            &kp SEMI           &period_morph
                                             &kp DEL  &kp BSPC  &magic_shift LSHIFT 0    &numsym_tap 0 0  &space_nav 4 SPACE  &kp ESC
             >;
         };
@@ -145,17 +146,17 @@
 
         fn_layer {
             display-name = "Fn";
-            // Function keys (matching Kanata config EXACTLY)
+            // Function keys (matching Gallium layout on right side)
             // Left: F-keys in REVERSE order, Right: same as default layer with home row mods
             // -------------------------------------------------------------------------
-            // | F10 | F9  | F8  | F7  | C-A-F3 |   |  J  |  L  |  U  |  Y  |  '  |
-            // | F11 | F6  | F5  | F4  | C-A-F2 |   |  M  | RGui| RCtl| RSft| RAlt|
-            // | F12 | F3  | F2  | F1  | C-A-F1 |   |  K  |  H  |  ,  |  .  |  /  |
+            // | F10 | F9  | F8  | F7  | C-A-F3 |   |  J  |  Y  |  O  |  U  |  ,  |
+            // | F11 | F6  | F5  | F4  | C-A-F2 |   |  P  | RGui| RCtl| RSft| RAlt|
+            // | F12 | F3  | F2  | F1  | C-A-F1 |   |  K  |  F  |  '  |  ;  |  .  |
             //             | Del | Bspc | Shift |   | NumSym | Space | Exit |
             bindings = <
-                &kp F10     &kp F9      &kp F8      &kp F7      &kp LC(LA(F3))      &kp J  &kp L           &kp U              &kp Y              &kp SQT
-                &kp F11     &kp F6      &kp F5      &kp F4      &kp LC(LA(F2))      &kp M  &kp RGUI        &kp RCTRL          &kp RSFT           &kp RALT
-                &kp F12     &kp F3      &kp F2      &kp F1      &kp LC(LA(F1))      &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
+                &kp F10     &kp F9      &kp F8      &kp F7      &kp LC(LA(F3))      &kp J  &kp Y           &kp O              &kp U              &kp COMMA
+                &kp F11     &kp F6      &kp F5      &kp F4      &kp LC(LA(F2))      &kp P  &kp RGUI        &kp RCTRL          &kp RSFT           &kp RALT
+                &kp F12     &kp F3      &kp F2      &kp F1      &kp LC(LA(F1))      &kp K  &kp F           &kp SQT            &kp SEMI           &period_morph
                                         &kp DEL  &kp BSPC  &magic_shift LSHIFT 0     &numsym_tap 0 0  &kp SPACE  &to 0
             >;
         };
