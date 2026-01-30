@@ -50,8 +50,19 @@ shift_repeat: shift_repeat {
     #binding-cells = <0>;
     bindings = <&sk LSHIFT>;
     repeat {
-        trigger-keys = <Q W F P B J L U Y SQT A R S T G M N E I O Z X C D V K H DOT QMARK GRAVE>;
+        trigger-keys = <Q W F P B J L U Y A R S T G M N E I O Z X C D V K H GRAVE>;
         bindings = <&key_repeat>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+tilde_slash_handler: tilde_to_slash {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&shift_repeat>;
+    repeat {
+        trigger-keys = <TILDE>;
+        bindings = <&kp FSLH>;
         max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
@@ -59,7 +70,7 @@ shift_repeat: shift_repeat {
 magic_shift_tap: magic_shift_tap {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&shift_repeat>, <&caps_word>;
+    bindings = <&tilde_slash_handler>, <&caps_word>;
     mods = <(MOD_LSFT)>;
 };
 magic_shift: magic_shift {

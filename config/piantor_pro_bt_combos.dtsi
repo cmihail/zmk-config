@@ -16,6 +16,13 @@ combos {
         bindings = <&kp TAB>;
         layers = <0 1 2 3 4>;
     };
+    combo_backspace {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <100>;
+        key-positions = <2 3>;  // F+P → Backspace
+        bindings = <&kp BSPC>;
+        layers = <0 1 2 3 4>;
+    };
 
     // ===== VERTICAL COMBOS (50ms timeout, 100ms require-prior-idle) =====
     // Edit combos
