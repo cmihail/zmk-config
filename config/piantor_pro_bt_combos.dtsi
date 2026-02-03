@@ -16,24 +16,17 @@ combos {
         bindings = <&kp TAB>;
         layers = <0 1 2 3 4>;
     };
-    combo_backspace {
-        timeout-ms = <50>;
-        require-prior-idle-ms = <100>;
-        key-positions = <2 3>;  // F+P → Backspace
-        bindings = <&backspace_delete_morph>;
-        layers = <0 1 2 3 4>;
-    };
     combo_escape {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <6 7>;  // L+U → Escape (default layer only)
+        key-positions = <5 6>;  // J+L → Escape
         bindings = <&kp ESC>;
         layers = <0>;
     };
     combo_exit {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <6 7>;  // L+U → Exit to default layer (all other layers)
+        key-positions = <5 6>;  // J+L → Exit to default layer
         bindings = <&to 0>;
         layers = <1 2 3 4>;
     };
@@ -47,10 +40,17 @@ combos {
         bindings = <&copy_cut>;
         layers = <0 1 2 3 4>;
     };
+    combo_delete {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <100>;
+        key-positions = <3 4>;  // P+B → Delete
+        bindings = <&kp DEL>;
+        layers = <0 1 2 3 4>;
+    };
     combo_scroll_left {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <3 4>;  // P+B → Scroll Left
+        key-positions = <23 24>;  // D+V → Scroll Left
         bindings = <&msc SCRL_LEFT>;
         layers = <0 1 2 3 4>;
     };
@@ -136,7 +136,7 @@ combos {
     combo_scroll_right {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <5 6>;  // J+L → Scroll Right
+        key-positions = <25 26>;  // K+H → Scroll Right
         bindings = <&msc SCRL_RIGHT>;
         layers = <0 1 2 3 4>;
     };

@@ -62,7 +62,7 @@
 #include "zmk-helpers/helper.h"
 
 &num_word {
-    continue-list = <BSPC DEL DOT PLUS MINUS ASTRK FSLH EQUAL GRAVE UP DOWN LEFT RIGHT HOME END K_UNDO K_AGAIN>;
+    continue-list = <BSPC DEL DOT PLUS MINUS ASTRK FSLH EQUAL GRAVE UP DOWN LEFT RIGHT HOME END K_UNDO K_AGAIN LSHIFT RSHIFT>;
 };
 
 &sl {
@@ -104,7 +104,7 @@
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp SQT
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
                 &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
-                                            &magic_shift LSHIFT 0  &backspace_delete_morph  &none    &none  &space_nav 4 SPACE  &numsym_tap 0 0
+                                            &magic_shift LSHIFT 0  &backspace_delete_morph  &magic_key    &numsym_tap 0 0  &space_nav 4 SPACE  &smartnum_tap 2 2
             >;
         };
 
@@ -122,7 +122,7 @@
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PLUS        &kp MINUS       &kp UNDER       &kp PIPE
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK &hmr RCTRL FSLH &hmr RSFT GRAVE &hmr RALT PRCNT
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp TILDE       &kp BSLH        &kp EQUAL       &kp AT          &kp HASH        &kp DLLR
-                                                &trans  &trans  &trans    &to 0  &trans  &smartnum_tap 2 2
+                                                &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
@@ -142,7 +142,7 @@
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT  &kp PLUS   &kp MINUS  &kp UNDER  &kp PIPE
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK  &hmr RCTRL FSLH   &hmr RSFT GRAVE  &hmr RALT PRCNT
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp TILDE       &kp BSLH  &kp EQUAL  &kp COMMA  &kp PERIOD &kp DLLR
-                                                &magic_shift LSHIFT 0  &backspace_delete_morph  &none  &to 0  &kp SPACE  &to 0
+                                                &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
@@ -159,7 +159,7 @@
                 &kp F10     &kp F9      &kp F8      &kp F7      &kp LC(LA(F3))      &kp J  &kp L           &kp U              &kp Y              &kp SQT
                 &kp F11     &kp F6      &kp F5      &kp F4      &kp LC(LA(F2))      &kp M  &kp RGUI        &kp RCTRL          &kp RSFT           &kp RALT
                 &kp F12     &kp F3      &kp F2      &kp F1      &kp LC(LA(F1))      &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
-                                        &magic_shift LSHIFT 0  &backspace_delete_morph  &none  &to 0  &kp SPACE  &numsym_tap 0 0
+                                        &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
@@ -178,7 +178,7 @@
                 &td_bt_clr_all     &kp C_NEXT                   &kp C_VOL_UP                   &kp C_BRI_UP                    &rgb_ug RGB_BRI     &kp PG_UP     &kp HOME      &kp UP          &kp END        &td_bt_clr
                 &nav_a_td LALT 0   &hml LSFT C_PREV  &hml LCTRL C_VOL_DN  &hml LGUI C_BRI_DN   &rgb_ug RGB_BRD     &kp PG_DN     &kp LEFT      &kp DOWN        &kp RIGHT      &td_reset
                 &td_boot           &kp C_PP                     &kp C_MUTE                     &kp F20                         &rgb_ug RGB_TOG     &kp C_SLEEP   &kp PSCRN     &out OUT_USB    &out OUT_BLE   &td_boot
-                            &bt BT_PRV  &bt BT_SEL 0  &bt BT_NXT    &to 0  &none  &to 0
+                            &bt BT_PRV  &bt BT_SEL 0  &bt BT_NXT    &trans  &trans  &trans
             >;
         };
     };

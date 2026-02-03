@@ -67,10 +67,21 @@ tilde_slash_handler: tilde_to_slash {
         strict-modifiers;
     };
 };
+magic_key: magic_key {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&key_repeat>;
+    repeat {
+        trigger-keys = <TILDE>;
+        bindings = <&kp FSLH>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
 magic_shift_tap: magic_shift_tap {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&tilde_slash_handler>, <&caps_word>;
+    bindings = <&sk LSHIFT>, <&caps_word>;
     mods = <(MOD_LSFT)>;
 };
 magic_shift: magic_shift {
