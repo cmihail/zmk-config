@@ -4,21 +4,20 @@
  * SPDX-License-Identifier: MIT
  *
  * Colemak DH layout synchronized with Kanata config (~/configs/kanata.kbd)
- * Layer order: default (0), fn (1), num_sym (2), smartnum (3), nav_sys (4)
+ * Layer order: default (0), caps (1), fn (2), num_sym (3), smartnum (4), nav_sys (5)
  *
  * Colemak (Layer 0): Default layer with home row mods
  *   - Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
  *   - Thumbs: NumSym | Backspace (Shift+Backspace=Delete) | Magic Key | SmartNum | Space/Nav | Magic Shift
  *   - Magic Shift (urob): tap=sticky shift or caps word, hold=shift
- *   - Magic Key: tap=repeat or slash (after ~)
+ *   - Magic Key: tap after letter=repeat, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after arrow=repeat arrow
  *   - NumSym thumb key: tap=sticky num_sym, shift+tap=sticky fn, hold=momentary num_sym
  *   - SmartNum thumb key: tap=num_word (auto-exits on non-number keys), hold=momentary smartnum
  *   - Combos (all 50ms timeout):
  *     - Tab/Return: S+T = Tab, N+E = Return
  *     - Quick keys: F+P = Backspace, L+U = Escape (or Exit on other layers)
- *     - Edit: W+R = Copy (Shift+Copy = Cut), T+G = Undo (Shift+Undo = Redo)
- *            P+T = Paste
- *     - Mouse: M+N = Left Click (Shift+M+N = Right Click)
+ *     - Edit: W+R = Copy (Shift+Copy = Cut), T+G = Undo (Shift+Undo = Redo), P+T = Paste
+ *     - Mouse: M+N = Left Click, D+V = Middle Click, K+H = Right Click
  *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, P+B = Scroll Left, J+L = Scroll Right
  *     - Navigation: vertical combos for arrows, page up/down, home/end
  *     - Symbols: vertical combos for #, ^, &
@@ -64,16 +63,20 @@
 #include "zmk-helpers/helper.h"
 
 &num_word {
-    continue-list = <BSPC DEL DOT PLUS MINUS ASTRK FSLH EQUAL GRAVE UP DOWN LEFT RIGHT HOME END K_UNDO K_AGAIN LSHIFT RSHIFT>;
+    continue-list = <BSPC DEL DOT PLUS MINUS ASTRK FSLH EQUAL GRAVE UP DOWN LEFT RIGHT HOME END PG_UP PG_DN K_UNDO K_AGAIN LSHIFT RSHIFT>;
+};
+
+&caps_word {
+    continue-list = <BSPC DEL>;
 };
 
 &sl {
-    release-after-ms = <5000>;
+    release-after-ms = <3000>;
     ignore-modifiers;
 };
 
 &sk {
-    release-after-ms = <5000>;
+    release-after-ms = <2000>;
     quick-release;
 };
 
@@ -106,7 +109,25 @@
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp SQT
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
                 &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &comma_morph       &period_morph      &slash_morph
-                                            &numsym_tap 0 0  &backspace_delete_morph  &magic_key    &smartnum_tap 3 3  &space_nav 4 SPACE  &magic_shift LSHIFT 0
+                                            &numsym_tap 0 0  &backspace_delete_morph  &magic_key    &smartnum_tap 4 4  &space_nav 5 0  &magic_shift LSHIFT 0
+            >;
+        };
+
+        caps_layer {
+            display-name = "Caps";
+            // Uppercase letters layer for auto-capitalization with home row mods
+            // All letters (A-Z) mapped to uppercase, symbols/numbers inherit from default
+            // Shift thumb key exits layer and emits shift to avoid double-shift
+            // ----------------------------------------------------------------------
+            // |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |trans|
+            // |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
+            // |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |trans|trans|trans|
+            //       | trans | trans | trans |   | trans | trans | shift_exit |
+            bindings = <
+                &kp LS(Q)       &kp LS(W)       &kp LS(F)          &kp LS(P)       &kp LS(B)      &kp LS(J)  &kp LS(L)       &kp LS(U)          &kp LS(Y)       &trans
+                &hml LALT LS(A) &hml LSFT LS(R) &hml LCTRL LS(S)   &hml LGUI LS(T) &kp LS(G)      &kp LS(M)  &hmr RGUI LS(N) &hmr RCTRL LS(E)   &hmr RSFT LS(I) &hmr RALT LS(O)
+                &kp LS(Z)       &kp LS(X)       &kp LS(C)          &kp LS(D)       &kp LS(V)      &kp LS(K)  &kp LS(H)       &trans             &trans          &trans
+                                                &trans     &trans         &trans     &trans     &trans     &shift_exit_caps
             >;
         };
 
@@ -118,7 +139,7 @@
             // | trans | trans | trans | trans | trans |   | C-A-F3 | F7  | F8  | F9  | F10 |
             // | trans | trans | trans | trans | trans |   | C-A-F2 | F4  | F5  | F6  | F11 |
             // | trans | trans | trans | trans | trans |   | C-A-F1 | F1  | F2  | F3  | F12 |
-            //               | trans | trans | trans |   | trans | trans | trans |
+            //                 | trans | trans | trans |   | trans | trans | trans |
             bindings = <
                 &trans  &trans  &trans  &trans  &trans      &kp LC(LA(F3))  &kp F7   &kp F8   &kp F9   &kp F10
                 &trans  &trans  &trans  &trans  &trans      &kp LC(LA(F2))  &kp F4   &kp F5   &kp F6   &kp F11
@@ -154,13 +175,13 @@
             // |  &  |  9  |  8  |  7  |blsh |   |  =  |  +  |  -  |  _  |  |  |
             // | 0+A | 6+S | 5+C | 4+G | (<  |   | )>  | *+G | /+C | `+S | %+A |
             // |  ^  |  3  |  2  |  1  |  [  |   |  ]  |  ~  |  ,  |  .  |  $  |
-            //       | trans | trans | trans |   | none  | trans | trans |
+            //       | →NumSym | trans | trans |   | none  | trans | trans |
             // (< = ( normally, < when shifted; )> = ) normally, > when shifted
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp BSLH        &kp EQUAL  &kp PLUS   &kp MINUS  &kp UNDER  &kp PIPE
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK  &hmr RCTRL FSLH   &hmr RSFT GRAVE  &hmr RALT PRCNT
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBKT        &kp RBKT  &kp TILDE  &kp COMMA  &kp PERIOD &kp DLLR
-                                                &trans  &trans  &trans    &none  &trans  &trans
+                                                &smartnum_to_numsym  &trans  &trans    &none  &trans  &trans
             >;
         };
 
