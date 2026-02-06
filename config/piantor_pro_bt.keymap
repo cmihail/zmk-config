@@ -16,7 +16,7 @@
  *   - Combos (all 50ms timeout):
  *     - Tab/Return: S+T = Return, N+E = Tab
  *     - Quick keys: M+N = Escape (or Exit on other layers)
- *     - Symbols: L+U = ~, F+P = `, C+D = <, H+, = >
+ *     - Symbols: F+P = ~, L+U = `, C+D = <, H+, = >
  *     - Edit: W+R = Copy (Shift+W+R = Cut), P+B = Undo (Shift+P+B = Redo), T+G = Delete, P+T = Paste
  *     - Mouse: J+L = Left Click, D+V = Middle Click, K+H = Right Click
  *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, A+Q = Scroll Left, '+O = Scroll Right, B+G = Scroll Up, G+V = Scroll Down

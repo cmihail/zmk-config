@@ -327,6 +327,8 @@ fn_layer_noshift: fn_layer_release_shift {
 space_caps: space_and_caps_layer {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
+    tap-ms = <0>;
+    wait-ms = <0>;
     bindings = <&kp SPACE>, <&sl 1>;
 };
 shift_exit_caps: shift_and_exit_caps {

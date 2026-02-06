@@ -36,14 +36,14 @@ combos {
     combo_tilde {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <6 7>;  // L+U → ~
+        key-positions = <2 3>;  // F+P → ~
         bindings = <&kp TILDE>;
         layers = <0 1 2 3 4 5>;
     };
     combo_grave {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <2 3>;  // F+P → `
+        key-positions = <6 7>;  // L+U → `
         bindings = <&kp GRAVE>;
         layers = <0 1 2 3 4 5>;
     };
