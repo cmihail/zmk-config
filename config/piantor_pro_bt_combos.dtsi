@@ -19,19 +19,49 @@ combos {
     combo_escape {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <5 6>;  // J+L → Escape
+        key-positions = <15 16>;  // M+N → Escape
         bindings = <&kp ESC>;
         layers = <0>;
     };
     combo_exit {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <5 6>;  // J+L → Exit to default layer
+        key-positions = <15 16>;  // M+N → Exit to default layer
         bindings = <&to 0>;
         layers = <2 3 4 5>;
     };
 
     // ===== VERTICAL COMBOS (50ms timeout, 100ms require-prior-idle) =====
+    // Symbol combos
+    combo_tilde {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <100>;
+        key-positions = <6 7>;  // L+U → ~
+        bindings = <&kp TILDE>;
+        layers = <0 1 2 3 4 5>;
+    };
+    combo_grave {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <100>;
+        key-positions = <2 3>;  // F+P → `
+        bindings = <&kp GRAVE>;
+        layers = <0 1 2 3 4 5>;
+    };
+    combo_less_than {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <100>;
+        key-positions = <22 23>;  // C+D → <
+        bindings = <&kp LT>;
+        layers = <0 1 2 3 4 5>;
+    };
+    combo_greater_than {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <100>;
+        key-positions = <26 27>;  // H+, → >
+        bindings = <&kp GT>;
+        layers = <0 1 2 3 4 5>;
+    };
+
     // Edit combos
     combo_copy_vert {
         timeout-ms = <50>;
@@ -122,7 +152,7 @@ combos {
     combo_left_click {
         timeout-ms = <50>;
         require-prior-idle-ms = <100>;
-        key-positions = <15 16>;  // M+N → Left Click
+        key-positions = <5 6>;  // J+L → Left Click
         bindings = <&mkp MB1>;
         layers = <0 1 2 3 4 5>;
     };

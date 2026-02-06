@@ -14,29 +14,29 @@
  *   - NumSym thumb key: tap=sticky num_sym, shift+tap=sticky fn, hold=momentary num_sym
  *   - SmartNum thumb key: tap=num_word (auto-exits on non-number keys), hold=momentary smartnum
  *   - Combos (all 50ms timeout):
- *     - Tab/Return: S+T = Tab, N+E = Return
- *     - Quick keys: F+P = Backspace, L+U = Escape (or Exit on other layers)
- *     - Edit: W+R = Copy (Shift+Copy = Cut), T+G = Undo (Shift+Undo = Redo), P+T = Paste
- *     - Mouse: M+N = Left Click, D+V = Middle Click, K+H = Right Click
- *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, P+B = Scroll Left, J+L = Scroll Right
+ *     - Tab/Return: S+T = Return, N+E = Tab
+ *     - Quick keys: M+N = Escape (or Exit on other layers)
+ *     - Symbols: L+U = ~, F+P = `, C+D = <, H+, = >
+ *     - Edit: W+R = Copy (Shift+W+R = Cut), P+B = Undo (Shift+P+B = Redo), T+G = Delete, P+T = Paste
+ *     - Mouse: J+L = Left Click, D+V = Middle Click, K+H = Right Click
+ *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, A+Q = Scroll Left, '+O = Scroll Right, B+G = Scroll Up, G+V = Scroll Down
  *     - Navigation: vertical combos for arrows, page up/down, home/end
- *     - Symbols: vertical combos for #, ^, &
  *
- * NumSym (Layer 1): Number & Symbol layer
- *   - Top row: <987[]+-_>
- *   - Home row: 0654()* /`% with home row mods (0=Alt, 6=Shift, 5=Ctrl, 4=Super, *=Super, /=Ctrl, `=Shift, %=Alt)
- *   - Bottom row: ^321{}=@#$
- *   - Thumbs: [inherit] | [inherit] | [inherit] | [inherit] | [inherit] | [inherit]
+ * NumSym (Layer 3): Number & Symbol layer
+ *   - Top row: &987[] ]=+blsh|
+ *   - Home row: 0654() ) * / - % with home row mods (0=Alt, 6=Shift, 5=Ctrl, 4=Super, *=Super, /=Ctrl, -=Shift, %=Alt)
+ *   - Bottom row: ^321{} }_@#$
+ *   - Thumbs: none | trans | trans | trans | trans | trans
  *   - Activated by NumSym thumb key: tap for sticky layer, shift+tap for sticky fn layer, hold for momentary access
  *
- * SmartNum (Layer 2): Number layer (urob's auto-layer)
- *   - Left side: Numbers in unusual layout 987/0654/321 with home row mods
- *   - Right side: NumSym symbols (]+-_>, ) * /`%, }=,.$ )
+ * SmartNum (Layer 4): Number layer (urob's auto-layer)
+ *   - Left side: Numbers in layout 987/0654/321 with home row mods
+ *   - Right side: NumSym symbols (]=+blsh|, ) * / - %, }_,.$ )
  *   - Auto-exits when non-number keys are pressed (urob's smartnum feature)
- *   - Thumbs: NumSym | Backspace (Shift+Backspace=Delete) | Magic Key | Exit | Space | Magic Shift
- *   - Activated from NumSym layer via Smartnum thumb key
+ *   - Thumbs: →NumSym | trans | trans | none | trans | trans
+ *   - Activated by tapping SmartNum thumb key (num_word mode)
  *
- * Fn Layer (Layer 3): Function keys and keyboard layer activation
+ * Fn Layer (Layer 2): Function keys and keyboard layer activation
  *   - Left side: F-keys (F10-F7, F11/F6-F4, F12/F3-F1) in reverse order
  *   - Right side: Same as default layer (J/L/U/Y/', M/mods, K/H/,/./) with explicit home row mods
  *   - Thumbs: NumSym | Backspace (Shift+Backspace=Delete) | Magic Key | Exit | Space | Magic Shift
@@ -152,16 +152,15 @@
             display-name = "NumSym";
             // Number & Symbol layer with home row mods
             // ---------------------------------------------------------------------
-            // |  &  |  9  |  8  |  7  |blsh |   |  =  |  +  |  -  |  _  |  |  |
-            // | 0+A | 6+S | 5+C | 4+G | (<  |   | )>  | *+G | /+C | `+S | %+A |
-            // |  ^  |  3  |  2  |  1  |  [  |   |  ]  |  ~  |  @  |  #  |  $  |
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  =  |  +  |  \  |  |  |
+            // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | *+G | /+C | -+S | %+A |
+            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  _  |  @  |  #  |  $  |
             //       | none  | trans | trans |   | trans | trans | trans |
-            // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); *=Super, /=Ctrl, `=Shift, %=Alt (right)
-            // (< = ( normally, < when shifted; )> = ) normally, > when shifted
+            // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); *=Super, /=Ctrl, -=Shift, %=Alt (right)
             bindings = <
-                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp BSLH        &kp EQUAL       &kp PLUS        &kp MINUS       &kp UNDER       &kp PIPE
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK &hmr RCTRL FSLH &hmr RSFT GRAVE &hmr RALT PRCNT
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBKT        &kp RBKT        &kp TILDE       &kp AT          &kp HASH        &kp DLLR
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp EQUAL       &kp PLUS        &kp BSLH        &kp PIPE
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI ASTRK &hmr RCTRL FSLH &hmr RSFT MINUS &hmr RALT PRCNT
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp UNDER       &kp AT          &kp HASH        &kp DLLR
                                                 &none  &trans  &trans    &trans  &trans  &trans
             >;
         };
@@ -172,15 +171,14 @@
             // urob's smartnum auto-exits on non-number keys
             // Numbers on LEFT side: 987/0654/321, right side: num_sym symbols
             // -------------------------------------------------------------------------
-            // |  &  |  9  |  8  |  7  |blsh |   |  =  |  +  |  -  |  _  |  |  |
-            // | 0+A | 6+S | 5+C | 4+G | (<  |   | )>  | *+G | /+C | `+S | %+A |
-            // |  ^  |  3  |  2  |  1  |  [  |   |  ]  |  ~  |  ,  |  .  |  $  |
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  =  |  +  |  \  |  |  |
+            // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | *+G | /+C | -+S | %+A |
+            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  _  |  ,  |  .  |  $  |
             //       | →NumSym | trans | trans |   | none  | trans | trans |
-            // (< = ( normally, < when shifted; )> = ) normally, > when shifted
             bindings = <
-                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp BSLH        &kp EQUAL  &kp PLUS   &kp MINUS  &kp UNDER  &kp PIPE
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &lpar_lt_morph  &rpar_gt_morph  &hmr RGUI ASTRK  &hmr RCTRL FSLH   &hmr RSFT GRAVE  &hmr RALT PRCNT
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBKT        &kp RBKT  &kp TILDE  &kp COMMA  &kp PERIOD &kp DLLR
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp EQUAL       &kp PLUS        &kp BSLH        &kp PIPE
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI ASTRK &hmr RCTRL FSLH &hmr RSFT MINUS &hmr RALT PRCNT
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp UNDER       &kp COMMA       &kp PERIOD      &kp DLLR
                                                 &smartnum_to_numsym  &trans  &trans    &none  &trans  &trans
             >;
         };
