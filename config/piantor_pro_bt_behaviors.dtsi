@@ -44,22 +44,11 @@ shift_only_tap: shift_only {
     bindings = <&kp>, <&smart_shift>;
 };
 
-// urob's magic key: tap after letter = repeat, tap otherwise = sticky shift, hold = shift
-shift_repeat: shift_repeat {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&sk LSHIFT>;
-    repeat {
-        trigger-keys = <Q W F P B J L U Y A R S T G M N E I O Z X C D V K H GRAVE>;
-        bindings = <&key_repeat>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
+// urob's magic key: tap after special keys = special action, otherwise = repeat
 tilde_slash_handler: tilde_to_slash {
     compatible = "zmk,behavior-adaptive-key";
     #binding-cells = <0>;
-    bindings = <&shift_repeat>;
+    bindings = <&key_repeat>;
     repeat {
         trigger-keys = <TILDE>;
         bindings = <&kp FSLH>;
@@ -70,22 +59,12 @@ tilde_slash_handler: tilde_to_slash {
 magic_undo_redo: magic_undo_to_redo {
     compatible = "zmk,behavior-adaptive-key";
     #binding-cells = <0>;
-    bindings = <&arrow_repeat>;
+    bindings = <&delete_word_del>;
     repeat {
         trigger-keys = <K_UNDO>;
         bindings = <&kp K_AGAIN>;
         max-prior-idle-ms = <5000>;
         strict-modifiers;
-    };
-};
-arrow_repeat: arrow_repeat_with_modifiers {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&delete_word_del>;
-    repeat {
-        trigger-keys = <UP DOWN LEFT RIGHT>;
-        bindings = <&key_repeat>;
-        max-prior-idle-ms = <5000>;
     };
 };
 delete_word_bspc: delete_word_after_backspace {
@@ -189,7 +168,7 @@ space_adaptive_tap: space_adaptive_with_param {
     #binding-cells = <1>;
     bindings = <&space_adaptive>;
 };
-// Space nav layer: tap=space_adaptive (auto-caps after punctuation), hold=nav_sys layer (only triggers on right-side navigation keys)
+// Space nav layer: tap=space_adaptive (auto-caps after punctuation), hold=nav_sys layer (only triggers on left-side keys)
 space_nav: space_nav_layer {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
@@ -198,16 +177,8 @@ space_nav: space_nav_layer {
     tapping-term-ms = <280>;
     quick-tap-ms = <175>;
     bindings = <&mo>, <&space_adaptive_tap>;
-    hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29>;
+    hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32>;
     hold-trigger-on-release;
-};
-smartnum_tap: smartnum_toggle_hold {
-    compatible = "zmk,behavior-hold-tap";
-    #binding-cells = <2>;
-    flavor = "balanced";
-    tapping-term-ms = <280>;
-    quick-tap-ms = <225>;
-    bindings = <&mo>, <&num_word>;
 };
 numsym_fn_morph: numsym_or_fn {
     compatible = "zmk,behavior-mod-morph";
@@ -248,19 +219,7 @@ hm_func: homerow_mods_function {
     bindings = <&kp>, <&kp>;
 };
 
-// Custom shift behaviors for comma, period, slash
-comma_morph: comma_semicolon {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    bindings = <&kp COMMA>, <&kp SEMI>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-};
-period_morph: period_colon {
-    compatible = "zmk,behavior-mod-morph";
-    #binding-cells = <0>;
-    bindings = <&kp DOT>, <&kp COLON>;
-    mods = <(MOD_LSFT|MOD_RSFT)>;
-};
+// Custom shift behaviors for slash
 slash_morph: slash_exclamation {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
@@ -323,6 +282,14 @@ fn_layer_noshift: fn_layer_release_shift {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     bindings = <&sl 2>, <&macro_release &kp LSHIFT &kp RSHIFT>;
+};
+smartnum_tap: smartnum_toggle_hold {
+    compatible = "zmk,behavior-hold-tap";
+    #binding-cells = <2>;
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    quick-tap-ms = <225>;
+    bindings = <&mo>, <&num_word>;
 };
 space_caps: space_and_caps_layer {
     compatible = "zmk,behavior-macro";
