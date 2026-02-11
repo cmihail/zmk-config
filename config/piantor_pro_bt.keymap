@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: MIT
  *
  * Colemak DH layout synchronized with Kanata config (~/configs/kanata.kbd)
- * Layer order: default (0), caps (1), fn (2), num_sym (3), smartnum (4), nav_sys (5)
+ * Layer order: default (0), caps (1), fn (2), num_sym (3), smartnum (4), nav_sys (5), gallium (6)
  *
  * Colemak (Layer 0): Default layer with home row mods
  *   - Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
- *   - Thumbs: Magic Shift | Backspace (Shift+Backspace=Delete) | Magic Key | NumSym | Space/Nav | SmartNum
+ *   - Thumbs: Magic Key | Backspace (Shift+Backspace=Delete) | Magic Shift | NumSym | Space/Nav | SmartNum
  *   - Magic Shift (urob): tap=sticky shift or caps word, hold=shift
- *   - Magic Key: tap after letter=repeat, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after arrow=repeat arrow
+ *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, E→U, U→E, O→A, R→L
  *   - NumSym thumb key: tap=sticky num_sym, shift+tap=sticky fn, hold=momentary num_sym
  *   - SmartNum thumb key: tap=num_word (auto-exits on non-number keys), hold=momentary smartnum
  *   - Combos (all 50ms timeout):
@@ -18,7 +18,7 @@
  *     - Quick keys: E+I = Escape (or Exit on other layers), R+S = Delete
  *     - Symbols: F+P = :, L+U = `, C+D = ;, H+, = ~
  *     - Edit: W+R = Copy (Shift+W+R = Cut), T+G = Undo (Shift+T+G = Redo), P+T = Paste
- *     - Mouse: M+N = Left Click, J+L = Right Click, K+H = Middle Click
+ *     - Mouse: M+N = Left Click, J+L = Middle Click, K+H = Right Click
  *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, P+B = Scroll Left, D+V = Scroll Right, B+G = Scroll Up, G+V = Scroll Down
  *     - Navigation: vertical combos for arrows, page up/down, home/end
  *
@@ -104,13 +104,13 @@
             //         |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  .  |
             //         |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
             //         |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  '  |  ?  |
-            // | Magic Shift | Backspace | Magic Key |   | NumSym | Space/Nav | SmartNum |
+            // | Magic Key | Backspace | Magic Shift |   | NumSym | Space/Nav | SmartNum |
             // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
             bindings = <
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp DOT
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
                 &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp SQT            &slash_morph
-                                            &magic_shift LSHIFT 0  &backspace_delete_morph  &magic_key    &numsym_tap 0 0  &space_nav 5 0  &smartnum_tap 4 4
+                                            &magic_key  &backspace_delete_morph  &magic_shift LSHIFT 0    &numsym_tap 0 0  &space_nav 5 0  &smartnum_tap 4 4
             >;
         };
 
@@ -175,12 +175,12 @@
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  .  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
             // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  #  |  $  |
-            //       | →NumSym | trans | trans |   | none  | trans | trans |
+            //       | →Gallium | trans | trans |   | →NumSym | trans | none |
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp DOT
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp HASH        &kp DLLR
-                                                &trans  &trans  &trans    &smartnum_to_numsym  &trans  &none
+                                                &to 6  &trans  &trans    &smartnum_to_numsym  &trans  &none
             >;
         };
 
@@ -200,6 +200,24 @@
                 &nav_a_td LALT 0   &hml LSFT C_PREV  &hml LCTRL C_VOL_DN  &hml LGUI C_BRI_DN   &rgb_ug RGB_BRD     &kp PG_DN     &kp LEFT      &kp DOWN        &kp RIGHT      &td_boot
                 &td_reset          &kp C_PP                     &kp C_MUTE                     &kp F20                         &rgb_ug RGB_TOG     &kp C_SLEEP   &kp PSCRN     &out OUT_USB    &out OUT_BLE   &td_reset
                             &trans  &trans  &trans    &bt BT_NXT  &bt BT_SEL 0  &bt BT_PRV
+            >;
+        };
+
+        gallium_layer {
+            display-name = "Gallium";
+            // Gallium keyboard layout (modified v1: J/Z swapped, X/Q swapped, F/P/Y rotated)
+            // Toggled from smartnum layer via leftmost thumb key, exit via center-left thumb (ESC+to layer 0)
+            // ------------------------------------------------------------------------
+            // |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |  .  |
+            // |  N  |  R  |  T  |  S  |  G  |   |  Y  |  H  |  A  |  E  |  I  |
+            // |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |  ,  |  '  |  ?  |
+            //       | trans | trans | ESC+Exit |   | trans | trans | none |
+            // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
+            bindings = <
+                &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &kp DOT
+                &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr RGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
+                &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &slash_morph
+                                                &trans  &trans  &esc_to_default    &trans  &trans  &none
             >;
         };
     };

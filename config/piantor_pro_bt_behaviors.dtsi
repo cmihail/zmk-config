@@ -45,13 +45,124 @@ shift_only_tap: shift_only {
 };
 
 // urob's magic key: tap after special keys = special action, otherwise = repeat
-tilde_slash_handler: tilde_to_slash {
+// Letter SFB handlers for Gallium layout
+rl_handler: r_to_l {
     compatible = "zmk,behavior-adaptive-key";
     #binding-cells = <0>;
     bindings = <&key_repeat>;
     repeat {
+        trigger-keys = <R>;
+        bindings = <&kp L>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+oa_handler: o_to_a {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&rl_handler>;
+    repeat {
+        trigger-keys = <O>;
+        bindings = <&kp A>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+ue_handler: u_to_e {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&oa_handler>;
+    repeat {
+        trigger-keys = <U>;
+        bindings = <&kp E>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+eu_handler: e_to_u {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&ue_handler>;
+    repeat {
+        trigger-keys = <E>;
+        bindings = <&kp U>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+cs_handler: c_to_s {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&eu_handler>;
+    repeat {
+        trigger-keys = <C>;
+        bindings = <&kp S>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+sc_handler: s_to_c {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&cs_handler>;
+    repeat {
+        trigger-keys = <S>;
+        bindings = <&kp C>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+yp_handler: y_to_p {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&sc_handler>;
+    repeat {
+        trigger-keys = <Y>;
+        bindings = <&kp P>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+hy_handler: h_to_y {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&yp_handler>;
+    repeat {
+        trigger-keys = <H>;
+        bindings = <&kp Y>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+ph_handler: p_to_h {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&hy_handler>;
+    repeat {
+        trigger-keys = <P>;
+        bindings = <&kp H>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+tilde_slash_handler: tilde_to_slash {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&ph_handler>;
+    repeat {
         trigger-keys = <TILDE>;
         bindings = <&kp FSLH>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+};
+backtick_handler: backtick_to_code_block {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&tilde_slash_handler>;
+    repeat {
+        trigger-keys = <GRAVE>;
+        bindings = <&backtick_code_block>;
         max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
@@ -70,7 +181,7 @@ magic_undo_redo: magic_undo_to_redo {
 delete_word_bspc: delete_word_after_backspace {
     compatible = "zmk,behavior-adaptive-key";
     #binding-cells = <0>;
-    bindings = <&tilde_slash_handler>;
+    bindings = <&backtick_handler>;
     repeat {
         trigger-keys = <BSPC>;
         bindings = <&kp LC(BSPC)>;
@@ -278,6 +389,11 @@ triple_backtick: triple_backtick_macro {
     #binding-cells = <0>;
     bindings = <&macro_tap &kp GRAVE &kp GRAVE &kp GRAVE>;
 };
+backtick_code_block: backtick_code_block_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp GRAVE &kp GRAVE &kp LS(RET)>;
+};
 fn_layer_noshift: fn_layer_release_shift {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
@@ -307,6 +423,11 @@ smartnum_to_numsym: smartnum_switch_to_numsym {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     bindings = <&to 0>, <&numsym_fn_morph>;
+};
+esc_to_default: esc_and_exit_to_default {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&kp ESC>, <&to 0>;
 };
 space_adaptive: space_or_space_caps {
     compatible = "zmk,behavior-adaptive-key";
