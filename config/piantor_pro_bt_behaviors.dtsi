@@ -139,15 +139,15 @@ td_boot: tap_dance_bootloader {
     bindings = <&none>, <&bootloader>;
 };
 
-// Nav layer position A: tap=reset (double-tap only), hold=alt (matches hml timing)
-nav_a_td: nav_a_tap_dance_reset {
+// Nav layer position A: tap=boot (double-tap only), hold=alt (matches hml timing)
+nav_a_td: nav_a_tap_dance_boot {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     flavor = "balanced";
     require-prior-idle-ms = <150>;
     tapping-term-ms = <280>;
     quick-tap-ms = <175>;
-    bindings = <&kp>, <&td_reset>;
+    bindings = <&kp>, <&td_boot>;
     hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>;
     hold-trigger-on-release;
 };

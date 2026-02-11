@@ -63,7 +63,8 @@
 #include "zmk-helpers/helper.h"
 
 &num_word {
-    continue-list = <BSPC DEL DOT PLUS MINUS ASTRK FSLH EQUAL GRAVE UP DOWN LEFT RIGHT HOME END PG_UP PG_DN K_UNDO K_AGAIN LSHIFT RSHIFT>;
+    ignore-modifiers;
+    continue-list = <BSPC DEL DOT PLUS MINUS ASTRK FSLH EQUAL GRAVE UP DOWN LEFT RIGHT HOME END PG_UP PG_DN K_UNDO K_AGAIN>;
 };
 
 &caps_word {
@@ -100,15 +101,15 @@
             display-name = "Colemak";
             // Colemak DH with home row mods
             // ----------------------------------------------------------------------
-            //         |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  '  |
+            //         |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  .  |
             //         |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
-            //         |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  .  |  /  |
+            //         |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  '  |  ?  |
             // | Magic Shift | Backspace | Magic Key |   | NumSym | Space/Nav | SmartNum |
             // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
             bindings = <
-                &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp SQT
+                &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp DOT
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
-                &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp DOT            &slash_morph
+                &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp SQT            &slash_morph
                                             &magic_shift LSHIFT 0  &backspace_delete_morph  &magic_key    &numsym_tap 0 0  &space_nav 5 0  &smartnum_tap 4 4
             >;
         };
@@ -154,13 +155,13 @@
             // ---------------------------------------------------------------------
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  |  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
-            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  #  |  \  |  $  |
+            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  | blsh|  #  |  $  |
             //       | none  | trans | trans |   | trans | trans | trans |
             // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); /=Super, -=Ctrl, +=Shift, *=Alt (right)
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp HASH        &kp BSLH        &kp DLLR
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp BSLH        &kp HASH        &kp DLLR
                                                 &trans  &trans  &trans    &none  &trans  &trans
             >;
         };
@@ -171,14 +172,14 @@
             // urob's smartnum auto-exits on non-number keys
             // Numbers on LEFT side: 987/0654/321, right side: num_sym symbols
             // -------------------------------------------------------------------------
-            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  |  |
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  .  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
-            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  .  |  $  |
+            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  #  |  $  |
             //       | →NumSym | trans | trans |   | none  | trans | trans |
             bindings = <
-                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp DOT
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp DOT         &kp DLLR
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp HASH        &kp DLLR
                                                 &trans  &trans  &trans    &smartnum_to_numsym  &trans  &none
             >;
         };
@@ -189,15 +190,15 @@
             // Left: Media/System/BT/RGB controls, Right: Navigation + BT/System
             // -------------------------------------------------------------------------
             // | BTClrAll** | Next | VolUp | BriUp | RGBBriUp |   | PgUp | Home | Up   | End  | BTClr**  |
-            // | Reset**/Alt| Prev | VolDn | BriDn | RGBBriDn |   | PgDn | Left | Down | Rght | Reset**  |
-            // | Boot**     | Play | Mute  | MicM  | RGBTog   |   | Sleep| PrSc | USB  | BLE  | Boot**   |
+            // | Boot**/Alt | Prev | VolDn | BriDn | RGBBriDn |   | PgDn | Left | Down | Rght | Boot**   |
+            // | Reset**    | Play | Mute  | MicM  | RGBTog   |   | Sleep| PrSc | USB  | BLE  | Reset**  |
             //    .                    | trans | trans | trans |   | BTNxt | BT0  | BTPrv |
-            // Home row: tap=action, hold=modifier (Reset/Alt, Prev/Shift, VolDn/Ctrl, BriDn/Super)
+            // Home row: tap=action, hold=modifier (Boot/Alt, Prev/Shift, VolDn/Ctrl, BriDn/Super)
             // ** = requires double-tap to trigger (single tap does nothing)
             bindings = <
                 &td_bt_clr_all     &kp C_NEXT                   &kp C_VOL_UP                   &kp C_BRI_UP                    &rgb_ug RGB_BRI     &kp PG_UP     &kp HOME      &kp UP          &kp END        &td_bt_clr
-                &nav_a_td LALT 0   &hml LSFT C_PREV  &hml LCTRL C_VOL_DN  &hml LGUI C_BRI_DN   &rgb_ug RGB_BRD     &kp PG_DN     &kp LEFT      &kp DOWN        &kp RIGHT      &td_reset
-                &td_boot           &kp C_PP                     &kp C_MUTE                     &kp F20                         &rgb_ug RGB_TOG     &kp C_SLEEP   &kp PSCRN     &out OUT_USB    &out OUT_BLE   &td_boot
+                &nav_a_td LALT 0   &hml LSFT C_PREV  &hml LCTRL C_VOL_DN  &hml LGUI C_BRI_DN   &rgb_ug RGB_BRD     &kp PG_DN     &kp LEFT      &kp DOWN        &kp RIGHT      &td_boot
+                &td_reset          &kp C_PP                     &kp C_MUTE                     &kp F20                         &rgb_ug RGB_TOG     &kp C_SLEEP   &kp PSCRN     &out OUT_USB    &out OUT_BLE   &td_reset
                             &trans  &trans  &trans    &bt BT_NXT  &bt BT_SEL 0  &bt BT_PRV
             >;
         };
