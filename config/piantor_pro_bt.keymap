@@ -8,15 +8,15 @@
  *
  * Colemak (Layer 0): Default layer with home row mods
  *   - Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
- *   - Thumbs: Magic Key | Backspace (Shift+Backspace=Delete) | Magic Shift | NumSym | Space/Nav | SmartNum
+ *   - Thumbs: NumSym | Backspace (Shift+Backspace=Delete) | Magic Shift | Magic Key | Space/Nav | SmartNum
  *   - Magic Shift (urob): tap=sticky shift or caps word, hold=shift
- *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, E→U, U→E, O→A, R→L
+ *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after space='the', after .='./', Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, W→S, G→S, E→U, U→E, O→A, A→O, R→L, L→R, F→Y, K→Y, Z→Y; Shift+Magic Key=sticky fn layer
  *   - NumSym thumb key: tap=sticky num_sym, shift+tap=sticky fn, hold=momentary num_sym
  *   - SmartNum thumb key: tap=num_word (auto-exits on non-number keys), hold=momentary smartnum
  *   - Combos (all 50ms timeout):
  *     - Tab/Return: S+T = Return, N+E = Tab
  *     - Quick keys: E+I = Escape (or Exit on other layers), R+S = Delete
- *     - Symbols: F+P = :, L+U = `, C+D = ;, H+, = ~
+ *     - Symbols: L+U = `, H+, = :, F+P = ~, C+D = ;
  *     - Edit: W+R = Copy (Shift+W+R = Cut), T+G = Undo (Shift+T+G = Redo), P+T = Paste
  *     - Mouse: M+N = Left Click, J+L = Middle Click, K+H = Right Click
  *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, P+B = Scroll Left, D+V = Scroll Right, B+G = Scroll Up, G+V = Scroll Down
@@ -101,16 +101,16 @@
             display-name = "Colemak";
             // Colemak DH with home row mods
             // ----------------------------------------------------------------------
-            //         |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  .  |
+            //         |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |  ?  |
             //         |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
-            //         |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  '  |  ?  |
+            //         |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |  ,  |  '  |  .  |
             // | Magic Key | Backspace | Magic Shift |   | NumSym | Space/Nav | SmartNum |
             // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
             bindings = <
-                &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &kp DOT
+                &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &slash_morph
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
-                &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp SQT            &slash_morph
-                                            &magic_key  &backspace_delete_morph  &magic_shift LSHIFT 0    &numsym_tap 0 0  &space_nav 5 0  &smartnum_tap 4 4
+                &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp SQT            &kp DOT
+                                            &numsym_tap 0 0  &backspace_delete_morph  &magic_shift LSHIFT 0    &magic_key_morph  &space_nav 5 0  &smartnum_tap 4 4
             >;
         };
 
@@ -123,12 +123,12 @@
             // |  Q  |  W  |  F  |  P  |  B  |   |  J  |  L  |  U  |  Y  |trans|
             // |  A  |  R  |  S  |  T  |  G  |   |  M  |  N  |  E  |  I  |  O  |
             // |  Z  |  X  |  C  |  D  |  V  |   |  K  |  H  |trans|trans|trans|
-            //       | trans | trans | trans |   | trans | trans | shift_exit |
+            //       | trans | trans | trans |   | trans | trans | trans |
             bindings = <
                 &kp LS(Q)       &kp LS(W)       &kp LS(F)          &kp LS(P)       &kp LS(B)      &kp LS(J)  &kp LS(L)       &kp LS(U)          &kp LS(Y)       &trans
                 &hml LALT LS(A) &hml LSFT LS(R) &hml LCTRL LS(S)   &hml LGUI LS(T) &kp LS(G)      &kp LS(M)  &hmr RGUI LS(N) &hmr RCTRL LS(E)   &hmr RSFT LS(I) &hmr RALT LS(O)
                 &kp LS(Z)       &kp LS(X)       &kp LS(C)          &kp LS(D)       &kp LS(V)      &kp LS(K)  &kp LS(H)       &trans             &trans          &trans
-                                                &shift_exit_caps     &trans         &trans     &trans     &trans     &trans
+                                              &trans         &trans   &shift_exit_caps            &trans     &trans     &trans
             >;
         };
 
@@ -140,7 +140,7 @@
             // | F10 | F9  | F8  | F7  | C-A-F3 |   | trans | trans | trans | trans | trans |
             // | F11 | F6  | F5  | F4  | C-A-F2 |   | trans | trans | trans | trans | O+LALT|
             // | F12 | F3  | F2  | F1  | C-A-F1 |   | trans | trans | trans | trans | trans |
-            //                 | trans | trans | trans |   | trans | trans | trans |
+            //          | trans | trans | trans |   | trans | trans | trans |
             bindings = <
                 &kp F10  &kp F9  &kp F8  &kp F7  &kp LC(LA(F3))      &trans  &trans  &trans  &trans  &trans
                 &kp F11  &kp F6  &kp F5  &kp F4  &kp LC(LA(F2))      &trans  &trans  &trans  &trans  &hmr LALT O
@@ -155,13 +155,13 @@
             // ---------------------------------------------------------------------
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  |  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
-            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  | blsh|  #  |  $  |
+            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  #  |  $  | blsh|
             //       | none  | trans | trans |   | trans | trans | trans |
             // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); /=Super, -=Ctrl, +=Shift, *=Alt (right)
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp BSLH        &kp HASH        &kp DLLR
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp HASH        &kp DLLR        &kp BSLH
                                                 &trans  &trans  &trans    &none  &trans  &trans
             >;
         };
@@ -174,13 +174,13 @@
             // -------------------------------------------------------------------------
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  .  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
-            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  #  |  $  |
-            //       | →Gallium | trans | trans |   | →NumSym | trans | none |
+            // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  $  |  .  |
+            //       | trans | trans | trans |   | →Gallium | trans | none |
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp DOT
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
-                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp HASH        &kp DLLR
-                                                &to 6  &trans  &trans    &smartnum_to_numsym  &trans  &none
+                &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp DLLR        &kp DOT
+                                                &trans  &trans  &trans    &to 6  &trans  &none
             >;
         };
 
@@ -208,15 +208,15 @@
             // Gallium keyboard layout (modified v1: J/Z swapped, X/Q swapped, F/P/Y rotated)
             // Toggled from smartnum layer via leftmost thumb key, exit via center-left thumb (ESC+to layer 0)
             // ------------------------------------------------------------------------
-            // |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |  .  |
+            // |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |  ?  |
             // |  N  |  R  |  T  |  S  |  G  |   |  Y  |  H  |  A  |  E  |  I  |
-            // |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |  ,  |  '  |  ?  |
+            // |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |  ,  |  '  |  .  |
             //       | trans | trans | ESC+Exit |   | trans | trans | none |
             // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
             bindings = <
-                &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &kp DOT
+                &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
                 &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr RGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
-                &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &slash_morph
+                &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
                                                 &trans  &trans  &esc_to_default    &trans  &trans  &none
             >;
         };

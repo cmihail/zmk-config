@@ -45,169 +45,166 @@ shift_only_tap: shift_only {
 };
 
 // urob's magic key: tap after special keys = special action, otherwise = repeat
-// Letter SFB handlers for Gallium layout
-rl_handler: r_to_l {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&key_repeat>;
-    repeat {
-        trigger-keys = <R>;
-        bindings = <&kp L>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-oa_handler: o_to_a {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&rl_handler>;
-    repeat {
-        trigger-keys = <O>;
-        bindings = <&kp A>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-ue_handler: u_to_e {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&oa_handler>;
-    repeat {
-        trigger-keys = <U>;
-        bindings = <&kp E>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-eu_handler: e_to_u {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&ue_handler>;
-    repeat {
-        trigger-keys = <E>;
-        bindings = <&kp U>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-cs_handler: c_to_s {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&eu_handler>;
-    repeat {
-        trigger-keys = <C>;
-        bindings = <&kp S>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-sc_handler: s_to_c {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&cs_handler>;
-    repeat {
-        trigger-keys = <S>;
-        bindings = <&kp C>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-yp_handler: y_to_p {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&sc_handler>;
-    repeat {
-        trigger-keys = <Y>;
-        bindings = <&kp P>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-hy_handler: h_to_y {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&yp_handler>;
-    repeat {
-        trigger-keys = <H>;
-        bindings = <&kp Y>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-ph_handler: p_to_h {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&hy_handler>;
-    repeat {
-        trigger-keys = <P>;
-        bindings = <&kp H>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-tilde_slash_handler: tilde_to_slash {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&ph_handler>;
-    repeat {
-        trigger-keys = <TILDE>;
-        bindings = <&kp FSLH>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-backtick_handler: backtick_to_code_block {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&tilde_slash_handler>;
-    repeat {
-        trigger-keys = <GRAVE>;
-        bindings = <&backtick_code_block>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-magic_undo_redo: magic_undo_to_redo {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&delete_word_del>;
-    repeat {
-        trigger-keys = <K_UNDO>;
-        bindings = <&kp K_AGAIN>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-delete_word_bspc: delete_word_after_backspace {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&backtick_handler>;
-    repeat {
-        trigger-keys = <BSPC>;
-        bindings = <&kp LC(BSPC)>;
-        max-prior-idle-ms = <5000>;
-    };
-};
-delete_word_del: delete_word_after_delete {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&delete_word_bspc>;
-    repeat {
-        trigger-keys = <DEL>;
-        bindings = <&kp LC(DEL)>;
-        max-prior-idle-ms = <5000>;
-    };
-};
+// Flat structure with all triggers as child nodes (no chaining to prevent stack overflow)
 magic_key: magic_key {
     compatible = "zmk,behavior-adaptive-key";
     #binding-cells = <0>;
-    bindings = <&magic_undo_redo>;
-    repeat {
+    bindings = <&key_repeat>;
+
+    t_copy {
         trigger-keys = <K_COPY>;
         bindings = <&kp K_CUT>;
-        max-prior-idle-ms = <5000>;
+        max-prior-idle-ms = <2000>;
         strict-modifiers;
     };
+    t_undo {
+        trigger-keys = <K_UNDO>;
+        bindings = <&kp K_AGAIN>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_del {
+        trigger-keys = <DEL>;
+        bindings = <&kp LC(DEL)>;
+        max-prior-idle-ms = <2000>;
+    };
+    t_bspc {
+        trigger-keys = <BSPC>;
+        bindings = <&kp LC(BSPC)>;
+        max-prior-idle-ms = <2000>;
+    };
+    t_backtick {
+        trigger-keys = <GRAVE>;
+        bindings = <&backtick_code_block>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_tilde {
+        trigger-keys = <TILDE>;
+        bindings = <&kp FSLH>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_p {
+        trigger-keys = <P>;
+        bindings = <&kp H>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_h {
+        trigger-keys = <H>;
+        bindings = <&kp Y>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_y {
+        trigger-keys = <Y>;
+        bindings = <&kp P>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_s {
+        trigger-keys = <S>;
+        bindings = <&kp C>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_c {
+        trigger-keys = <C>;
+        bindings = <&kp S>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_w {
+        trigger-keys = <W>;
+        bindings = <&kp S>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_g {
+        trigger-keys = <G>;
+        bindings = <&kp S>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_e {
+        trigger-keys = <E>;
+        bindings = <&kp U>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_u {
+        trigger-keys = <U>;
+        bindings = <&kp E>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_o {
+        trigger-keys = <O>;
+        bindings = <&kp A>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_r {
+        trigger-keys = <R>;
+        bindings = <&kp L>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_f {
+        trigger-keys = <F>;
+        bindings = <&kp Y>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_k {
+        trigger-keys = <K>;
+        bindings = <&kp Y>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_a {
+        trigger-keys = <A>;
+        bindings = <&kp O>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_l {
+        trigger-keys = <L>;
+        bindings = <&kp R>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_z {
+        trigger-keys = <Z>;
+        bindings = <&kp Y>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_paste {
+        trigger-keys = <K_PASTE>;
+        bindings = <&paste_code_block>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_space {
+        trigger-keys = <SPACE>;
+        bindings = <&emit_the>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+    t_dot {
+        trigger-keys = <DOT>;
+        bindings = <&emit_dot_slash>;
+        max-prior-idle-ms = <2000>;
+        strict-modifiers;
+    };
+};
+magic_key_morph: magic_key_or_fn {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&magic_key>, <&fn_layer_noshift>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
 };
 magic_shift_tap: magic_shift_tap {
     compatible = "zmk,behavior-mod-morph";
@@ -228,25 +225,25 @@ magic_shift: magic_shift {
 td_bt_clr_all: tap_dance_bt_clear_all {
     compatible = "zmk,behavior-tap-dance";
     #binding-cells = <0>;
-    tapping-term-ms = <300>;
+    tapping-term-ms = <1000>;
     bindings = <&none>, <&bt BT_CLR_ALL>;
 };
 td_bt_clr: tap_dance_bt_clear {
     compatible = "zmk,behavior-tap-dance";
     #binding-cells = <0>;
-    tapping-term-ms = <300>;
+    tapping-term-ms = <1000>;
     bindings = <&none>, <&bt BT_CLR>;
 };
 td_reset: tap_dance_reset {
     compatible = "zmk,behavior-tap-dance";
     #binding-cells = <0>;
-    tapping-term-ms = <300>;
+    tapping-term-ms = <1000>;
     bindings = <&none>, <&sys_reset>;
 };
 td_boot: tap_dance_bootloader {
     compatible = "zmk,behavior-tap-dance";
     #binding-cells = <0>;
-    tapping-term-ms = <300>;
+    tapping-term-ms = <1000>;
     bindings = <&none>, <&bootloader>;
 };
 
@@ -393,6 +390,21 @@ backtick_code_block: backtick_code_block_macro {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     bindings = <&macro_tap &kp GRAVE &kp GRAVE &kp LS(RET)>;
+};
+paste_code_block: paste_code_block_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp LS(RET) &kp GRAVE &kp GRAVE &kp GRAVE &kp LS(RET)>;
+};
+emit_the: emit_the_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp T &kp H &kp E>;
+};
+emit_dot_slash: emit_dot_slash_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp FSLH>;
 };
 fn_layer_noshift: fn_layer_release_shift {
     compatible = "zmk,behavior-macro";
