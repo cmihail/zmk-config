@@ -46,158 +46,200 @@ shift_only_tap: shift_only {
 
 // urob's magic key: tap after special keys = special action, otherwise = repeat
 // Flat structure with all triggers as child nodes (no chaining to prevent stack overflow)
-magic_key: magic_key {
+magic_key_repeat: magic_key_repeat_fallback {
     compatible = "zmk,behavior-adaptive-key";
     #binding-cells = <0>;
     bindings = <&key_repeat>;
 
+    t_i_shift {
+        trigger-keys = <I>;
+        bindings = <&emit_backspace_shift_f10>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_t_shift {
+        trigger-keys = <T>;
+        bindings = <&emit_backspace_shift_f12>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_a_shift {
+        trigger-keys = <A>;
+        bindings = <&emit_backspace_shift_f8>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_n_shift {
+        trigger-keys = <N>;
+        bindings = <&emit_backspace_shift_f11>;
+        max-prior-idle-ms = <5000>;
+    };
+};
+magic_key: magic_key {
+    compatible = "zmk,behavior-adaptive-key";
+    #binding-cells = <0>;
+    bindings = <&magic_key_repeat>;
+
     t_copy {
         trigger-keys = <K_COPY>;
         bindings = <&kp K_CUT>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_undo {
         trigger-keys = <K_UNDO>;
         bindings = <&kp K_AGAIN>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_del {
         trigger-keys = <DEL>;
         bindings = <&kp LC(DEL)>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
     };
     t_bspc {
         trigger-keys = <BSPC>;
         bindings = <&kp LC(BSPC)>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
     };
     t_backtick {
         trigger-keys = <GRAVE>;
         bindings = <&backtick_code_block>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_tilde {
         trigger-keys = <TILDE>;
         bindings = <&kp FSLH>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_p {
         trigger-keys = <P>;
         bindings = <&kp H>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_h {
         trigger-keys = <H>;
         bindings = <&kp Y>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_y {
         trigger-keys = <Y>;
         bindings = <&kp P>;
-        max-prior-idle-ms = <2000>;
-        strict-modifiers;
-    };
-    t_s {
-        trigger-keys = <S>;
-        bindings = <&kp C>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_c {
         trigger-keys = <C>;
         bindings = <&kp S>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_w {
         trigger-keys = <W>;
         bindings = <&kp S>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_g {
         trigger-keys = <G>;
         bindings = <&kp S>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_e {
         trigger-keys = <E>;
         bindings = <&kp U>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_u {
         trigger-keys = <U>;
         bindings = <&kp E>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_o {
         trigger-keys = <O>;
         bindings = <&kp A>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_r {
         trigger-keys = <R>;
         bindings = <&kp L>;
-        max-prior-idle-ms = <2000>;
-        strict-modifiers;
-    };
-    t_f {
-        trigger-keys = <F>;
-        bindings = <&kp Y>;
-        max-prior-idle-ms = <2000>;
-        strict-modifiers;
-    };
-    t_k {
-        trigger-keys = <K>;
-        bindings = <&kp Y>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_a {
         trigger-keys = <A>;
-        bindings = <&kp O>;
-        max-prior-idle-ms = <2000>;
+        bindings = <&emit_backspace_f8>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+    t_n {
+        trigger-keys = <N>;
+        bindings = <&emit_backspace_f11>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+    t_s {
+        trigger-keys = <S>;
+        bindings = <&kp C>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_l {
         trigger-keys = <L>;
         bindings = <&kp R>;
-        max-prior-idle-ms = <2000>;
-        strict-modifiers;
-    };
-    t_z {
-        trigger-keys = <Z>;
-        bindings = <&kp Y>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_paste {
         trigger-keys = <K_PASTE>;
         bindings = <&paste_code_block>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_space {
         trigger-keys = <SPACE>;
-        bindings = <&emit_the>;
-        max-prior-idle-ms = <2000>;
+        bindings = <&emit_tilde_slash>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
     t_dot {
         trigger-keys = <DOT>;
         bindings = <&emit_dot_slash>;
-        max-prior-idle-ms = <2000>;
+        max-prior-idle-ms = <5000>;
         strict-modifiers;
+    };
+    t_colon {
+        trigger-keys = <COLON>;
+        bindings = <&colon_code_block>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+    t_i {
+        trigger-keys = <I>;
+        bindings = <&emit_backspace_f10>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+    t_t {
+        trigger-keys = <T>;
+        bindings = <&emit_backspace_f12>;
+        max-prior-idle-ms = <5000>;
+        strict-modifiers;
+    };
+    t_f7 {
+        trigger-keys = <F7>;
+        bindings = <&emit_backspace_f9>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_f8 {
+        trigger-keys = <F8>;
+        bindings = <&emit_backspace_shift_f9>;
+        max-prior-idle-ms = <5000>;
     };
 };
 magic_key_morph: magic_key_or_fn {
@@ -396,6 +438,11 @@ paste_code_block: paste_code_block_macro {
     #binding-cells = <0>;
     bindings = <&macro_tap &kp LS(RET) &kp GRAVE &kp GRAVE &kp GRAVE &kp LS(RET)>;
 };
+colon_code_block: colon_code_block_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp LS(RET) &kp GRAVE &kp GRAVE &kp GRAVE &kp LS(RET)>;
+};
 emit_the: emit_the_macro {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
@@ -405,6 +452,63 @@ emit_dot_slash: emit_dot_slash_macro {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
     bindings = <&macro_tap &kp FSLH>;
+};
+emit_tilde_slash: emit_tilde_slash_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp TILDE &kp FSLH>;
+};
+// Romanian diacritics via RightSuper+F7-F12
+// RightSuper+F7 = ă, RightSuper+F8 = Ă, RightSuper+F9 = â/Â, RightSuper+F10 = î/Î, RightSuper+F11 = ș/Ș, RightSuper+F12 = ț/Ț
+emit_backspace_f8: emit_backspace_f8_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp RG(F7)>;
+};
+emit_backspace_shift_f8: emit_backspace_shift_f8_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp RG(F8)>;
+};
+emit_backspace_f9: emit_backspace_f9_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp RG(F9)>;
+};
+emit_backspace_shift_f9: emit_backspace_shift_f9_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp LS(RG(F9))>;
+};
+emit_backspace_f10: emit_backspace_f10_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp RG(F10)>;
+};
+emit_backspace_shift_f10: emit_backspace_shift_f10_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp LS(RG(F10))>;
+};
+emit_backspace_f11: emit_backspace_f11_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp RG(F11)>;
+};
+emit_backspace_shift_f11: emit_backspace_shift_f11_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp LS(RG(F11))>;
+};
+emit_backspace_f12: emit_backspace_f12_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp RG(F12)>;
+};
+emit_backspace_shift_f12: emit_backspace_shift_f12_macro {
+    compatible = "zmk,behavior-macro";
+    #binding-cells = <0>;
+    bindings = <&macro_tap &kp BSPC &kp LS(RG(F12))>;
 };
 fn_layer_noshift: fn_layer_release_shift {
     compatible = "zmk,behavior-macro";

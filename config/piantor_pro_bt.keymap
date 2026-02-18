@@ -38,7 +38,7 @@
  *
  * Fn Layer (Layer 2): Function keys and keyboard layer activation
  *   - Left side: F-keys (F10/F9/F8/F7/C-A-F3, F11/F6/F5/F4/C-A-F2, F12/F3/F2/F1/C-A-F1) mirrored by finger
- *   - Right side: Inherits from default layer, except O which emits LALT on hold (for Ctrl+Alt+F<n> TTY switching)
+ *   - Right side: Inherits from default layer
  *   - Thumbs: trans | trans | trans | trans | trans | trans
  *   - Activated by shift+tap on NumSym thumb key from default layer
  *   - Exit via E+I combo
@@ -108,7 +108,7 @@
             // Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
             bindings = <
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &slash_morph
-                &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr RGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
+                &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr LGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
                 &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp SQT            &kp DOT
                                             &numsym_tap 0 0  &backspace_delete_morph  &magic_shift LSHIFT 0    &magic_key_morph  &space_nav 5 0  &smartnum_tap 4 4
             >;
@@ -126,7 +126,7 @@
             //       | trans | trans | trans |   | trans | trans | trans |
             bindings = <
                 &kp LS(Q)       &kp LS(W)       &kp LS(F)          &kp LS(P)       &kp LS(B)      &kp LS(J)  &kp LS(L)       &kp LS(U)          &kp LS(Y)       &trans
-                &hml LALT LS(A) &hml LSFT LS(R) &hml LCTRL LS(S)   &hml LGUI LS(T) &kp LS(G)      &kp LS(M)  &hmr RGUI LS(N) &hmr RCTRL LS(E)   &hmr RSFT LS(I) &hmr RALT LS(O)
+                &hml LALT LS(A) &hml LSFT LS(R) &hml LCTRL LS(S)   &hml LGUI LS(T) &kp LS(G)      &kp LS(M)  &hmr LGUI LS(N) &hmr RCTRL LS(E)   &hmr RSFT LS(I) &hmr RALT LS(O)
                 &kp LS(Z)       &kp LS(X)       &kp LS(C)          &kp LS(D)       &kp LS(V)      &kp LS(K)  &kp LS(H)       &trans             &trans          &trans
                                               &trans         &trans   &shift_exit_caps            &trans     &trans     &trans
             >;
@@ -135,15 +135,15 @@
         fn_layer {
             display-name = "Fn";
             // Function keys (mirrored to left hand for use with right hand mods)
-            // Left: F-keys mirrored by finger, Right: inherit from default layer (O=LALT on hold for TTY switching)
+            // Left: F-keys mirrored by finger, Right: inherit from default layer
             // -------------------------------------------------------------------------
             // | F10 | F9  | F8  | F7  | C-A-F3 |   | trans | trans | trans | trans | trans |
-            // | F11 | F6  | F5  | F4  | C-A-F2 |   | trans | trans | trans | trans | O+LALT|
+            // | F11 | F6  | F5  | F4  | C-A-F2 |   | trans | trans | trans | trans | trans |
             // | F12 | F3  | F2  | F1  | C-A-F1 |   | trans | trans | trans | trans | trans |
             //          | trans | trans | trans |   | trans | trans | trans |
             bindings = <
                 &kp F10  &kp F9  &kp F8  &kp F7  &kp LC(LA(F3))      &trans  &trans  &trans  &trans  &trans
-                &kp F11  &kp F6  &kp F5  &kp F4  &kp LC(LA(F2))      &trans  &trans  &trans  &trans  &hmr LALT O
+                &kp F11  &kp F6  &kp F5  &kp F4  &kp LC(LA(F2))      &trans  &trans  &trans  &trans  &trans
                 &kp F12  &kp F3  &kp F2  &kp F1  &kp LC(LA(F1))      &trans  &trans  &trans  &trans  &trans
                                         &trans  &trans  &trans    &trans  &trans  &trans
             >;
@@ -160,7 +160,7 @@
             // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); /=Super, -=Ctrl, +=Shift, *=Alt (right)
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp HASH        &kp DLLR        &kp BSLH
                                                 &trans  &trans  &trans    &none  &trans  &trans
             >;
@@ -172,13 +172,13 @@
             // urob's smartnum auto-exits on non-number keys
             // Numbers on LEFT side: 987/0654/321, right side: num_sym symbols
             // -------------------------------------------------------------------------
-            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  .  |
+            // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  ?  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
             // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  $  |  .  |
             //       | trans | trans | trans |   | →Gallium | trans | none |
             bindings = <
-                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp DOT
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr RGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
+                &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp QMARK
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp DLLR        &kp DOT
                                                 &trans  &trans  &trans    &to 6  &trans  &none
             >;
@@ -215,7 +215,7 @@
             // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
             bindings = <
                 &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
-                &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr RGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
+                &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr LGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
                 &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
                                                 &trans  &trans  &esc_to_default    &trans  &trans  &none
             >;
