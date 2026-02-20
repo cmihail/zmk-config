@@ -4,7 +4,7 @@
  * SPDX-License-Identifier: MIT
  *
  * Colemak DH layout synchronized with Kanata config (~/configs/kanata.kbd)
- * Layer order: default (0), caps (1), fn (2), num_sym (3), smartnum (4), nav_sys (5), gallium (6)
+ * Layer order: default (0), gallium (1), caps (2), fn (3), num_sym (4), smartnum (5), nav_sys (6), gallium_caps (7)
  *
  * Colemak (Layer 0): Default layer with home row mods
  *   - Home row mods: A=Alt, R=Shift, S=Ctrl, T=Super (left); N=Super, E=Ctrl, I=Shift, O=Alt (right)
@@ -110,7 +110,25 @@
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &slash_morph
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr LGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
                 &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp SQT            &kp DOT
-                                            &numsym_tap 0 0  &backspace_delete_morph  &magic_shift LSHIFT 0    &magic_key_morph  &space_nav 5 0  &smartnum_tap 4 4
+                                            &numsym_tap 0 0  &backspace_delete_morph  &magic_shift LSHIFT 0    &magic_key_morph  &space_nav 6 0  &smartnum_tap 5 5
+            >;
+        };
+
+        gallium_layer {
+            display-name = "Gallium";
+            // Gallium keyboard layout (modified v1: J/Z swapped, X/Q swapped, F/P/Y rotated)
+            // Toggled from smartnum layer via leftmost thumb key, exit via center-left thumb (ESC+to layer 0)
+            // ------------------------------------------------------------------------
+            // |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |  ?  |
+            // |  N  |  R  |  T  |  S  |  G  |   |  Y  |  H  |  A  |  E  |  I  |
+            // |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |  ,  |  '  |  .  |
+            //       | trans | trans | ESC+Exit |   | trans | Space/Nav | none |
+            // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
+            bindings = <
+                &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
+                &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr LGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
+                &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
+                                                &trans  &trans  &esc_to_default    &trans  &space_nav_gallium 6 0  &none
             >;
         };
 
@@ -180,7 +198,7 @@
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp QMARK
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp DLLR        &kp DOT
-                                                &trans  &trans  &trans    &to 6  &trans  &none
+                                                &trans  &trans  &trans    &to 1  &trans  &none
             >;
         };
 
@@ -203,21 +221,21 @@
             >;
         };
 
-        gallium_layer {
-            display-name = "Gallium";
-            // Gallium keyboard layout (modified v1: J/Z swapped, X/Q swapped, F/P/Y rotated)
-            // Toggled from smartnum layer via leftmost thumb key, exit via center-left thumb (ESC+to layer 0)
-            // ------------------------------------------------------------------------
-            // |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |  ?  |
+        gallium_caps_layer {
+            display-name = "GalCaps";
+            // Uppercase letters layer for gallium auto-capitalization with home row mods
+            // All letters (A-Z) mapped to uppercase in gallium positions, symbols/numbers inherit from gallium
+            // Shift thumb key exits layer and emits shift to avoid double-shift
+            // ----------------------------------------------------------------------
+            // |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |trans|
             // |  N  |  R  |  T  |  S  |  G  |   |  Y  |  H  |  A  |  E  |  I  |
-            // |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |  ,  |  '  |  .  |
-            //       | trans | trans | ESC+Exit |   | trans | trans | none |
-            // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
+            // |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |trans|trans|trans|
+            //       | trans | trans | trans |   | trans | trans | trans |
             bindings = <
-                &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
-                &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr LGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
-                &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
-                                                &trans  &trans  &esc_to_default    &trans  &trans  &none
+                &kp LS(B)       &kp LS(L)       &kp LS(D)          &kp LS(C)       &kp LS(V)      &kp LS(Z)  &kp LS(F)       &kp LS(O)          &kp LS(U)       &trans
+                &hml LALT LS(N) &hml LSFT LS(R) &hml LCTRL LS(T)   &hml LGUI LS(S) &kp LS(G)      &kp LS(Y)  &hmr LGUI LS(H) &hmr RCTRL LS(A)   &hmr RSFT LS(E) &hmr RALT LS(I)
+                &kp LS(X)       &kp LS(Q)       &kp LS(M)          &kp LS(W)       &kp LS(J)      &kp LS(K)  &kp LS(P)       &trans             &trans          &trans
+                                              &trans         &trans   &shift_exit_caps            &trans     &trans     &trans
             >;
         };
     };
