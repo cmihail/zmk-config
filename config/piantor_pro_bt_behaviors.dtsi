@@ -115,67 +115,56 @@ magic_key: magic_key {
         trigger-keys = <P>;
         bindings = <&kp H>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_h {
         trigger-keys = <H>;
         bindings = <&kp Y>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_y {
         trigger-keys = <Y>;
         bindings = <&kp P>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_f {
         trigger-keys = <F>;
         bindings = <&kp Y>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_c {
         trigger-keys = <C>;
         bindings = <&kp S>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_w {
         trigger-keys = <W>;
         bindings = <&kp S>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_g {
         trigger-keys = <G>;
         bindings = <&kp S>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_e {
         trigger-keys = <E>;
         bindings = <&kp U>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_u {
         trigger-keys = <U>;
         bindings = <&kp E>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_o {
         trigger-keys = <O>;
         bindings = <&kp A>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_r {
         trigger-keys = <R>;
         bindings = <&kp L>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_a {
         trigger-keys = <A>;
@@ -193,13 +182,11 @@ magic_key: magic_key {
         trigger-keys = <S>;
         bindings = <&kp C>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_l {
         trigger-keys = <L>;
         bindings = <&kp R>;
         max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_paste {
         trigger-keys = <K_PASTE>;
@@ -209,7 +196,7 @@ magic_key: magic_key {
     };
     t_space {
         trigger-keys = <SPACE>;
-        bindings = <&emit_tilde_slash>;
+        bindings = <&kp LS(I)>;
         max-prior-idle-ms = <5000>;
         strict-modifiers;
     };
@@ -248,10 +235,10 @@ magic_key: magic_key {
         max-prior-idle-ms = <5000>;
     };
 };
-magic_key_morph: magic_key_or_fn {
+magic_key_morph: magic_key_or_caps {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&magic_key>, <&fn_layer_noshift>;
+    bindings = <&magic_key>, <&caps_word>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
 };
 magic_shift_tap: magic_shift_tap {
@@ -444,6 +431,42 @@ left_right_click: left_or_right_click {
     #binding-cells = <0>;
     bindings = <&mkp MB1>, <&mkp MB2>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+home_morph: home_or_ctrl_pgup {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp HOME>, <&kp LC(PG_UP)>;
+    mods = <(MOD_LGUI|MOD_RGUI)>;
+};
+end_morph: end_or_ctrl_pgdn {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp END>, <&kp LC(PG_DN)>;
+    mods = <(MOD_LGUI|MOD_RGUI)>;
+};
+up_morph: up_or_pgup {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp UP>, <&kp PG_UP>;
+    mods = <(MOD_LGUI|MOD_RGUI)>;
+};
+down_morph: down_or_pgdn {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp DOWN>, <&kp PG_DN>;
+    mods = <(MOD_LGUI|MOD_RGUI)>;
+};
+left_morph: left_or_scrl_left {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp LEFT>, <&msc SCRL_LEFT>;
+    mods = <(MOD_LGUI|MOD_RGUI)>;
+};
+right_morph: right_or_scrl_right {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RIGHT>, <&msc SCRL_RIGHT>;
+    mods = <(MOD_LGUI|MOD_RGUI)>;
 };
 triple_backtick: triple_backtick_macro {
     compatible = "zmk,behavior-macro";

@@ -15,11 +15,11 @@
  *   - SmartNum thumb key: tap=num_word (auto-exits on non-number keys), hold=momentary smartnum
  *   - Combos (all 50ms timeout):
  *     - Tab/Return: S+T = Return, N+E = Tab
- *     - Quick keys: E+I = Escape (or Exit on other layers), R+S = Delete
- *     - Symbols: L+U = `, H+, = :, F+P = ~, C+D = ;
- *     - Edit: W+R = Copy (Shift+W+R = Cut), T+G = Undo (Shift+T+G = Redo), P+T = Paste
- *     - Mouse: M+N = Left Click, J+L = Middle Click, K+H = Right Click
- *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, P+B = Scroll Left, D+V = Scroll Right, B+G = Scroll Up, G+V = Scroll Down
+ *     - Quick keys: L+U = Escape
+ *     - Symbols: M+N = `, H+, = :, J+L = ~, F+P = ;
+ *     - Edit: T+G = Copy (Shift+T+G = Cut), D+V = Undo (Shift+D+V = Redo), P+B = Paste, P+T = Backspace, W+R = Delete
+ *     - Mouse: J+M = Left Click, M+K = Middle Click, K+H = Right Click
+ *     - Mouse/Scroll: R+X = Mouse Left, T+D = Mouse Right, B+G = Scroll Up, G+V = Scroll Down
  *     - Navigation: vertical combos for arrows, page up/down, home/end
  *
  * NumSym (Layer 3): Number & Symbol layer
@@ -110,7 +110,7 @@
                 &kp Q       &kp W           &kp F           &kp P           &kp B           &kp J  &kp L           &kp U              &kp Y              &slash_morph
                 &hml LALT A &hml LSFT R     &hml LCTRL S    &hml LGUI T     &kp G           &kp M  &hmr LGUI N     &hmr RCTRL E       &hmr RSFT I        &hmr RALT O
                 &kp Z       &kp X           &kp C           &kp D           &kp V           &kp K  &kp H           &kp COMMA          &kp SQT            &kp DOT
-                                            &numsym_tap 0 0  &backspace_delete_morph  &magic_shift LSHIFT 0    &magic_key_morph  &space_nav 6 0  &smartnum_tap 5 5
+                                            &numsym_tap 0 0  &magic_key_morph  &to 0    &to 0  &space_nav 6 0  &smartnum_tap 5 5
             >;
         };
 
@@ -128,7 +128,7 @@
                 &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
                 &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr LGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
                 &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
-                                                &trans  &trans  &esc_to_default    &trans  &space_nav_gallium 6 0  &none
+                                                &trans  &trans  &trans    &trans  &space_nav_gallium 6 0  &trans
             >;
         };
 
@@ -144,9 +144,9 @@
             //       | trans | trans | trans |   | trans | trans | trans |
             bindings = <
                 &kp LS(Q)       &kp LS(W)       &kp LS(F)          &kp LS(P)       &kp LS(B)      &kp LS(J)  &kp LS(L)       &kp LS(U)          &kp LS(Y)       &trans
-                &hml LALT LS(A) &hml LSFT LS(R) &hml LCTRL LS(S)   &hml LGUI LS(T) &kp LS(G)      &kp LS(M)  &hmr LGUI LS(N) &hmr RCTRL LS(E)   &hmr RSFT LS(I) &hmr RALT LS(O)
+                &hml LALT LS(A) &hml LSFT LS(R)  &hml LCTRL LS(S)  &hml LGUI LS(T) &kp LS(G)      &kp LS(M)  &hmr LGUI LS(N) &hmr RCTRL LS(E)   &hmr RSFT LS(I)  &hmr RALT LS(O)
                 &kp LS(Z)       &kp LS(X)       &kp LS(C)          &kp LS(D)       &kp LS(V)      &kp LS(K)  &kp LS(H)       &trans             &trans          &trans
-                                              &trans         &trans   &shift_exit_caps            &trans     &trans     &trans
+                                              &trans         &trans   &trans            &trans     &trans     &trans
             >;
         };
 
@@ -178,9 +178,9 @@
             // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); /=Super, -=Ctrl, +=Shift, *=Alt (right)
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS  &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp HASH        &kp DLLR        &kp BSLH
-                                                &trans  &trans  &trans    &none  &trans  &trans
+                                                &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
@@ -196,9 +196,9 @@
             //       | trans | trans | trans |   | →Gallium | trans | none |
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp QMARK
-                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS &hmr RALT ASTRK
+                &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS  &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp DLLR        &kp DOT
-                                                &trans  &trans  &trans    &to 1  &trans  &none
+                                                &trans  &to 1  &trans    &trans  &trans  &none
             >;
         };
 
@@ -233,9 +233,9 @@
             //       | trans | trans | trans |   | trans | trans | trans |
             bindings = <
                 &kp LS(B)       &kp LS(L)       &kp LS(D)          &kp LS(C)       &kp LS(V)      &kp LS(Z)  &kp LS(F)       &kp LS(O)          &kp LS(U)       &trans
-                &hml LALT LS(N) &hml LSFT LS(R) &hml LCTRL LS(T)   &hml LGUI LS(S) &kp LS(G)      &kp LS(Y)  &hmr LGUI LS(H) &hmr RCTRL LS(A)   &hmr RSFT LS(E) &hmr RALT LS(I)
+                &hml LALT LS(N) &hml LSFT LS(R)  &hml LCTRL LS(T)  &hml LGUI LS(S) &kp LS(G)      &kp LS(Y)  &hmr LGUI LS(H) &hmr RCTRL LS(A)   &hmr RSFT LS(E)  &hmr RALT LS(I)
                 &kp LS(X)       &kp LS(Q)       &kp LS(M)          &kp LS(W)       &kp LS(J)      &kp LS(K)  &kp LS(P)       &trans             &trans          &trans
-                                              &trans         &trans   &shift_exit_caps            &trans     &trans     &trans
+                                              &trans         &trans   &trans            &trans     &trans     &trans
             >;
         };
     };
