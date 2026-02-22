@@ -486,7 +486,7 @@ paste_code_block: paste_code_block_macro {
 colon_code_block: colon_code_block_macro {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
-    bindings = <&macro_tap &kp LS(RET) &kp GRAVE &kp GRAVE &kp GRAVE &kp LS(RET)>;
+    bindings = <&macro_tap &kp LS(RET)>;
 };
 emit_the: emit_the_macro {
     compatible = "zmk,behavior-macro";
