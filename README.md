@@ -1,15 +1,15 @@
 # Piantor Pro BT - Custom ZMK Configuration
 
-This repository contains a custom ZMK firmware configuration for the Piantor Pro BT keyboard with Colemak DH layout, home row mods, and mouse support.
+This repository contains a custom ZMK firmware configuration for the Piantor Pro BT keyboard with Gallium layout, home row mods, and mouse support.
 
 ## Features
 
 ### Layout
-- **Colemak DH** base layer with optimized home row modifications
+- **Gallium** base layer with optimized home row modifications
 - **Home row mods** with balanced flavor and cross-hand activation
-  - Left hand: R=Alt, S=Super, T=Ctrl
-  - Right hand: N=Ctrl, E=Super, I=Alt
-- **4 layers**: Default, Lower (nav/media/mouse), Raise (numbers/symbols), Adjust (BT/RGB/system)
+  - Left hand: N=Alt, R=Shift, T=Ctrl, S=Super
+  - Right hand: H=Super, A=Ctrl, E=Shift, I=Alt
+- **6 layers**: Default (Gallium), Caps, Fn, NumSym, SmartNum, NavSys
 
 ### Hardware Features
 - **Mouse emulation** with movement, clicks, and scrolling
@@ -79,33 +79,44 @@ sudo usermod -aG dialout $USER
 
 ## Keymap Overview
 
-### Default Layer (Colemak DH)
+### Default Layer (Gallium)
 ```
-Q  W  F  P  B       J  L  U  Y  ;
-A  R  S  T  G       M  N  E  I  O
-Z  X  C  D  V       K  H  ,  .  /
-DEL SFT/RET BSPC    TAB/RSE SPC/LWR ESC
+B  L  D  C  V       Z  F  O  U  ?
+N  R  T  S  G       Y  H  A  E  I
+X  Q  M  W  J       K  P  ,  '  .
+   NumSym MagicKey Exit    Exit Space/Nav SmartNum
 ```
 
-### Lower Layer (Navigation & Mouse)
-- **w/r/s/t**: Mouse left click, mouse left/down/right
-- **f**: Mouse up
-- **p**: Mouse right click
-- **b/g**: Scroll left/right
-- **j/m**: Scroll up/down
-- **Navigation**: Home, arrow keys, End
-- **Media**: Volume, brightness, play/pause controls
+Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
 
-### Raise Layer (Numbers & Symbols)
-- **Top row**: ! @ # $ %    ^ & * ( )
-- **Home row**: 1-5 with mods    6-0 with mods
-- **Bottom row**: \ [ ] = +    - _ { } |
+### Caps Layer
+- Uppercase letters layer for Gallium auto-capitalization
+- Automatically activated after punctuation (., ?, !)
+- All letters mapped to uppercase in Gallium positions
+- Home row mods preserved
 
-### Adjust Layer (Bluetooth & System)
-- **BT profiles**: Select (0-2), Clear, Disconnect
-- **RGB**: Brightness, Speed, Effects, Hue, Saturation, On/Off
+### Fn Layer
+- Function keys (F1-F12) mirrored to left hand
+- Keyboard shortcuts (Ctrl+Alt+F1-F3)
+- Activated by Shift+NumSym thumb key
+
+### NumSym Layer
+- **Top row**: & 9 8 7 [    ] % _ = |
+- **Home row**: 0 6 5 4 (    ) / - + *
+- **Bottom row**: ^ 3 2 1 {    } @ # $ \
+- Home row mods preserved
+
+### SmartNum Layer
+- Smart number layer with auto-exit on non-number keys
+- Numbers on left side: 9 8 7 / 0 6 5 4 / 3 2 1
+- Symbols on right side
+- Activated by tapping SmartNum thumb key
+
+### NavSys Layer (Space hold)
+- **Left side**: Media controls, Bluetooth, RGB controls
+- **Right side**: Navigation (arrows, Home/End, Page Up/Down)
+- **Bluetooth**: Profile selection, clear, next/previous
 - **System**: Reset, Bootloader, USB/BLE output selection
-- **Shortcuts**: Ctrl+Alt+F1-F4
 
 ## Bluetooth Pairing
 
@@ -115,14 +126,14 @@ DEL SFT/RET BSPC    TAB/RSE SPC/LWR ESC
 3. On your device, search for Bluetooth devices and select "Piantor Pro BT"
 
 ### Switching Profiles
-- Access the Adjust layer (hold both raise and lower keys)
-- Press keys corresponding to BT SEL 0, BT SEL 1, or BT SEL 2
+- Access the NavSys layer (hold Space)
+- Use the thumb keys for BT Next, BT 0, BT Prev
 - Current profile will be shown on the nice!view display (if equipped)
 
 ### Profile Management
-- **Clear current profile**: BT_CLR on Adjust layer
-- **Clear all profiles**: BT_CLR_ALL on Adjust layer
-- **Disconnect profile**: BT_DISC 0/1/2 on Adjust layer
+- **Clear current profile**: Double-tap BT_CLR on NavSys layer (top right)
+- **Clear all profiles**: Double-tap BT_CLR_ALL on NavSys layer (top left)
+- **Switch profiles**: Use BT Next/Prev thumb keys on NavSys layer
 
 ## Battery & Power Management
 
@@ -146,7 +157,7 @@ DEL SFT/RET BSPC    TAB/RSE SPC/LWR ESC
 ### ZMK Studio (Recommended)
 - Download: [zmk.studio/download](https://zmk.studio/download)
 - Easy-to-use app to configure keys and settings
-- Press the STUDIO UNLOCK key on the Adjust layer to unlock
+- Note: Studio unlock key may need to be configured if not already present
 
 ### Online Keymap Editor
 - URL: [nickcoutsos.github.io/keymap-editor](https://nickcoutsos.github.io/keymap-editor)
