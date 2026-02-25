@@ -8,17 +8,16 @@
  *
  * Gallium (Layer 0): Default layer with home row mods
  *   - Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
- *   - Thumbs: NumSym | Backspace (Shift+Backspace=Delete) | Magic Shift | Magic Key | Space/Nav | SmartNum
+ *   - Thumbs: Delete | Space/Nav | Exit | Exit | Magic Key | NumSym
  *   - Magic Shift (urob): tap=sticky shift or caps word, hold=shift
- *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after space='the', after .='./', Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, W→S, G→S, E→U, U→E, O→A, A→O, R→L, L→R, F→Y, K→Y, Z→Y; Shift+Magic Key=sticky fn layer
+ *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after space='the', after .='./', Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, W→S, G→S, E→U, U→E, O→A, A→O, R→L, L→R, F→Y, K→Y, Z→Y; Shift+Magic Key=caps word, Alt+Magic Key=sticky fn layer
  *   - NumSym thumb key: tap=sticky num_sym, shift+tap=sticky fn, hold=momentary num_sym
- *   - SmartNum thumb key: tap=num_word (auto-exits on non-number keys), hold=momentary smartnum
  *   - Combos (all 50ms timeout):
  *     - Tab/Return: T+S = Return, H+A = Tab
- *     - Quick keys: F+O = Escape
- *     - Symbols: Y+H = `, P+, = :, Z+F = ~, M+W = ;
- *     - Edit: S+G = Copy (Shift+S+G = Cut), W+J = Undo (Shift+W+J = Redo), C+V = Paste, C+S = Backspace, L+R = Delete
- *     - Mouse: Z+Y = Left Click, Y+K = Middle Click, K+P = Right Click
+ *     - Quick keys: Z+F = Escape (layer 0) / Exit (other layers)
+ *     - Symbols: F+O = `, P+, = :, D+C = ~, M+W = ;
+ *     - Edit: S+C = Copy (Shift+S+C = Cut), C+V = Undo (Shift+C+V = Redo), R+L = Paste, S+G = Delete
+ *     - Mouse: Y+H = Left Click, W+J = Middle Click, K+P = Right Click
  *     - Mouse/Scroll: R+Q = Mouse Left, S+W = Mouse Right, V+G = Scroll Up, G+J = Scroll Down
  *     - Navigation: vertical combos for arrows, page up/down, home/end
  *
@@ -26,14 +25,14 @@
  *   - Top row: &987[] ]%_=|
  *   - Home row: 0654() ) / - + * with home row mods (0=Alt, 6=Shift, 5=Ctrl, 4=Super, /=Super, -=Ctrl, +=Shift, *=Alt)
  *   - Bottom row: ^321{} }@#blsh$
- *   - Thumbs: trans | trans | trans | none | trans | trans
+ *   - Thumbs: trans | trans | trans | trans | trans | smartnum_tap 4 4
  *   - Activated by NumSym thumb key: tap for sticky layer, hold for momentary access
  *
  * SmartNum (Layer 4): Number layer (urob's auto-layer)
  *   - Left side: Numbers in layout 987/0654/321 with home row mods
  *   - Right side: NumSym symbols (]%_=|, ) / - + *, }@#blsh$ )
  *   - Auto-exits when non-number keys are pressed (urob's smartnum feature)
- *   - Thumbs: trans | trans | trans | →NumSym | trans | →Fn (sticky)
+ *   - Thumbs: trans | trans | trans | trans | trans | trans (backspace)
  *   - Activated by tapping SmartNum thumb key (num_word mode)
  *
  * Fn Layer (Layer 2): Function keys and keyboard layer activation
@@ -104,13 +103,13 @@
             //         |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |  ?  |
             //         |  N  |  R  |  T  |  S  |  G  |   |  Y  |  H  |  A  |  E  |  I  |
             //         |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |  ,  |  '  |  .  |
-            //                       | NumSym | Magic Key | Exit |   | Exit | Space/Nav | SmartNum |
+            //           | Delete | Space/Nav | Exit |   | Exit | Magic Key | NumSym |
             // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
             bindings = <
                 &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
                 &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr LGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
                 &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
-                                                &numsym_tap 0 0  &magic_key_morph  &to 0    &to 0  &space_nav 5 0  &smartnum_tap 4 4
+                                                &kp DEL  &space_nav 5 0  &to 0    &to 0  &magic_key_morph  &numsym_tap 0 0
             >;
         };
 
@@ -156,13 +155,13 @@
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  |  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
             // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  #  |  $  | blsh|
-            //                       | trans | trans | trans |   | trans | trans | trans |
+            //       | trans | trans | trans |   | trans | trans | trans |
             // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); /=Super, -=Ctrl, +=Shift, *=Alt (right)
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS  &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp HASH        &kp DLLR        &kp BSLH
-                                                &trans  &trans  &trans    &trans  &trans  &trans
+                                                &trans  &trans  &trans    &trans  &trans  &smartnum_tap 4 4
             >;
         };
 
@@ -175,12 +174,12 @@
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  ?  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
             // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  $  |  .  |
-            //                       | trans | trans | trans |   | trans | trans | →Fn (sticky) |
+            //       | trans | trans | trans |   | trans | trans | trans (backspace) |
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp QMARK
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS  &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp DLLR        &kp DOT
-                                                &trans  &trans  &trans    &trans  &trans  &sl 2
+                                                &trans  &trans  &trans    &trans  &trans  &trans
             >;
         };
 
@@ -192,7 +191,7 @@
             // | BTClrAll** | Next | VolUp | BriUp | RGBBriUp |   | PgUp | Home | Up   | End  | BTClr**  |
             // | Boot**/Alt | Prev | VolDn | BriDn | RGBBriDn |   | PgDn | Left | Down | Rght | Boot**   |
             // | Reset**    | Play | Mute  | MicM  | RGBTog   |   | Sleep| PrSc | USB  | BLE  | Reset**  |
-            //    .                    | trans | trans | trans |   | BTNxt | BT0  | BTPrv |
+            //                        | trans | trans | trans |   | BTNxt | BT0  | BTPrv |
             // Home row: tap=action, hold=modifier (Boot/Alt, Prev/Shift, VolDn/Ctrl, BriDn/Super)
             // ** = requires double-tap to trigger (single tap does nothing)
             bindings = <

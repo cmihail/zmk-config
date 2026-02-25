@@ -235,10 +235,16 @@ magic_key: magic_key {
         max-prior-idle-ms = <5000>;
     };
 };
+magic_key_fn: magic_key_or_fn {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&magic_key>, <&sl 2>;
+    mods = <(MOD_LALT|MOD_RALT)>;
+};
 magic_key_morph: magic_key_or_caps {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&magic_key>, <&caps_word>;
+    bindings = <&magic_key_fn>, <&caps_word>;
     mods = <(MOD_LSFT|MOD_RSFT)>;
 };
 magic_shift_tap: magic_shift_tap {
