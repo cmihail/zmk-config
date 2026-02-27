@@ -50,27 +50,6 @@ magic_key_repeat: magic_key_repeat_fallback {
     compatible = "zmk,behavior-adaptive-key";
     #binding-cells = <0>;
     bindings = <&key_repeat>;
-
-    t_i_shift {
-        trigger-keys = <I>;
-        bindings = <&emit_backspace_shift_f10>;
-        max-prior-idle-ms = <5000>;
-    };
-    t_t_shift {
-        trigger-keys = <T>;
-        bindings = <&emit_backspace_shift_f12>;
-        max-prior-idle-ms = <5000>;
-    };
-    t_a_shift {
-        trigger-keys = <A>;
-        bindings = <&emit_backspace_shift_f8>;
-        max-prior-idle-ms = <5000>;
-    };
-    t_n_shift {
-        trigger-keys = <N>;
-        bindings = <&emit_backspace_shift_f11>;
-        max-prior-idle-ms = <5000>;
-    };
 };
 magic_key: magic_key {
     compatible = "zmk,behavior-adaptive-key";
@@ -148,7 +127,7 @@ magic_key: magic_key {
     };
     t_e {
         trigger-keys = <E>;
-        bindings = <&kp U>;
+        bindings = <&kp SQT>;
         max-prior-idle-ms = <5000>;
     };
     t_u {
@@ -161,31 +140,64 @@ magic_key: magic_key {
         bindings = <&kp A>;
         max-prior-idle-ms = <5000>;
     };
+    t_a {
+        trigger-keys = <A>;
+        bindings = <&kp O>;
+        max-prior-idle-ms = <5000>;
+    };
     t_r {
         trigger-keys = <R>;
         bindings = <&kp L>;
         max-prior-idle-ms = <5000>;
-    };
-    t_a {
-        trigger-keys = <A>;
-        bindings = <&emit_backspace_f8>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_n {
-        trigger-keys = <N>;
-        bindings = <&emit_backspace_f11>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
     };
     t_s {
         trigger-keys = <S>;
         bindings = <&kp C>;
         max-prior-idle-ms = <5000>;
     };
+    t_t {
+        trigger-keys = <T>;
+        bindings = <&emit_ion>;
+        max-prior-idle-ms = <5000>;
+    };
     t_l {
         trigger-keys = <L>;
         bindings = <&kp R>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_i {
+        trigger-keys = <I>;
+        bindings = <&kp SQT>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_vol_up {
+        trigger-keys = <C_VOL_UP>;
+        bindings = <&kp C_VOL_UP>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_vol_dn {
+        trigger-keys = <C_VOL_DN>;
+        bindings = <&kp C_VOL_DN>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_bri_up {
+        trigger-keys = <C_BRI_UP>;
+        bindings = <&kp C_BRI_UP>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_bri_dn {
+        trigger-keys = <C_BRI_DN>;
+        bindings = <&kp C_BRI_DN>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_next {
+        trigger-keys = <C_NEXT>;
+        bindings = <&kp C_NEXT>;
+        max-prior-idle-ms = <5000>;
+    };
+    t_prev {
+        trigger-keys = <C_PREV>;
+        bindings = <&kp C_PREV>;
         max-prior-idle-ms = <5000>;
     };
     t_paste {
@@ -211,28 +223,6 @@ magic_key: magic_key {
         bindings = <&colon_code_block>;
         max-prior-idle-ms = <5000>;
         strict-modifiers;
-    };
-    t_i {
-        trigger-keys = <I>;
-        bindings = <&emit_backspace_f10>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_t {
-        trigger-keys = <T>;
-        bindings = <&emit_backspace_f12>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_f7 {
-        trigger-keys = <F7>;
-        bindings = <&emit_backspace_f9>;
-        max-prior-idle-ms = <5000>;
-    };
-    t_f8 {
-        trigger-keys = <F8>;
-        bindings = <&emit_backspace_shift_f9>;
-        max-prior-idle-ms = <5000>;
     };
 };
 magic_key_fn: magic_key_or_fn {
@@ -509,57 +499,10 @@ emit_tilde_slash: emit_tilde_slash_macro {
     #binding-cells = <0>;
     bindings = <&macro_tap &kp TILDE &kp FSLH>;
 };
-// Romanian diacritics via RightSuper+F7-F12
-// RightSuper+F7 = ă, RightSuper+F8 = Ă, RightSuper+F9 = â/Â, RightSuper+F10 = î/Î, RightSuper+F11 = ș/Ș, RightSuper+F12 = ț/Ț
-emit_backspace_f8: emit_backspace_f8_macro {
+emit_ion: emit_ion_macro {
     compatible = "zmk,behavior-macro";
     #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(F7)>;
-};
-emit_backspace_shift_f8: emit_backspace_shift_f8_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(F8)>;
-};
-emit_backspace_f9: emit_backspace_f9_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(F9)>;
-};
-emit_backspace_shift_f9: emit_backspace_shift_f9_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(F9))>;
-};
-emit_backspace_f10: emit_backspace_f10_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(F10)>;
-};
-emit_backspace_shift_f10: emit_backspace_shift_f10_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(F10))>;
-};
-emit_backspace_f11: emit_backspace_f11_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(F11)>;
-};
-emit_backspace_shift_f11: emit_backspace_shift_f11_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(F11))>;
-};
-emit_backspace_f12: emit_backspace_f12_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(F12)>;
-};
-emit_backspace_shift_f12: emit_backspace_shift_f12_macro {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(F12))>;
+    bindings = <&macro_tap &kp I &kp O &kp N>;
 };
 fn_layer_noshift: fn_layer_release_shift {
     compatible = "zmk,behavior-macro";
@@ -631,5 +574,144 @@ space_adaptive_gallium: space_or_space_caps_gallium {
         bindings = <&space_caps_gallium>;
         max-prior-idle-ms = <1000>;
         strict-modifiers;
+    };
+};
+
+// Leader key: Romanian letters and system controls
+leader_key: leader_key {
+    compatible = "zmk,behavior-leader-key";
+    #binding-cells = <0>;
+    // Romanian letters via Right Super
+    seq_a {
+        sequence = <A>;
+        bindings = <&kp RG(A)>;
+    };
+    seq_e {
+        sequence = <E>;
+        bindings = <&kp RG(E)>;
+    };
+    seq_i {
+        sequence = <I>;
+        bindings = <&kp RG(I)>;
+    };
+    seq_t {
+        sequence = <T>;
+        bindings = <&kp RG(T)>;
+    };
+    seq_s {
+        sequence = <S>;
+        bindings = <&kp RG(S)>;
+    };
+    // System controls
+    seq_p {
+        sequence = <P>;
+        bindings = <&kp PSCRN>;
+    };
+    seq_zz {
+        sequence = <Z Z>;
+        bindings = <&kp C_SLEEP>;
+    };
+    // Volume controls
+    seq_vu {
+        sequence = <V U>;
+        bindings = <&kp C_VOL_UP>;
+    };
+    seq_vd {
+        sequence = <V D>;
+        bindings = <&kp C_VOL_DN>;
+    };
+    seq_vm {
+        sequence = <V M>;
+        bindings = <&kp C_MUTE>;
+    };
+    // Media controls
+    seq_mn {
+        sequence = <M N>;
+        bindings = <&kp C_NEXT>;
+    };
+    seq_mp {
+        sequence = <M P>;
+        bindings = <&kp C_PREV>;
+    };
+    seq_mt {
+        sequence = <M T>;
+        bindings = <&kp C_PP>;
+    };
+    // Brightness controls
+    seq_bu {
+        sequence = <B U>;
+        bindings = <&kp C_BRI_UP>;
+    };
+    seq_bd {
+        sequence = <B D>;
+        bindings = <&kp C_BRI_DN>;
+    };
+    // Mic mute
+    seq_mm {
+        sequence = <M M>;
+        bindings = <&kp F20>;
+    };
+    // Output mode
+    seq_usb {
+        sequence = <U S B>;
+        bindings = <&out OUT_USB>;
+    };
+    seq_ble {
+        sequence = <B L E>;
+        bindings = <&out OUT_BLE>;
+    };
+    // Bluetooth controls
+    seq_btn {
+        sequence = <B T N>;
+        bindings = <&bt BT_NXT>;
+    };
+    seq_btp {
+        sequence = <B T P>;
+        bindings = <&bt BT_PRV>;
+    };
+    seq_bt0 {
+        sequence = <B T N0>;
+        bindings = <&bt BT_SEL 0>;
+    };
+    seq_bt1 {
+        sequence = <B T N1>;
+        bindings = <&bt BT_SEL 1>;
+    };
+    seq_bt2 {
+        sequence = <B T N2>;
+        bindings = <&bt BT_SEL 2>;
+    };
+    seq_bt3 {
+        sequence = <B T N3>;
+        bindings = <&bt BT_SEL 3>;
+    };
+    seq_bt4 {
+        sequence = <B T N4>;
+        bindings = <&bt BT_SEL 4>;
+    };
+    seq_btc {
+        sequence = <B T C>;
+        bindings = <&bt BT_CLR>;
+    };
+    seq_btx {
+        sequence = <B T X>;
+        bindings = <&bt BT_CLR_ALL>;
+    };
+    // RGB controls
+    seq_rbu {
+        sequence = <R B U>;
+        bindings = <&rgb_ug RGB_BRI>;
+    };
+    seq_rbd {
+        sequence = <R B D>;
+        bindings = <&rgb_ug RGB_BRD>;
+    };
+    seq_ron {
+        sequence = <R O N>;
+        bindings = <&rgb_ug RGB_ON>;
+    };
+    seq_roff {
+        sequence = <R O F F>;
+        bindings = <&rgb_ug RGB_OFF>;
     };
 };

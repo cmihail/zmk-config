@@ -21,7 +21,14 @@ combos {
         require-prior-idle-ms = <50>;
         key-positions = <15 16>;  // Y+H → Left Click
         bindings = <&mkp MB1>;
-        layers = <0 1 2 3 4 5>;
+        layers = <0 1 2 4 5>;
+    };
+    combo_middle_click_numsym {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <50>;
+        key-positions = <15 16>;  // )+/ → Middle Click (num_sym layer)
+        bindings = <&mkp MB3>;
+        layers = <3>;
     };
     combo_escape_zf {
         timeout-ms = <50>;
@@ -141,11 +148,11 @@ combos {
     };
 
     // Mouse click combos
-    combo_middle_click_wj {
+    combo_delete_wj {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <23 24>;  // W+J → Middle Click
-        bindings = <&mkp MB3>;
+        key-positions = <23 24>;  // W+J → Delete
+        bindings = <&kp DEL>;
         layers = <0 1 2 3 4 5>;
     };
     combo_right_click_kh {
