@@ -23,10 +23,10 @@ combos {
         bindings = <&mkp MB1>;
         layers = <0 1 2 3 4 5>;
     };
-    combo_middle_click_zf {
+    combo_middle_click_wj {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <5 6>;  // Z+F → Middle Click
+        key-positions = <23 24>;  // W+J → Middle Click
         bindings = <&mkp MB3>;
         layers = <0 1 2 3 4 5>;
     };
@@ -104,10 +104,17 @@ combos {
         bindings = <&copy_cut>;
         layers = <0 1 2 3 4 5>;
     };
-    combo_cut_wj {
+    combo_leader_zf {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <23 24>;  // W+J → Cut
+        key-positions = <5 6>;  // Z+F → Leader Key
+        bindings = <&leader_key>;
+        layers = <0 1 2 3 4 5>;
+    };
+    combo_cut_rs {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <50>;
+        key-positions = <11 13>;  // R+S → Cut
         bindings = <&kp K_CUT>;
         layers = <0 1 2 3 4 5>;
     };

@@ -613,102 +613,6 @@ space_adaptive_gallium: space_or_space_caps_gallium {
     };
 };
 
-// Romanian magic key macros: backspace previous letter then emit RG(letter)
-ro_a: romanian_a {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(A)>;
-};
-ro_e: romanian_e {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(E)>;
-};
-ro_i: romanian_i {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(I)>;
-};
-ro_t: romanian_t {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(T)>;
-};
-ro_s: romanian_s {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp RG(S)>;
-};
-ro_a_upper: romanian_a_upper {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(A))>;
-};
-ro_e_upper: romanian_e_upper {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(E))>;
-};
-ro_i_upper: romanian_i_upper {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(I))>;
-};
-ro_t_upper: romanian_t_upper {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(T))>;
-};
-ro_s_upper: romanian_s_upper {
-    compatible = "zmk,behavior-macro";
-    #binding-cells = <0>;
-    bindings = <&macro_tap &kp BSPC &kp LS(RG(S))>;
-};
-
-// Romanian magic key: tap after a/e/i/t/s = backspace + RG(letter) for Romanian chars via XKB, otherwise = romanian_magic_upper (uppercase variant or sticky shift)
-romanian_magic: romanian_magic_key {
-    compatible = "zmk,behavior-adaptive-key";
-    #binding-cells = <0>;
-    bindings = <&romanian_magic_upper>;
-
-    t_a {
-        trigger-keys = <A>;
-        bindings = <&ro_a>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_e {
-        trigger-keys = <E>;
-        bindings = <&ro_e>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_i {
-        trigger-keys = <I>;
-        bindings = <&ro_i>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_t {
-        trigger-keys = <T>;
-        bindings = <&ro_t>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_s {
-        trigger-keys = <S>;
-        bindings = <&ro_s>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-    t_undo {
-        trigger-keys = <K_UNDO>;
-        bindings = <&kp K_AGAIN>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
-    };
-};
-
 caps_word_morph: caps_word_or_shift {
     compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
@@ -716,41 +620,176 @@ caps_word_morph: caps_word_or_shift {
     mods = <(MOD_LSFT|MOD_RSFT)>;
 };
 
-romanian_magic_upper: romanian_magic_upper_key {
-    compatible = "zmk,behavior-adaptive-key";
+// Romanian mod-morph behaviors: lowercase/uppercase via shift
+ro_a_breve: ro_a_breve {
+    compatible = "zmk,behavior-mod-morph";
     #binding-cells = <0>;
-    bindings = <&caps_word_morph>;
+    bindings = <&kp RG(A)>, <&kp LS(RG(A))>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+ro_i_circumflex: ro_i_circumflex {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RG(I)>, <&kp LS(RG(I))>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+ro_s_cedilla: ro_s_cedilla {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RG(S)>, <&kp LS(RG(S))>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+ro_t_cedilla: ro_t_cedilla {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RG(T)>, <&kp LS(RG(T))>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
+ro_a_circumflex: ro_a_circumflex {
+    compatible = "zmk,behavior-mod-morph";
+    #binding-cells = <0>;
+    bindings = <&kp RG(E)>, <&kp LS(RG(E))>;
+    mods = <(MOD_LSFT|MOD_RSFT)>;
+};
 
-    t_a {
-        trigger-keys = <A>;
-        bindings = <&ro_a_upper>;
-        max-prior-idle-ms = <5000>;
+// Leader key: Romanian letters and system controls
+leader_key: leader_key {
+    compatible = "zmk,behavior-leader-key";
+    #binding-cells = <0>;
+    ignore-keys = <LSHFT RSHFT>;
+    // Romanian letters via Right Super: A=ă/Ă, E=â/Â, I=î/Î, T=ț/Ț, S=ș/Ș
+    seq_a {
+        sequence = <A>;
+        bindings = <&ro_a_breve>;
     };
-    t_e {
-        trigger-keys = <E>;
-        bindings = <&ro_e_upper>;
-        max-prior-idle-ms = <5000>;
+    seq_e {
+        sequence = <E>;
+        bindings = <&ro_a_circumflex>;
     };
-    t_i {
-        trigger-keys = <I>;
-        bindings = <&ro_i_upper>;
-        max-prior-idle-ms = <5000>;
+    seq_i {
+        sequence = <I>;
+        bindings = <&ro_i_circumflex>;
     };
-    t_t {
-        trigger-keys = <T>;
-        bindings = <&ro_t_upper>;
-        max-prior-idle-ms = <5000>;
+    seq_t {
+        sequence = <T>;
+        bindings = <&ro_t_cedilla>;
     };
-    t_s {
-        trigger-keys = <S>;
-        bindings = <&ro_s_upper>;
-        max-prior-idle-ms = <5000>;
+    seq_s {
+        sequence = <S>;
+        bindings = <&ro_s_cedilla>;
     };
-    t_undo {
-        trigger-keys = <K_UNDO>;
-        bindings = <&kp K_AGAIN>;
-        max-prior-idle-ms = <5000>;
-        strict-modifiers;
+    // System controls
+    seq_p {
+        sequence = <P>;
+        bindings = <&kp PSCRN>;
+    };
+    seq_zz {
+        sequence = <Z Z>;
+        bindings = <&kp C_SLEEP>;
+    };
+    // Volume controls
+    seq_vu {
+        sequence = <V U>;
+        bindings = <&kp C_VOL_UP>;
+    };
+    seq_vd {
+        sequence = <V D>;
+        bindings = <&kp C_VOL_DN>;
+    };
+    seq_vm {
+        sequence = <V M>;
+        bindings = <&kp C_MUTE>;
+    };
+    // Media controls
+    seq_mn {
+        sequence = <M N>;
+        bindings = <&kp C_NEXT>;
+    };
+    seq_mp {
+        sequence = <M P>;
+        bindings = <&kp C_PREV>;
+    };
+    seq_mt {
+        sequence = <M T>;
+        bindings = <&kp C_PP>;
+    };
+    // Brightness controls
+    seq_bu {
+        sequence = <B U>;
+        bindings = <&kp C_BRI_UP>;
+    };
+    seq_bd {
+        sequence = <B D>;
+        bindings = <&kp C_BRI_DN>;
+    };
+    // Mic mute
+    seq_mm {
+        sequence = <M M>;
+        bindings = <&kp F20>;
+    };
+    // Output mode
+    seq_usb {
+        sequence = <U S B>;
+        bindings = <&out OUT_USB>;
+    };
+    seq_ble {
+        sequence = <B L E>;
+        bindings = <&out OUT_BLE>;
+    };
+    // Bluetooth controls
+    seq_btn {
+        sequence = <B T N>;
+        bindings = <&bt BT_NXT>;
+    };
+    seq_btp {
+        sequence = <B T P>;
+        bindings = <&bt BT_PRV>;
+    };
+    seq_bt0 {
+        sequence = <B T N0>;
+        bindings = <&bt BT_SEL 0>;
+    };
+    seq_bt1 {
+        sequence = <B T N1>;
+        bindings = <&bt BT_SEL 1>;
+    };
+    seq_bt2 {
+        sequence = <B T N2>;
+        bindings = <&bt BT_SEL 2>;
+    };
+    seq_bt3 {
+        sequence = <B T N3>;
+        bindings = <&bt BT_SEL 3>;
+    };
+    seq_bt4 {
+        sequence = <B T N4>;
+        bindings = <&bt BT_SEL 4>;
+    };
+    seq_btc {
+        sequence = <B T C>;
+        bindings = <&bt BT_CLR>;
+    };
+    seq_btx {
+        sequence = <B T X>;
+        bindings = <&bt BT_CLR_ALL>;
+    };
+    // RGB controls
+    seq_rbu {
+        sequence = <R B U>;
+        bindings = <&rgb_ug RGB_BRI>;
+    };
+    seq_rbd {
+        sequence = <R B D>;
+        bindings = <&rgb_ug RGB_BRD>;
+    };
+    seq_ron {
+        sequence = <R O N>;
+        bindings = <&rgb_ug RGB_ON>;
+    };
+    seq_roff {
+        sequence = <R O F F>;
+        bindings = <&rgb_ug RGB_OFF>;
     };
 };
+
 
