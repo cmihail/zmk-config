@@ -8,7 +8,7 @@
  *
  * Gallium (Layer 0): Default layer with home row mods
  *   - Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
- *   - Thumbs: Ro Magic | Space/Nav | Exit | Exit | Magic Key | NumSym
+ *   - Thumbs: Ro Magic | Space/Nav | (none) | Exit | Magic Key | NumSym
  *   - Romanian Magic Key: tap after a/e/i/t/s = RG(letter) for Romanian chars (ă/â/î/ț/ș via XKB), fallback = sticky shift
  *   - Magic Shift (urob): tap=sticky shift or caps word, hold=shift
  *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after space='the', after .='./', Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, W→S, G→S, E→U, U→E, O→A, A→O, R→L, L→R, F→Y, K→Y, Z→Y; Shift+Magic Key=caps word, Alt+Magic Key=sticky fn layer
@@ -26,7 +26,7 @@
  *   - Top row: &987[] ]%_=|
  *   - Home row: 0654() ) / - + * with home row mods (0=Alt, 6=Shift, 5=Ctrl, 4=Super, /=Super, -=Ctrl, +=Shift, *=Alt)
  *   - Bottom row: ^321{} }@#blsh$
- *   - Thumbs: trans | trans | trans | trans | trans | smartnum_tap 4 4
+ *   - Thumbs: trans | trans | (none) | smartnum_tap 4 4 | trans | trans
  *   - Activated by NumSym thumb key: tap for sticky layer, hold for momentary access
  *
  * SmartNum (Layer 4): Number layer (urob's auto-layer)
@@ -68,7 +68,7 @@
 };
 
 &caps_word {
-    continue-list = <BSPC DEL>;
+    continue-list = <BSPC DEL UNDER MINUS>;
 };
 
 &sl {
@@ -104,13 +104,13 @@
             //         |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |  ?  |
             //         |  N  |  R  |  T  |  S  |  G  |   |  Y  |  H  |  A  |  E  |  I  |
             //         |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |  ,  |  '  |  .  |
-            //            | Shift | Space/Nav | Exit |   | Exit | Magic Key | NumSym |
+            //            | Shift | Space/Nav | (none) |   | NumSym | Magic Key | Shift |
             // Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
             bindings = <
                 &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
                 &hml LALT N     &hml LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr LGUI H     &hmr RCTRL A       &hmr RSFT E        &hmr RALT I
                 &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
-                                                &shift_only_tap LSHFT 0  &space_nav 5 0  &to 0    &to 0  &magic_key_morph  &numsym_tap 0 0
+                                                &shift_only_tap LSHFT 0  &space_nav 5 0  &none    &numsym_tap 0 0  &magic_key_morph  &shift_only_tap LSHFT 0
             >;
         };
 
@@ -123,12 +123,12 @@
             // |  B  |  L  |  D  |  C  |  V  |   |  Z  |  F  |  O  |  U  |trans|
             // |  N  |  R  |  T  |  S  |  G  |   |  Y  |  H  |  A  |  E  |  I  |
             // |  X  |  Q  |  M  |  W  |  J  |   |  K  |  P  |trans|trans|trans|
-            //       | trans | trans | trans |   | trans | trans | trans |
+            //       | trans | trans | (none) |   | trans | trans | trans |
             bindings = <
                 &kp LS(B)       &kp LS(L)       &kp LS(D)          &kp LS(C)       &kp LS(V)      &kp LS(Z)  &kp LS(F)       &kp LS(O)          &kp LS(U)       &trans
                 &hml LALT LS(N) &hml LSFT LS(R)  &hml LCTRL LS(T)  &hml LGUI LS(S) &kp LS(G)      &kp LS(Y)  &hmr LGUI LS(H) &hmr RCTRL LS(A)   &hmr RSFT LS(E)  &hmr RALT LS(I)
                 &kp LS(X)       &kp LS(Q)       &kp LS(M)          &kp LS(W)       &kp LS(J)      &kp LS(K)  &kp LS(P)       &trans             &trans          &trans
-                                              &trans         &trans   &trans            &trans     &trans     &trans
+                                              &trans         &trans   &none            &trans     &trans     &trans
             >;
         };
 
@@ -140,12 +140,12 @@
             // | F10 | F9  | F8  | F7  | C-A-F3 |   | trans | trans | trans | trans | trans |
             // | F11 | F6  | F5  | F4  | C-A-F2 |   | trans | trans | trans | trans | trans |
             // | F12 | F3  | F2  | F1  | C-A-F1 |   | trans | trans | trans | trans | trans |
-            //          | trans | trans | trans |   | trans | trans | trans |
+            //          | trans | trans | (none) |   | trans | trans | trans |
             bindings = <
                 &kp F10  &kp F9  &kp F8  &kp F7  &kp LC(LA(F3))      &trans  &trans  &trans  &trans  &trans
                 &kp F11  &kp F6  &kp F5  &kp F4  &kp LC(LA(F2))      &trans  &trans  &trans  &trans  &trans
                 &kp F12  &kp F3  &kp F2  &kp F1  &kp LC(LA(F1))      &trans  &trans  &trans  &trans  &trans
-                                        &trans  &trans  &trans    &trans  &trans  &trans
+                                        &trans  &trans  &none    &trans  &trans  &trans
             >;
         };
 
@@ -156,13 +156,13 @@
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  |  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
             // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  #  |  $  | blsh|
-            //       | trans | trans | trans |   | trans | trans | trans |
+            //       | trans | trans | (none) |   | trans | trans | trans |
             // Home row mods: 0=Alt, 6=Shift, 5=Ctrl, 4=Super (left); /=Super, -=Ctrl, +=Shift, *=Alt (right)
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS  &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp HASH        &kp DLLR        &kp BSLH
-                                                &trans  &trans  &trans    &trans  &trans  &smartnum_tap 4 4
+                                                &trans  &trans  &none    &smartnum_tap 4 4  &trans  &trans
             >;
         };
 
@@ -175,12 +175,12 @@
             // |  &  |  9  |  8  |  7  |  [  |   |  ]  |  %  |  _  |  =  |  ?  |
             // | 0+A | 6+S | 5+C | 4+G |  (  |   |  )  | /+G | -+C | ++S | *+A |
             // |  ^  |  3  |  2  |  1  |  {  |   |  }  |  @  |  ,  |  $  |  .  |
-            //       | trans | trans | trans |   | trans | trans | trans (backspace) |
+            //       | trans | trans | (none) |   | trans | trans | trans (backspace) |
             bindings = <
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp QMARK
                 &hml LALT N0    &hml LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr RSFT PLUS  &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp COMMA       &kp DLLR        &kp DOT
-                                                &trans  &trans  &trans    &trans  &trans  &trans
+                                                &trans  &trans  &none    &trans  &trans  &trans
             >;
         };
 
@@ -192,14 +192,14 @@
             // | BTClrAll** | Next | VolUp | BriUp | RGBBriUp |   | PgUp | Home | Up   | End  | BTClr**  |
             // | Boot**/Alt | Prev | VolDn | BriDn | RGBBriDn |   | PgDn | Left | Down | Rght | Boot**   |
             // | Reset**    | Play | Mute  | MicM  | RGBTog   |   | Sleep| PrSc | USB  | BLE  | Reset**  |
-            //                        | trans | trans | trans |   | BTNxt | BT0  | BTPrv |
+            //                        | trans | trans | (none) |   | BTNxt | BT0  | BTPrv |
             // Home row: tap=action, hold=modifier (Boot/Alt, Prev/Shift, VolDn/Ctrl, BriDn/Super)
             // ** = requires double-tap to trigger (single tap does nothing)
             bindings = <
                 &td_bt_clr_all     &kp C_NEXT                   &kp C_VOL_UP                   &kp C_BRI_UP                    &rgb_ug RGB_BRI     &kp PG_UP     &kp HOME      &kp UP          &kp END        &td_bt_clr
                 &nav_a_td LALT 0   &hml LSFT C_PREV  &hml LCTRL C_VOL_DN  &hml LGUI C_BRI_DN   &rgb_ug RGB_BRD     &kp PG_DN     &kp LEFT      &kp DOWN        &kp RIGHT      &td_boot
                 &td_reset          &kp C_PP                     &kp C_MUTE                     &kp F20                         &rgb_ug RGB_TOG     &kp C_SLEEP   &kp PSCRN     &out OUT_USB    &out OUT_BLE   &td_reset
-                            &trans  &trans  &trans    &bt BT_NXT  &bt BT_SEL 0  &bt BT_PRV
+                            &trans  &trans  &none    &bt BT_NXT  &bt BT_SEL 0  &bt BT_PRV
             >;
         };
     };
