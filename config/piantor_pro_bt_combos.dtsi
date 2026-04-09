@@ -90,11 +90,11 @@ combos {
         bindings = <&kp K_PASTE>;
         layers = <0 1 2 3 4 5>;
     };
-    combo_undo_cv {
+    combo_cut_cv {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <3 4>;  // C+V → Undo
-        bindings = <&undo_redo>;
+        key-positions = <3 4>;  // C+V → Cut
+        bindings = <&kp K_CUT>;
         layers = <0 1 2 3 4 5>;
     };
     combo_copy_cs {
@@ -104,18 +104,11 @@ combos {
         bindings = <&copy_cut>;
         layers = <0 1 2 3 4 5>;
     };
-    combo_leader_zf {
+    combo_undo_zf {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <5 6>;  // Z+F → Leader Key
-        bindings = <&leader_key>;
-        layers = <0 1 2 3 4 5>;
-    };
-    combo_cut_rs {
-        timeout-ms = <50>;
-        require-prior-idle-ms = <50>;
-        key-positions = <11 13>;  // R+S → Cut
-        bindings = <&kp K_CUT>;
+        key-positions = <5 6>;  // Z+F → Undo
+        bindings = <&undo_redo>;
         layers = <0 1 2 3 4 5>;
     };
     combo_mouse_up {
