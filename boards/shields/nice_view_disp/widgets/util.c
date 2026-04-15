@@ -35,17 +35,29 @@ void draw_battery(lv_obj_t *canvas, const struct status_state *state) {
     lv_draw_rect_dsc_t rect_white_dsc;
     init_rect_dsc(&rect_white_dsc, LVGL_FOREGROUND);
 
-    lv_canvas_draw_rect(canvas, 0, 2, 29, 12, &rect_white_dsc);
-    lv_canvas_draw_rect(canvas, 1, 3, 27, 10, &rect_black_dsc);
-    lv_canvas_draw_rect(canvas, 2, 4, (state->battery + 2) / 4, 8, &rect_white_dsc);
-    lv_canvas_draw_rect(canvas, 30, 5, 3, 6, &rect_white_dsc);
-    lv_canvas_draw_rect(canvas, 31, 6, 1, 4, &rect_black_dsc);
-
     if (state->charging) {
         lv_draw_img_dsc_t img_dsc;
         lv_draw_img_dsc_init(&img_dsc);
-        lv_canvas_draw_img(canvas, 9, -1, &bolt, &img_dsc);
+        lv_canvas_draw_img(canvas, 1, -1, &bolt, &img_dsc);
+    } else {
+        lv_canvas_draw_rect(canvas, 3, 0, 6, 2, &rect_white_dsc);
+        lv_canvas_draw_rect(canvas, 0, 2, 12, 14, &rect_white_dsc);
+        lv_canvas_draw_rect(canvas, 1, 3, 10, 12, &rect_black_dsc);
+        int fill_h = state->battery * 10 / 100;
+        lv_canvas_draw_rect(canvas, 2, 14 - fill_h, 8, fill_h, &rect_white_dsc);
     }
+
+#if IS_ENABLED(CONFIG_NICE_VIEW_DISP_WIDGET_BATTERY_SHOW_PERCENTAGE)
+    lv_draw_label_dsc_t label_dsc;
+    init_label_dsc(&label_dsc, LVGL_FOREGROUND, &lv_font_montserrat_16, LV_TEXT_ALIGN_LEFT);
+    char text[6] = {};
+    if (state->battery >= 100) {
+        snprintf(text, sizeof(text), "%d", state->battery);
+    } else {
+        snprintf(text, sizeof(text), "%d%%", state->battery);
+    }
+    lv_canvas_draw_text(canvas, 14, 0, 36, &label_dsc, text);
+#endif
 }
 
 void init_label_dsc(lv_draw_label_dsc_t *label_dsc, lv_color_t color, const lv_font_t *font,

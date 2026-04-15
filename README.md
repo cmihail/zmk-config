@@ -24,8 +24,8 @@ This repository contains a custom ZMK firmware configuration for the Piantor Pro
 2. Click on the latest successful build for the `piantor-layout-5-col` branch
 3. Download the `firmware` artifact
 4. Extract the `.zip` file to find:
-   - `nice_view-piantor_pro_bt_left-zmk.uf2` (for left half)
-   - `nice_view-piantor_pro_bt_right-zmk.uf2` (for right half)
+   - `nice_view_disp-piantor_pro_bt_left-zmk.uf2` (for left half)
+   - `nice_view_disp-piantor_pro_bt_right-zmk.uf2` (for right half)
 
 ## Flashing on Fedora
 
@@ -50,7 +50,7 @@ sudo usermod -aG dialout $USER
 2. **Flash the LEFT firmware**
    ```bash
    # Mount and copy in one command
-   udisksctl mount -b /dev/disk/by-label/KEEBART && cp ~/Downloads/firmware/nice_view-piantor_pro_bt_left-zmk.uf2 /run/media/$USER/KEEBART/
+   udisksctl mount -b /dev/disk/by-label/KEEBART && cp ~/Downloads/firmware/nice_view_disp-piantor_pro_bt_left-zmk.uf2 /run/media/$USER/KEEBART/
 
    # The keyboard will automatically reboot after copying
    ```
@@ -65,7 +65,7 @@ sudo usermod -aG dialout $USER
 4. **Flash the RIGHT firmware**
    ```bash
    # Mount and copy in one command
-   udisksctl mount -b /dev/disk/by-label/KEEBART && cp ~/Downloads/firmware/nice_view-piantor_pro_bt_right-zmk.uf2 /run/media/$USER/KEEBART/
+   udisksctl mount -b /dev/disk/by-label/KEEBART && cp ~/Downloads/firmware/nice_view_disp-piantor_pro_bt_right-zmk.uf2 /run/media/$USER/KEEBART/
 
    # The keyboard will automatically reboot after copying
    ```
