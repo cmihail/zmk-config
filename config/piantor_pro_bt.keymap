@@ -110,7 +110,7 @@
                 &kp B           &kp L           &kp D           &kp C           &kp V           &kp Z  &kp F           &kp O              &kp U              &slash_morph
                 &hml LALT N     &hml_shift LSFT R     &hml LCTRL T    &hml LGUI S     &kp G           &kp Y  &hmr LGUI H     &hmr RCTRL A       &hmr_shift RSFT E        &hmr RALT I
                 &kp X           &kp Q           &kp M           &kp W           &kp J           &kp K  &kp P           &kp COMMA          &kp SQT            &kp DOT
-                                                &shift_only_tap LSHFT 0  &space_nav 5 0  &none    &none  &magic_key_morph  &numsym_tap 0 0
+                                                &numsym_tap 0 0  &space_nav 5 0  &none    &none  &magic_key_morph  &numsym_tap 0 0
             >;
         };
 
@@ -162,7 +162,7 @@
                 &kp AMPS        &kp N9          &kp N8          &kp N7          &kp LBKT        &kp RBKT        &kp PRCNT       &kp UNDER       &kp EQUAL       &kp PIPE
                 &hml LALT N0    &hml_shift LSFT N6    &hml LCTRL N5   &hml LGUI N4    &kp LPAR        &kp RPAR        &hmr LGUI FSLH  &hmr RCTRL MINUS &hmr_shift RSFT PLUS  &hmr RALT ASTRK
                 &kp CARET       &kp N3          &kp N2          &kp N1          &kp LBRC        &kp RBRC        &kp AT          &kp HASH        &kp DLLR        &kp BSLH
-                                                &trans  &trans  &none    &none  &trans  &smartnum_tap 4 4
+                                                &smartnum_tap 4 4  &trans  &none    &none  &trans  &smartnum_tap 4 4
             >;
         };
 
