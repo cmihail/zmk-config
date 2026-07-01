@@ -795,23 +795,7 @@ leader_key: leader_key {
         sequence = <B T X>;
         bindings = <&bt BT_CLR_ALL>;
     };
-    // RGB controls
-    seq_rbu {
-        sequence = <R B U>;
-        bindings = <&rgb_ug RGB_BRI>;
-    };
-    seq_rbd {
-        sequence = <R B D>;
-        bindings = <&rgb_ug RGB_BRD>;
-    };
-    seq_ron {
-        sequence = <R O N>;
-        bindings = <&rgb_ug RGB_ON>;
-    };
-    seq_roff {
-        sequence = <R O F F>;
-        bindings = <&rgb_ug RGB_OFF>;
-    };
+    // RGB controls removed: RGB underglow is compiled out (see defconfig).
 };
 
 
