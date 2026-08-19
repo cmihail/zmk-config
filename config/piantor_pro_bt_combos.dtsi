@@ -75,8 +75,10 @@ combos {
         layers = <0 1 2 3 4 5>;
     };
     combo_tilde {
-        timeout-ms = <40>;
-        require-prior-idle-ms = <150>;
+        timeout-ms = <28>;
+        require-prior-idle-ms = <250>;  // "ou" is a common bigram and O+U are same-hand neighbors;
+                                        // long prior-idle disables this combo mid-word so it only fires
+                                        // from a deliberate press after a pause/word boundary
         key-positions = <7 8>;  // O+U → ~
         bindings = <&kp TILDE>;
         layers = <0 1 2 3 4 5>;
