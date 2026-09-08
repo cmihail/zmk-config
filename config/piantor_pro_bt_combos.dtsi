@@ -61,7 +61,8 @@ combos {
         layers = <0 1 2 3 4 5>;
     };
     combo_grave {
-        timeout-ms = <50>;
+        timeout-ms = <18>;  // F and O are adjacent right-hand fingers, so "of"/"fo" rolls
+                            // must fall outside the window; only a simultaneous press fires
         require-prior-idle-ms = <200>;
         key-positions = <6 7>;  // F+O → `
         bindings = <&kp GRAVE>;
