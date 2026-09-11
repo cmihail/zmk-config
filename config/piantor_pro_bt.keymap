@@ -13,14 +13,15 @@
  *   - Magic Shift (urob): tap=sticky shift or caps word, hold=shift
  *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after space='the', after .='./', Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, W→S, G→S, E→U, U→E, O→A, A→O, R→L, L→R, F→Y, K→Y, Z→Y; Shift+Magic Key=caps word, Alt+Magic Key=sticky fn layer
  *   - NumSym thumb key: tap=sticky num_sym, shift+tap=sticky fn, hold=momentary smartnum, shift+hold=momentary fn
- *   - Combos (all 50ms timeout):
- *     - Tab/Return: T+S = Return, H+A = Tab
- *     - Quick keys: Z+F = Escape (layer 0) / Exit (other layers)
- *     - Symbols: F+O = `, P+, = :, D+C = ~, M+W = ;
- *     - Edit: S+C = Copy (Shift+S+C = Cut), C+V = Undo (Shift+C+V = Redo), R+L = Paste, S+G = Delete
- *     - Mouse: Y+H = Left Click, W+J = Middle Click, K+P = Right Click
- *     - Mouse/Scroll: R+Q = Mouse Left, S+W = Mouse Right, V+G = Scroll Up, G+J = Scroll Down
- *     - Navigation: vertical combos for arrows, page up/down, home/end
+ *   - Combos (50ms timeout / 50ms require-prior-idle, except Return and Tab at 40/100):
+ *     - Cross-finger horizontal: T+S = Return, H+A = Tab
+ *     - Single-finger horizontal: S+G = Escape (layer 0) / Exit to layer 0 (layers 1-5),
+ *       C+V = Undo (Shift+C+V = Redo), Y+H = Left Click, Z+F = Leader
+ *     - Vertical symbols: L+R = `, R+Q = ~, V+G = :, G+J = ;
+ *     - Vertical edit: D+T = Backspace, T+M = Delete, C+S = Copy (Shift+C+S = Cut), S+W = Paste
+ *     - Vertical scroll: Z+Y = Scroll Up, Y+K = Scroll Down
+ *     - Vertical navigation: F+H = Home, O+A = Up, U+E = End, H+P = Left, A+, = Down, E+' = Right
+ *       (Page Up/Down live on the NavSys layer under Space-hold)
  *
  * NumSym (Layer 3): Number & Symbol layer
  *   - Top row: &987[] ]%_=|
