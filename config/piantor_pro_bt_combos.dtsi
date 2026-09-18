@@ -61,12 +61,12 @@ combos {
     // Same column, adjacent rows. One finger presses both, and no bigram maps to a
     // same-column pair.
 
-    // Column 1 (left ring) — symbols
-    combo_grave {
+    // Column 1 (left ring) — paste and tilde
+    combo_paste {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <1 11>;  // L+R → `
-        bindings = <&kp GRAVE>;
+        key-positions = <1 11>;  // L+R → Paste
+        bindings = <&kp K_PASTE>;
         layers = <0 1 2 3 4 5>;
     };
     combo_tilde {
@@ -93,7 +93,7 @@ combos {
         layers = <0 1 2 3 4 5>;
     };
 
-    // Column 3 (left index) — edit
+    // Column 3 (left index) — copy and grave
     combo_copy {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
@@ -101,43 +101,43 @@ combos {
         bindings = <&copy_cut>;
         layers = <0 1 2 3 4 5>;
     };
-    combo_paste {
+    combo_grave {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <13 23>;  // S+W → Paste
-        bindings = <&kp K_PASTE>;
+        key-positions = <13 23>;  // S+W → `
+        bindings = <&kp GRAVE>;
         layers = <0 1 2 3 4 5>;
     };
 
-    // Column 4 (left index stretch) — symbols
-    combo_colon {
-        timeout-ms = <50>;
-        require-prior-idle-ms = <50>;
-        key-positions = <4 14>;  // V+G → :
-        bindings = <&kp COLON>;
-        layers = <0 1 2 3 4 5>;
-    };
-    combo_semi {
-        timeout-ms = <50>;
-        require-prior-idle-ms = <50>;
-        key-positions = <14 24>;  // G+J → ;
-        bindings = <&kp SEMI>;
-        layers = <0 1 2 3 4 5>;
-    };
-
-    // Column 5 (right index stretch) — scroll
+    // Column 4 (left index stretch) — scroll
     combo_scroll_up {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <5 15>;  // Z+Y → Scroll Up
+        key-positions = <4 14>;  // V+G → Scroll Up
         bindings = <&msc SCRL_UP>;
         layers = <0 1 2 3 4 5>;
     };
     combo_scroll_down {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <15 25>;  // Y+K → Scroll Down
+        key-positions = <14 24>;  // G+J → Scroll Down
         bindings = <&msc SCRL_DOWN>;
+        layers = <0 1 2 3 4 5>;
+    };
+
+    // Column 5 (right index stretch) — symbols
+    combo_colon {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <50>;
+        key-positions = <5 15>;  // Z+Y → :
+        bindings = <&kp COLON>;
+        layers = <0 1 2 3 4 5>;
+    };
+    combo_semi {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <50>;
+        key-positions = <15 25>;  // Y+K → ;
+        bindings = <&kp SEMI>;
         layers = <0 1 2 3 4 5>;
     };
 
