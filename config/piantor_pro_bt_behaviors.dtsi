@@ -7,7 +7,7 @@ hml: homerow_mods_left {
     tapping-term-ms = <280>;
     quick-tap-ms = <175>;
     bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>;
+    hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 30 31 32 33 34 35>;
     hold-trigger-on-release;
 };
 hmr: homerow_mods_right {
@@ -18,7 +18,7 @@ hmr: homerow_mods_right {
     tapping-term-ms = <280>;
     quick-tap-ms = <175>;
     bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32>;
+    hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32 33 34 35>;
     hold-trigger-on-release;
 };
 hml_shift: homerow_mods_left_shift {
@@ -29,7 +29,7 @@ hml_shift: homerow_mods_left_shift {
     tapping-term-ms = <280>;
     quick-tap-ms = <175>;
     bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 33 34 35>;
+    hold-trigger-key-positions = <5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 30 31 32 33 34 35>;
     hold-trigger-on-release;
 };
 hmr_shift: homerow_mods_right_shift {
@@ -42,7 +42,7 @@ hmr_shift: homerow_mods_right_shift {
     tapping-term-ms = <280>;
     quick-tap-ms = <175>;
     bindings = <&kp>, <&kp>;
-    hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32>;
+    hold-trigger-key-positions = <0 1 2 3 4 10 11 12 13 14 20 21 22 23 24 30 31 32 33 34 35>;
     hold-trigger-on-release;
 };
 smart_shift: smart_shift_morph {
