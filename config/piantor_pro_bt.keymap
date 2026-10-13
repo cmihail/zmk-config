@@ -9,17 +9,15 @@
  * Gallium (Layer 0): Default layer with home row mods
  *   - Home row mods: N=Alt, R=Shift, T=Ctrl, S=Super (left); H=Super, A=Ctrl, E=Shift, I=Alt (right)
  *   - Thumbs: NumSym | Magic Key | Magic Shift | Magic Shift | Space/Nav | NumSym
- *   - Romanian Magic Key: tap after a/e/i/t/s = RG(letter) for Romanian chars (ă/â/î/ț/ș via XKB), fallback = sticky shift
  *   - Magic Shift (urob): both inner thumbs; tap=sticky shift, shift+tap=caps word, hold=shift
- *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after space='the', after .='./', Gallium SFBs: P→H, H→Y, Y→P, S→C, C→S, W→S, G→S, E→U, U→E, O→A, A→O, R→L, L→R, F→Y, K→Y, Z→Y; Shift+Magic Key=caps word, Alt+Magic Key=sticky fn layer
+ *   - Magic Key: tap after letter=repeat, after `=```+newline, after ~=slash, after undo=redo, after copy=cut, after delete/backspace=delete word, after space='the', after .='./', after a/e/i/t/s=ă/â/î/ț/ș (Ă/Â/Î/Ț/Ș if shifted, via RG(letter) in XKB), Gallium SFBs: P→H, H→Y, Y→P, C→S, W→S, G→S, U→E, O→A, R→L, L→R, F→Y, K→Y, Z→Y; Shift+Magic Key=caps word, Alt+Magic Key=sticky fn layer
  *   - NumSym thumb key: tap=sticky num_sym, shift+tap=sticky fn, hold=momentary smartnum, shift+hold=momentary fn
- *   - Combos (50ms timeout / 50ms require-prior-idle, except Return and Tab at 40/100):
- *     - Cross-finger horizontal: T+S = Return, H+A = Tab
- *     - Single-finger horizontal: S+G = Escape (layer 0) / Exit to layer 0 (layers 1-5),
- *       C+V = Undo (Shift+C+V = Redo), Y+H = Left Click, Z+F = Leader
- *     - Vertical symbols: L+R = `, R+Q = ~, V+G = :, G+J = ;
- *     - Vertical edit: D+T = Backspace, T+M = Delete, C+S = Copy (Shift+C+S = Cut), S+W = Paste
- *     - Vertical scroll: Z+Y = Scroll Up, Y+K = Scroll Down
+ *   - Combos (50ms timeout / 50ms require-prior-idle):
+ *     - Horizontal: Z+F = Escape (layer 0) / Exit to layer 0 (layers 1-5), C+V = Undo (Shift+C+V = Redo),
+ *       S+G = Return, W+J = Cut, Y+H = Tab, K+P = Left Click
+ *     - Vertical symbols: R+Q = ~, S+W = `, Z+Y = :, Y+K = ;
+ *     - Vertical edit: L+R = Paste, D+T = Backspace, T+M = Delete, C+S = Copy (Shift+C+S = Cut)
+ *     - Vertical scroll: V+G = Scroll Up, G+J = Scroll Down
  *     - Vertical navigation: F+H = Home, O+A = Up, U+E = End, H+P = Left, A+, = Down, E+' = Right
  *       (Page Up/Down live on the NavSys layer under Space-hold)
  *

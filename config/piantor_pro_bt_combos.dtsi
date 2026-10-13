@@ -1,37 +1,19 @@
 combos {
     compatible = "zmk,combos";
 
-    // ===== CROSS-FINGER HORIZONTAL (40ms timeout, 100ms require-prior-idle) =====
-    // Two different fingers on the same row: typing rolls can reach these, so the
-    // window is tight and the prior-idle guard is long.
-    combo_return {
-        timeout-ms = <40>;
-        require-prior-idle-ms = <100>;
-        key-positions = <12 13>;  // T+S → Return
-        bindings = <&kp RET>;
-        layers = <0 1 2 3 4 5>;
-    };
-    combo_tab {
-        timeout-ms = <40>;
-        require-prior-idle-ms = <100>;
-        key-positions = <16 17>;  // H+A → Tab
-        bindings = <&kp TAB>;
-        layers = <0 1 2 3 4 5>;
-    };
-
-    // ===== SINGLE-FINGER HORIZONTAL (50ms timeout, 50ms require-prior-idle) =====
-    // Both index columns, worked by one finger. No roll risk.
+    // ===== HORIZONTAL COMBOS (50ms timeout, 50ms require-prior-idle) =====
+    // Index and index-stretch columns, worked by one finger. No roll risk.
     combo_escape {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <13 14>;  // S+G → Esc
+        key-positions = <5 6>;  // Z+F → Esc
         bindings = <&kp ESC>;
         layers = <0>;
     };
     combo_exit {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <13 14>;  // S+G → Exit to default layer
+        key-positions = <5 6>;  // Z+F → Exit to default layer
         bindings = <&to 0>;
         layers = <1 2 3 4 5>;
     };
@@ -42,18 +24,32 @@ combos {
         bindings = <&undo_redo>;
         layers = <0 1 2 3 4 5>;
     };
+    combo_return {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <50>;
+        key-positions = <13 14>;  // S+G → Return
+        bindings = <&kp RET>;
+        layers = <0 1 2 3 4 5>;
+    };
+    combo_cut {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <50>;
+        key-positions = <23 24>;  // W+J → Cut
+        bindings = <&kp K_CUT>;
+        layers = <0 1 2 3 4 5>;
+    };
+    combo_tab {
+        timeout-ms = <50>;
+        require-prior-idle-ms = <50>;
+        key-positions = <15 16>;  // Y+H → Tab
+        bindings = <&kp TAB>;
+        layers = <0 1 2 3 4 5>;
+    };
     combo_left_click {
         timeout-ms = <50>;
         require-prior-idle-ms = <50>;
-        key-positions = <15 16>;  // Y+H → Left Click
+        key-positions = <25 26>;  // K+P → Left Click
         bindings = <&mkp MB1>;
-        layers = <0 1 2 3 4 5>;
-    };
-    combo_leader {
-        timeout-ms = <50>;
-        require-prior-idle-ms = <50>;
-        key-positions = <5 6>;  // Z+F → Leader
-        bindings = <&leader_key>;
         layers = <0 1 2 3 4 5>;
     };
 
