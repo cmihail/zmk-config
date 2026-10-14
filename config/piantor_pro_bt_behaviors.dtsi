@@ -653,16 +653,15 @@ fn_layer_noshift: fn_layer_release_shift {
     #binding-cells = <0>;
     bindings = <&sl 2>, <&macro_release &kp LSHIFT &kp RSHIFT>;
 };
-// NumSym-layer thumb key: hold = momentary smartnum (&mo), tap = transparent (falls
-// through to the default layer's numsym_tap). Previously tap triggered &num_word
-// (smartnum word mode), which caused accidental smartnum entry on tap/double-tap.
+// NumSym-layer thumb key: hold = momentary smartnum (&mo), tap = num_word, so
+// double-tapping NumSym from the default layer enters smartnum word mode.
 smartnum_tap: smartnum_toggle_hold {
     compatible = "zmk,behavior-hold-tap";
     #binding-cells = <2>;
     flavor = "balanced";
     tapping-term-ms = <280>;
     quick-tap-ms = <225>;
-    bindings = <&mo>, <&trans>;
+    bindings = <&mo>, <&num_word>;
 };
 fn_sticky_hold: fn_sticky_hold {
     compatible = "zmk,behavior-hold-tap";
